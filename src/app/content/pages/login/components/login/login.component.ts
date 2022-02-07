@@ -17,13 +17,18 @@ export class LoginComponent extends EntityDetailsComponent implements OnInit {
   }
 
   protected saveInternal() {
-    this.userService.login(this.detailsForm.getRawValue()).pipe(takeUntil(this.unsubscribe)).subscribe(token => {
-      if (token) {
-        localStorage.setItem("access_token", token);
-        this.router.navigateByUrl("/news");
-      }
+    this.userService.login(this.detailsForm.getRawValue()).pipe(takeUntil(this.unsubscribe)).subscribe({
+      next: (token) => {
+        if (token) {
+          localStorage.setItem("access_token", token);
+          this.router.navigateByUrl("/news");
+        }
 
-      this.detailsForm.reset();
+        this.resetForm();
+      },
+      error: () => {
+        this.resetForm();
+      }
     });
   }
 

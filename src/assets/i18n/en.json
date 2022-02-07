@@ -1,0 +1,12 @@
+{
+  "LOGIN": {
+    "LOGIN_TITLE": "Log In",
+    "LOGIN": "Login",
+    "PASSWORD": "Password"
+  },
+  "VALIDATION": {
+    "ERRORS": {
+      "FIELD_REQUIRED": "The {{fieldName}} is required."
+    }
+  }
+}

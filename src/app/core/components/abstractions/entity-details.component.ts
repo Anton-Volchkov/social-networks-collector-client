@@ -78,6 +78,11 @@ export abstract class EntityDetailsComponent extends ComponentBase {
     this.saveInternal();
   }
 
+  public resetForm(resetSubmitted: boolean = false) {
+    this.detailsForm.reset();
+
+    this.submitted = !resetSubmitted;
+  }
 
   public validate(): boolean {
     this.submitted = true;

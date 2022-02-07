@@ -1,20 +1,21 @@
 <mat-card>
   <mat-card-content>
     <form [formGroup]="detailsForm">
-      <h2>Log In</h2>
+      <h2>{{ 'LOGIN.LOGIN_TITLE' | translate }}</h2>
       <mat-form-field>
-        <input formControlName="login" matInput placeholder="Login" required>
+        <input formControlName="login" matInput [placeholder]="'LOGIN.LOGIN' | translate" required>
         <mat-error *ngIf="submitted && f.login?.errors?.required">
-          The login is required.
+          {{ 'VALIDATION.ERRORS.FIELD_REQUIRED' | translate:{'fieldName':'LOGIN.LOGIN' | translate} }}
         </mat-error>
       </mat-form-field>
       <mat-form-field>
-        <input formControlName="password" matInput type="password" placeholder="Password" required>
+        <input formControlName="password" matInput type="password" [placeholder]="'LOGIN.PASSWORD' | translate"
+          required>
         <mat-error *ngIf="submitted && f.password?.errors?.required">
-          The password is required.
+          {{ 'VALIDATION.ERRORS.FIELD_REQUIRED' | translate:{'fieldName':'LOGIN.PASSWORD' | translate} }}
         </mat-error>
       </mat-form-field>
-      <button mat-raised-button color="primary" (click)="save()">Login</button>
+      <button mat-raised-button color="primary" (click)="save()">{{ 'LOGIN.LOGIN' | translate }}</button>
     </form>
   </mat-card-content>
 </mat-card>

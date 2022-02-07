@@ -6,6 +6,7 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 import { MatDialog } from "@angular/material/dialog";
 import { RouterModule } from "@angular/router";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { TranslateModule } from "@ngx-translate/core";
 
 
 @NgModule({
@@ -16,14 +17,16 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    TranslateModule
   ],
   exports: [
     NgbModule,
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    DragDropModule
+    DragDropModule,
+    TranslateModule
   ]
 })
 export class SharedModule {
