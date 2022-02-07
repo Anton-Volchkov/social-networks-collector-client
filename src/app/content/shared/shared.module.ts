@@ -4,6 +4,7 @@ import { MaterialModule } from "../../material/material.module";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { MatDialog } from "@angular/material/dialog";
+import { RouterModule } from "@angular/router";
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { MatDialog } from "@angular/material/dialog";
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
+    RouterModule
   ],
   exports: [
     MaterialModule,
