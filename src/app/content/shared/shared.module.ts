@@ -5,11 +5,13 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { MatDialog } from "@angular/material/dialog";
 import { RouterModule } from "@angular/router";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 
 @NgModule({
   declarations: [],
   imports: [
+    NgbModule,
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
@@ -17,6 +19,7 @@ import { RouterModule } from "@angular/router";
     RouterModule
   ],
   exports: [
+    NgbModule,
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
