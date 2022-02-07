@@ -8,12 +8,14 @@ import { environment } from '../environments/environment';
 import { ApiModule, BASE_PATH } from './core/services/snc';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SharedModule } from './content/shared/shared.module';
-import { AuthInterceptor } from './core/services/auth/interceptors/auth.interceptor';
+import { AuthInterceptor } from './core/auth/interceptors/auth.interceptor';
 import { RouterModule } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    NgbModule,
     ApiModule,
     HttpClientModule,
     BrowserModule,

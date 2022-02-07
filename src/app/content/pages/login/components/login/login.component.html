@@ -3,7 +3,7 @@
     <form [formGroup]="detailsForm">
       <h2>Log In</h2>
       <mat-form-field>
-        <input formControlName="login" matInput placeholder="Email" required>
+        <input formControlName="login" matInput placeholder="Login" required>
         <mat-error *ngIf="submitted && f.login?.errors?.required">
           The login is required.
         </mat-error>

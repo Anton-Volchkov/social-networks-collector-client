@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs';
-import { EntityDetailsComponent } from 'src/app/core/services/components/abstractions/entity-details.component';
+import { EntityDetailsComponent } from 'src/app/core/components/abstractions/entity-details.component';
 import { UsersService } from 'src/app/core/services/snc';
 
 @Component({
@@ -12,7 +12,7 @@ import { UsersService } from 'src/app/core/services/snc';
 })
 export class LoginComponent extends EntityDetailsComponent implements OnInit {
 
-  constructor(route: ActivatedRoute, fb: FormBuilder, private userService: UsersService) {
+  constructor(route: ActivatedRoute, fb: FormBuilder, private userService: UsersService, private router: Router) {
     super(route, fb);
   }
 
@@ -20,7 +20,10 @@ export class LoginComponent extends EntityDetailsComponent implements OnInit {
     this.userService.login(this.detailsForm.getRawValue()).pipe(takeUntil(this.unsubscribe)).subscribe(token => {
       if (token) {
         localStorage.setItem("access_token", token);
+        this.router.navigateByUrl("/news");
       }
+
+      this.detailsForm.reset();
     });
   }
 
