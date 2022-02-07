@@ -11,7 +11,7 @@ const routes: Routes = [{
   canActivate: [AuthGuard],
   children: [
     {
-      path: "news",
+      path: "",
       component: MainComponent
     },
   ]

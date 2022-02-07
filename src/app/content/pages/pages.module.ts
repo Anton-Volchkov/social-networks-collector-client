@@ -12,7 +12,7 @@ import { PagesComponent } from './pages.component';
   imports: [
     PagesRoutingModule,
     CommonModule,
-    SharedModule.forRoot()
+    SharedModule
   ]
 })
 export class PagesModule { }

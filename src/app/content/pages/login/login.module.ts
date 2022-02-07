@@ -10,7 +10,7 @@ import { LoginComponent } from "./components/login/login.component";
   imports: [
     LoginRoutingModule,
     CommonModule,
-    SharedModule.forRoot()
+    SharedModule
   ],
   providers: []
 })

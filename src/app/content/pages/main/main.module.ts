@@ -12,7 +12,7 @@ import { HeaderComponent } from "../shared/header/header.component";
   imports: [
     MainRoutingModule,
     CommonModule,
-    SharedModule.forRoot()
+    SharedModule
   ],
   providers: []
 })

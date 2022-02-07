@@ -29,11 +29,13 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
-
 import { NgModule } from "@angular/core";
+import { VirtualScrollerModule } from 'ngx-virtual-scroller';
+
 
 @NgModule({
   imports: [
+    VirtualScrollerModule,
     MatCheckboxModule,
     MatButtonModule,
     MatInputModule,
@@ -67,6 +69,7 @@ import { NgModule } from "@angular/core";
     MatNativeDateModule
   ],
   exports: [
+    VirtualScrollerModule,
     MatCheckboxModule,
     MatButtonModule,
     MatInputModule,
