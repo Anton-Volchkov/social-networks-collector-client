@@ -30,12 +30,14 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { NgModule } from "@angular/core";
-import { VirtualScrollerModule } from 'ngx-virtual-scroller';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { ScrollingModule as ExperimentalScrollingModule} from '@angular/cdk-experimental/scrolling';
 
 
 @NgModule({
   imports: [
-    VirtualScrollerModule,
+    ScrollingModule,
+    ExperimentalScrollingModule,
     MatCheckboxModule,
     MatButtonModule,
     MatInputModule,
@@ -69,7 +71,8 @@ import { VirtualScrollerModule } from 'ngx-virtual-scroller';
     MatNativeDateModule
   ],
   exports: [
-    VirtualScrollerModule,
+    ScrollingModule,
+    ExperimentalScrollingModule,
     MatCheckboxModule,
     MatButtonModule,
     MatInputModule,
