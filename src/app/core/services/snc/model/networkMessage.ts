@@ -13,6 +13,7 @@ import { NetworkMedia } from './networkMedia';
 import { NetworkType } from './networkType';
 
 export interface NetworkMessage { 
+    channelName?: string;
     text?: string;
     date?: Date;
     networkType?: NetworkType;

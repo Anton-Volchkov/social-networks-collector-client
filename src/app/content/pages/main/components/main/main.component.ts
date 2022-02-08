@@ -1,18 +1,19 @@
-import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { takeUntil } from 'rxjs';
 import { ComponentBase } from 'src/app/core/components/abstractions/component-base';
-import { MessagesService, NetworkMessage } from 'src/app/core/services/snc';
+import { MediaType, MessagesService, NetworkMessage, NetworkType } from 'src/app/core/services/snc';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  styleUrls: ['./main.component.scss'],
 })
 export class MainComponent extends ComponentBase implements OnInit {
-  @ViewChild(CdkVirtualScrollViewport, { static: false })
-  public virtualScrollViewport?: CdkVirtualScrollViewport;
+
+
+  private isUpdatingNow = false;
+  private stopReceiveMessage = false;
 
   private count: number = 20;
   private offset: number = 0;
@@ -23,48 +24,73 @@ export class MainComponent extends ComponentBase implements OnInit {
   }
 
   ngOnInit(): void {
-    this.messagesService.getFiltered(
-      this.count,
-      this.offset
-    ).pipe(takeUntil(this.unsubscribe)).subscribe({
-      next: data => {
-        let newMessages = data.filter(x => !this.messages.some(nm => nm.originalContentLink == x.originalContentLink));
-        this.messages = [...this.messages, ...newMessages];
-      },
-      complete: () => {
-        this.offset = this.count;
-        this.count += 20;
-      }
-    })
+    this.updateMessages();
   }
 
   ngAfterViewInit() {
-    this.virtualScrollViewport!.elementRef.nativeElement.onscroll = (e) => { this.onScroll(e) };
   }
 
+  @HostListener('window:scroll', ['$event.target'])
   public onScroll(e: any) {
-    debugger
-    var scrollOffset = this.virtualScrollViewport!.measureScrollOffset("bottom");
+    let centerOfScrolling = e.scrollingElement.scrollHeight / 2;
 
-    if (scrollOffset == 200) {
-      debugger
+    if (centerOfScrolling <= e.scrollingElement.scrollTop) {
+      this.updateMessages();
+    } else {
+      console.log("scrollUp");
+    }
+
+  }
+
+  private updateMessages() {
+    if (!this.isUpdatingNow && !this.stopReceiveMessage) {
+      this.isUpdatingNow = true;
+
       this.messagesService.getFiltered(
         this.count,
         this.offset
       ).pipe(takeUntil(this.unsubscribe)).subscribe({
         next: data => {
           let newMessages = data.filter(x => !this.messages.some(nm => nm.originalContentLink == x.originalContentLink));
+
+          newMessages.forEach(x => {
+
+            x.networkMedia?.forEach(media => {
+              if (x.networkType == NetworkType.VK) {
+                if (media.mediaType == MediaType.Video)
+                  media.contentUrl = this.buildSafeUrlForIframe(media.contentUrl);
+              }
+
+              if (x.networkType == NetworkType.Telegram) {
+                media.contentUrl = this.buildContentLink(media.contentUrl);
+              }
+            });
+          });
+
           this.messages = [...this.messages, ...newMessages];
+
+          if (newMessages.length == 0) {
+            this.stopReceiveMessage = true;
+          }
+
+        },
+        error: () => {
+          this.isUpdatingNow = false;
         },
         complete: () => {
           this.offset = this.count;
           this.count += 20;
+          this.isUpdatingNow = false;
         }
-      })
+      });
     }
-  }
 
-  public buildContentLink(originalLink: string) {
+  }
+  private buildContentLink(originalLink: any): string {
+
+    if (!originalLink) {
+      return "";
+    }
 
     if (originalLink.includes("api/messages/")) {
       let token = localStorage.getItem("access_token");
@@ -75,7 +101,8 @@ export class MainComponent extends ComponentBase implements OnInit {
   }
 
 
-  public buildSafeUrlForIframe(originalLink: string) {
+  private buildSafeUrlForIframe(originalLink: any): any {
+
     return this.sanitazer.bypassSecurityTrustResourceUrl(originalLink);
   }
 
