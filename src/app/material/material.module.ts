@@ -30,14 +30,9 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { NgModule } from "@angular/core";
-import { ScrollingModule } from '@angular/cdk/scrolling';
-import { ScrollingModule as ExperimentalScrollingModule} from '@angular/cdk-experimental/scrolling';
-
 
 @NgModule({
   imports: [
-    ScrollingModule,
-    ExperimentalScrollingModule,
     MatCheckboxModule,
     MatButtonModule,
     MatInputModule,
@@ -71,8 +66,6 @@ import { ScrollingModule as ExperimentalScrollingModule} from '@angular/cdk-expe
     MatNativeDateModule
   ],
   exports: [
-    ScrollingModule,
-    ExperimentalScrollingModule,
     MatCheckboxModule,
     MatButtonModule,
     MatInputModule,

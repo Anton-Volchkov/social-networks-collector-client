@@ -6,7 +6,10 @@
     <div class="col-12">
       <mat-card *ngFor="let item of messages" class="mt-3 mat-elevation-z4">
         <mat-card-header>
-          <mat-card-title> <a [href]="item.originalContentLink" target="_blank">{{item.channelName}}</a>
+          <mat-card-title> <a [href]="item.originalContentLink" target="_blank">{{item.channelName}}
+              <i class="fab fa-telegram telegram-icon" aria-hidden="true" *ngIf="item.networkType == 'Telegram'"></i>
+              <i class="fab fa-vk vk-icon" aria-hidden="true" *ngIf="item.networkType == 'VK'"></i>
+            </a>
           </mat-card-title>
         </mat-card-header>
 
@@ -16,14 +19,14 @@
             <iframe loading="lazy" class="video" controls [src]="media.contentUrl!"
               *ngIf="(media.mediaType === 'Video' && item.networkType == 'VK')" webkitallowfullscreen mozallowfullscreen
               allowfullscreen></iframe>
-            <video *ngIf="(media.mediaType === 'Video' && item.networkType == 'Telegram')" class="video"
-              controls="controls" preload="none">
+            <video poster="../../../../../../assets/images/start-button.png" *ngIf="(media.mediaType === 'Video' && item.networkType == 'Telegram')"
+              class="video" controls="controls" preload="none">
               <source [src]="media.contentUrl!" type="video/mp4">
               Sorry, your browser doesn't support embedded videos.
             </video>
           </div>
 
-          <p class="col-12 mt-1">
+          <p class="col-12 mt-2 custom-font">
             {{item.text}}
           </p>
 

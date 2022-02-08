@@ -32,8 +32,8 @@ a:visited {
 }
 
 .video {
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 70%;
+  max-height: 70%;
   min-height: 50vh;
   min-width: 35vw;
 }
@@ -41,4 +41,17 @@ a:visited {
 .photo {
   max-width: 90%;
   max-height: 90%;
+}
+
+.telegram-icon {
+  color: rgb(76, 172, 204);
+}
+
+.vk-icon {
+  color: rgb(0, 148, 197);
+}
+
+.custom-font {
+  font: message-box;
+  font-family: "Roboto";
 }
