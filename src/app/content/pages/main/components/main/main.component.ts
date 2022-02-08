@@ -11,6 +11,7 @@ import { MediaType, MessagesService, NetworkMessage, NetworkType } from 'src/app
 })
 export class MainComponent extends ComponentBase implements OnInit {
 
+  private readonly numberOfMessages = 20;
 
   private isUpdatingNow = false;
   private stopReceiveMessage = false;
@@ -27,19 +28,13 @@ export class MainComponent extends ComponentBase implements OnInit {
     this.updateMessages();
   }
 
-  ngAfterViewInit() {
-  }
-
   @HostListener('window:scroll', ['$event.target'])
   public onScroll(e: any) {
-    let centerOfScrolling = e.scrollingElement.scrollHeight / 2;
+    let centerOfScrolling = e.scrollingElement.scrollHeight / 1.3;
 
     if (centerOfScrolling <= e.scrollingElement.scrollTop) {
       this.updateMessages();
-    } else {
-      console.log("scrollUp");
     }
-
   }
 
   private updateMessages() {
@@ -79,13 +74,14 @@ export class MainComponent extends ComponentBase implements OnInit {
         },
         complete: () => {
           this.offset = this.count;
-          this.count += 20;
+          this.count += this.numberOfMessages;
           this.isUpdatingNow = false;
         }
       });
     }
 
   }
+
   private buildContentLink(originalLink: any): string {
 
     if (!originalLink) {
@@ -100,11 +96,8 @@ export class MainComponent extends ComponentBase implements OnInit {
     return originalLink;
   }
 
-
   private buildSafeUrlForIframe(originalLink: any): any {
 
     return this.sanitazer.bypassSecurityTrustResourceUrl(originalLink);
   }
-
-
 }

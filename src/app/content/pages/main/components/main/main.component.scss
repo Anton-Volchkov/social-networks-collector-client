@@ -1,3 +1,11 @@
+:host {
+  ::ng-deep {
+    mat-card > mat-card-header > div.mat-card-header-text {
+      margin-left: 0;
+    }
+  }
+}
+
 .card-content-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -17,14 +25,6 @@ a:visited {
   color: #800080;
   border-bottom-color: rgba(128, 0, 128, 0.2);
   text-decoration: none;
-}
-
-:host {
-  ::ng-deep {
-    mat-card > mat-card-header > div.mat-card-header-text {
-      margin-left: 0;
-    }
-  }
 }
 
 .fit-content {
