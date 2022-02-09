@@ -2,3 +2,15 @@
   position: absolute;
   right: 10px;
 }
+
+.chip-list {
+  min-height: 5vh;
+  max-height: 40vh !important;
+  overflow: auto;
+}
+
+:host ::ng-deep {
+  .mat-chip-list-wrapper {
+    margin: 0;
+  }
+}

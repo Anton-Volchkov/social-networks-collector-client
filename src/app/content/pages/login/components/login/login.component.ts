@@ -24,10 +24,10 @@ export class LoginComponent extends EntityDetailsComponent implements OnInit {
           this.router.navigateByUrl("/news");
         }
 
-        this.resetForm();
+        this.resetForm(true);
       },
       error: () => {
-        this.resetForm();
+        this.resetForm(true);
       }
     });
   }
