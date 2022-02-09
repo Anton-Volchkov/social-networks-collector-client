@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs';
+import { ConfirmDialogComponent } from 'src/app/content/dialogs/confirm-dialog/confirm-dialog.component';
 import { EntityDetailsComponent } from 'src/app/core/components/abstractions/entity-details.component';
 import { ChannelsService, NetworkType } from 'src/app/core/services/snc';
 import { UserChannelDTO } from 'src/app/core/services/snc/model/userChannelDTO';
@@ -15,7 +18,10 @@ export class SubscribeComponent extends EntityDetailsComponent implements OnInit
   public networks = Object.values(NetworkType);
   public userChannels: UserChannelDTO[] = [];
 
-  constructor(route: ActivatedRoute, fb: FormBuilder, private channelsService: ChannelsService) {
+  constructor(route: ActivatedRoute, fb: FormBuilder,
+    private channelsService: ChannelsService,
+    private dialog: MatDialog,
+    private translate: TranslateService) {
     super(route, fb)
   }
 
@@ -50,9 +56,18 @@ export class SubscribeComponent extends EntityDetailsComponent implements OnInit
   }
 
   public unsubscribeChannel(channel: UserChannelDTO) {
-    this.channelsService.unsubscribe(channel.networkType!, channel.channelName!).pipe(takeUntil(this.unsubscribe)).subscribe(response => {
+    this.dialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      autoFocus: false,
+      minWidth: "25vw",
+      data: { dialogTitle: this.translate.instant("MODALS.CONFIRM.TITLE"), confirmationText: this.translate.instant("MODALS.CONFIRM.UNSUBSCRIBE") }
+    }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(result => {
+      if (result) {
+        this.channelsService.unsubscribe(channel.networkType!, channel.channelName!).pipe(takeUntil(this.unsubscribe)).subscribe(response => {
 
-      this.loadChannels();
+          this.loadChannels();
+        });
+      }
     });
   }
 

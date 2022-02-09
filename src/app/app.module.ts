@@ -10,9 +10,9 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { SharedModule } from './content/shared/shared.module';
 import { AuthInterceptor } from './core/auth/interceptors/auth.interceptor';
 import { RouterModule } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { ConfirmDialogComponent } from './content/dialogs/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [AppComponent],

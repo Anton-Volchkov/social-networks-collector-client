@@ -18,5 +18,15 @@
       "SUBSCRIBE": "Subscribe",
       "SUBSCRIBE_TO_NEW_CHANNEL": "Subscribe to a new channel"
     }
+  },
+  "ACTIONS": {
+    "CLOSE": "Close",
+    "CONFIRM": "Confirm"
+  },
+  "MODALS": {
+    "CONFIRM": {
+      "TITLE": "Confirm to continue",
+      "UNSUBSCRIBE": "Do you really want to unsubscribe?"
+    }
   }
 }

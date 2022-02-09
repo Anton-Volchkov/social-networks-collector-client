@@ -9,17 +9,17 @@
       <form [formGroup]="detailsForm">
         <ng-select formControlName="networkType" class="col-12" [items]="networks" [clearable]="false">
         </ng-select>
-        <mat-form-field class="col-12">
+        <mat-form-field [class.mat-form-field-invalid]="submitted && f.channelName?.errors" class="col-12">
           <input formControlName="channelName" matInput [placeholder]="'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate"
             required>
           <mat-error *ngIf="submitted && f.channelName?.errors?.required">
             {{ 'VALIDATION.ERRORS.FIELD_REQUIRED' | translate:{'fieldName':'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate} }}
           </mat-error>
         </mat-form-field>
-        <button mat-raised-button class="col-12" (click)="save()" color="primary"> {{ 'MAIN.SUBSCRIBE.SUBSCRIBE' |
+        <button mat-raised-button class="col-12 mt-2" (click)="save()" color="primary"> {{ 'MAIN.SUBSCRIBE.SUBSCRIBE' |
           translate }}</button>
       </form>
-      <div class="row m-0 mt-2">
+      <div class="row m-0 mt-3">
         <mat-accordion class="p-0">
           <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -48,7 +48,6 @@
             </div>
           </mat-expansion-panel>
         </mat-accordion>
-
       </div>
     </div>
   </mat-expansion-panel>

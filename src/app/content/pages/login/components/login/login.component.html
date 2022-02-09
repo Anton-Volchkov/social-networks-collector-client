@@ -2,13 +2,13 @@
   <mat-card-content>
     <form [formGroup]="detailsForm">
       <h2>{{ 'LOGIN.LOGIN_TITLE' | translate }}</h2>
-      <mat-form-field>
+      <mat-form-field [class.mat-form-field-invalid]="submitted && f.login?.errors?.required">
         <input formControlName="login" matInput [placeholder]="'LOGIN.LOGIN' | translate" required>
         <mat-error *ngIf="submitted && f.login?.errors?.required">
           {{ 'VALIDATION.ERRORS.FIELD_REQUIRED' | translate:{'fieldName':'LOGIN.LOGIN' | translate} }}
         </mat-error>
       </mat-form-field>
-      <mat-form-field>
+      <mat-form-field [class.mat-form-field-invalid]="submitted && f.password?.errors?.required">
         <input formControlName="password" matInput type="password" [placeholder]="'LOGIN.PASSWORD' | translate"
           required>
         <mat-error *ngIf="submitted && f.password?.errors?.required">
