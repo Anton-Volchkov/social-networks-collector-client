@@ -10,7 +10,10 @@
     }
   },
   "MAIN": {
+    "NO_MESSAGES": "No messages",
     "SUBSCRIBE": {
+      "NO_ACTIVE_CHANNELS": "No active channels",
+      "ALL_CHANNELS": "All channels",
       "CHANNEL_NAME": "Channel name",
       "SUBSCRIBE": "Subscribe",
       "SUBSCRIBE_TO_NEW_CHANNEL": "Subscribe to a new channel"

@@ -2,14 +2,18 @@
   <div class="col-md-3 col-sm-12 mt-3" style="height: fit-content !important;">
     <app-subscribe></app-subscribe>
   </div>
-  <div class="col-md-9 col-sm-12 row m-0 " style="height: 80vh;">
+  <div class="col-md-9 col-sm-12 row m-0" style="height: 80vh;">
     <div class="col-12 p-0">
+      <p class="text-center mt-3" *ngIf="messages.length === 0" style="font-size: 25px;"> {{ 'MAIN.NO_MESSAGES' |
+        translate }}</p>
       <mat-card *ngFor="let item of messages" class="mt-3 mat-elevation-z4">
         <mat-card-header>
-          <mat-card-title> <a [href]="item.originalContentLink" target="_blank">{{item.channelName}}
-              <i class="fab fa-telegram telegram-icon" aria-hidden="true" *ngIf="item.networkType == 'Telegram'"></i>
-              <i class="fab fa-vk vk-icon" aria-hidden="true" *ngIf="item.networkType == 'VK'"></i>
+          <mat-card-title class="d-inline-flex">
+            <a [href]="item.originalContentLink" class="d-block max-width-40 truncate"
+              target="_blank">{{item.channelName}}
             </a>
+            <i class="fab fa-telegram telegram-icon ms-2" aria-hidden="true" *ngIf="item.networkType == 'Telegram'"></i>
+            <i class="fab fa-vk vk-icon ms-2" aria-hidden="true" *ngIf="item.networkType == 'VK'"></i>
           </mat-card-title>
         </mat-card-header>
 

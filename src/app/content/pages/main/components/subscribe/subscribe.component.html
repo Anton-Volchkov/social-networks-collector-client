@@ -19,6 +19,37 @@
         <button mat-raised-button class="col-12" (click)="save()" color="primary"> {{ 'MAIN.SUBSCRIBE.SUBSCRIBE' |
           translate }}</button>
       </form>
+      <div class="row m-0 mt-2">
+        <mat-accordion class="p-0">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ 'MAIN.SUBSCRIBE.ALL_CHANNELS' | translate }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row">
+              <mat-chip-list>
+                <p *ngIf="userChannels.length === 0"> {{ 'MAIN.SUBSCRIBE.NO_ACTIVE_CHANNELS' | translate }}</p>
+                <mat-chip class="col-12" *ngFor="let channel of userChannels" (removed)="unsubscribeChannel(channel)">
+
+                  <span class="max-width-8 truncate">
+                    {{channel.displayChannelName}}
+                  </span>
+
+                  <i class="fab fa-telegram telegram-icon ms-2" aria-hidden="true"
+                    *ngIf="channel.networkType == 'Telegram'"></i>
+                  <i class="fab fa-vk vk-icon ms-1" aria-hidden="true" *ngIf="channel.networkType == 'VK'"></i>
+
+                  <button class="chip-close" matChipRemove>
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip>
+              </mat-chip-list>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+
+      </div>
     </div>
   </mat-expansion-panel>
 </mat-accordion>

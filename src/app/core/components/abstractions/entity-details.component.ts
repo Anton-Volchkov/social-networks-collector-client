@@ -84,6 +84,10 @@ export abstract class EntityDetailsComponent extends ComponentBase {
     this.submitted = !resetSubmitted;
   }
 
+  public resetSubmit() {
+    this.submitted = false;
+  }
+
   public validate(): boolean {
     this.submitted = true;
 
