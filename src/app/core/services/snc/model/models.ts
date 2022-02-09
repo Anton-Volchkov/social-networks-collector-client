@@ -5,3 +5,4 @@ export * from './networkMedia';
 export * from './networkMessage';
 export * from './networkType';
 export * from './response';
+export * from './userChannelDTO';
