@@ -1,6 +1,6 @@
 <div class="row">
-  <div class="col-md-3 col-sm-12" style="height: fit-content !important;">
-    Subscribe to new Channel
+  <div class="col-md-3 col-sm-12 mt-3" style="height: fit-content !important;">
+    <app-subscribe></app-subscribe>
   </div>
   <div class="col-md-9 col-sm-12 row m-0 " style="height: 80vh;">
     <div class="col-12">
@@ -19,17 +19,16 @@
             <iframe loading="lazy" class="video" controls [src]="media.contentUrl!"
               *ngIf="(media.mediaType === 'Video' && item.networkType == 'VK')" webkitallowfullscreen mozallowfullscreen
               allowfullscreen></iframe>
-            <video poster="../../../../../../assets/images/start-button.png" *ngIf="(media.mediaType === 'Video' && item.networkType == 'Telegram')"
-              class="video" controls="controls" preload="none">
+            <video poster="../../../../../../assets/images/start-button.png"
+              *ngIf="(media.mediaType === 'Video' && item.networkType == 'Telegram')" class="video" controls="controls"
+              preload="none">
               <source [src]="media.contentUrl!" type="video/mp4">
               Sorry, your browser doesn't support embedded videos.
             </video>
           </div>
-
           <p class="col-12 mt-2 custom-font">
             {{item.text}}
           </p>
-
         </mat-card-content>
       </mat-card>
     </div>

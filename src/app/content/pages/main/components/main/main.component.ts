@@ -10,7 +10,6 @@ import { MediaType, MessagesService, NetworkMessage, NetworkType } from 'src/app
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent extends ComponentBase implements OnInit {
-
   private readonly numberOfMessages = 20;
 
   private isUpdatingNow = false;

@@ -1,0 +1,21 @@
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ 'MAIN.SUBSCRIBE.SUBSCRIBE_TO_NEW_CHANNEL' | translate }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="row">
+      <form [formGroup]="detailsForm">
+        <ng-select formControlName="networkType" class="col-12" [items]="networks" [clearable]="false">
+        </ng-select>
+        <mat-form-field class="col-12">
+          <input formControlName="channelName" matInput [placeholder]="'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate"
+            required>
+        </mat-form-field>
+        <button mat-raised-button class="col-12" (click)="save()" color="primary"> {{ 'MAIN.SUBSCRIBE.SUBSCRIBE' |
+          translate }}</button>
+      </form>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

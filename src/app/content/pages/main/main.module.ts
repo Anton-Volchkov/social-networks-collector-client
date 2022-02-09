@@ -6,9 +6,10 @@ import { MainRoutingModule } from "./main-routing.module";
 import { MainComponent } from "./components/main/main.component";
 import { MainBoardComponent } from './components/main-board/main-board.component';
 import { HeaderComponent } from "../shared/header/header.component";
+import { SubscribeComponent } from './components/subscribe/subscribe.component';
 
 @NgModule({
-  declarations: [MainComponent, MainBoardComponent, HeaderComponent],
+  declarations: [MainComponent, MainBoardComponent, HeaderComponent, SubscribeComponent],
   imports: [
     MainRoutingModule,
     CommonModule,

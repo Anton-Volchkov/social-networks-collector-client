@@ -8,5 +8,12 @@
     "ERRORS": {
       "FIELD_REQUIRED": "The {{fieldName}} is required."
     }
+  },
+  "MAIN": {
+    "SUBSCRIBE": {
+      "CHANNEL_NAME": "Channel name",
+      "SUBSCRIBE": "Subscribe",
+      "SUBSCRIBE_TO_NEW_CHANNEL": "Subscribe to a new channel"
+    }
   }
 }

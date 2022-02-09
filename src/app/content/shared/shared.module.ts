@@ -7,11 +7,13 @@ import { MatDialog } from "@angular/material/dialog";
 import { RouterModule } from "@angular/router";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateModule } from "@ngx-translate/core";
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [],
   imports: [
     NgbModule,
+    NgSelectModule,
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
@@ -21,6 +23,7 @@ import { TranslateModule } from "@ngx-translate/core";
   ],
   exports: [
     NgbModule,
+    NgSelectModule,
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
