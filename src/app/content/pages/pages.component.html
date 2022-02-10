@@ -1,1 +1,4 @@
+<ng-container *ngIf="showScroll$ | async">
+  <app-scroll-to-top (scrollToTop)="onScrollToTop()"></app-scroll-to-top>
+</ng-container>
 <router-outlet></router-outlet>

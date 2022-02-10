@@ -12,7 +12,6 @@ import { AuthInterceptor } from './core/auth/interceptors/auth.interceptor';
 import { RouterModule } from '@angular/router';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ConfirmDialogComponent } from './content/dialogs/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [AppComponent],
