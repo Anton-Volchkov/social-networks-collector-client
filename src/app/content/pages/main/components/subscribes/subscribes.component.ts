@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -6,8 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/content/dialogs/confirm-dialog/confirm-dialog.component';
 import { EntityDetailsComponent } from 'src/app/core/components/abstractions/entity-details.component';
-import {NetworkType, SubscriptionsService, UserSubscriptionDTO} from 'src/app/core/services/snc';
-import { UserChannelDTO } from 'src/app/core/services/snc/model/userChannelDTO';
+import { GroupSubscriptionsDTO, NetworkType, SubscriptionsGroupService, SubscriptionsService, UserSubscriptionDTO } from 'src/app/core/services/snc';
+
 
 @Component({
   selector: 'app-subscribes',
@@ -15,11 +15,18 @@ import { UserChannelDTO } from 'src/app/core/services/snc/model/userChannelDTO';
   styleUrls: ['./subscribes.component.scss']
 })
 export class SubscribesComponent extends EntityDetailsComponent implements OnInit {
+
+  @Output()
+  public groupSelected: EventEmitter<string> = new EventEmitter<string>();
+
   public networks = Object.values(NetworkType);
-  public userChannels: UserSubscriptionDTO[] = [];
-  public isMobileDevice = false;
+  public userSubscriptions: UserSubscriptionDTO[] = [];
+  public groupSubscriptions: GroupSubscriptionsDTO[] = [];
+  public isMobileDevice: boolean = false;
+  private currentGroupName: string = "";
 
   constructor(route: ActivatedRoute, fb: FormBuilder,
+    private subscriptionsGroupService: SubscriptionsGroupService,
     private subscriptionsService: SubscriptionsService,
     private dialog: MatDialog,
     private translate: TranslateService) {
@@ -57,7 +64,7 @@ export class SubscribesComponent extends EntityDetailsComponent implements OnIni
     )
   }
 
-  public unsubscribeChannel(channel: UserChannelDTO) {
+  public unsubscribeChannel(subscription: UserSubscriptionDTO) {
     this.dialog.open(ConfirmDialogComponent, {
       disableClose: true,
       autoFocus: false,
@@ -65,7 +72,7 @@ export class SubscribesComponent extends EntityDetailsComponent implements OnIni
       data: { dialogTitle: this.translate.instant("MODALS.CONFIRM.TITLE"), confirmationText: this.translate.instant("MODALS.CONFIRM.UNSUBSCRIBE") }
     }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(result => {
       if (result) {
-        this.subscriptionsService.unsubscribe(channel.networkType!, channel.channelName!).pipe(takeUntil(this.unsubscribe)).subscribe(response => {
+        this.subscriptionsService.unsubscribe(subscription.networkType!, subscription.channelName!).pipe(takeUntil(this.unsubscribe)).subscribe(response => {
 
           this.loadChannels();
         });
@@ -73,10 +80,44 @@ export class SubscribesComponent extends EntityDetailsComponent implements OnIni
     });
   }
 
+  public selectGroup(groupName: string = "") {
+    this.currentGroupName = groupName;
+    this.groupSelected.emit(groupName);
+  }
+
+  public addChanelToGroup(groupName: string) {
+    //TODO: Add new dialog
+  }
+
+  public addNewGroup() {
+    //TODO: Add new dialog
+  }
+
+  public unsubscribeGroupChannel(groupName: string, subscription: UserSubscriptionDTO) {
+    this.dialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      autoFocus: false,
+      minWidth: "25vw",
+      data: { dialogTitle: this.translate.instant("MODALS.CONFIRM.TITLE"), confirmationText: this.translate.instant("MODALS.CONFIRM.UNSUBSCRIBE_FROM_GROUP") }
+    }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(result => {
+      if (result) {
+        this.subscriptionsGroupService.removeChannelFromSubscriptions(groupName, subscription.id).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+          this.loadChannels();
+          if (groupName === this.currentGroupName)
+            this.selectGroup(groupName);
+        });
+      }
+    });
+  }
+
   private loadChannels() {
     this.subscriptionsService.subscriptions().pipe(takeUntil(this.unsubscribe)).subscribe(data => {
-      this.userChannels = data ?? [];
+      this.userSubscriptions = data ?? [];
     });
+
+    this.subscriptionsGroupService.groupSubscriptions().pipe(takeUntil(this.unsubscribe)).subscribe(data => {
+      this.groupSubscriptions = data ?? [];
+    })
   }
 
   private isMobile() {

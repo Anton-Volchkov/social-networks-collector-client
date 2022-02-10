@@ -13,5 +13,5 @@ import { UserSubscriptionDTO } from './userSubscriptionDTO';
 
 export interface GroupSubscriptionsDTO { 
     groupName?: string;
-    channels?: Array<UserSubscriptionDTO>;
+    subscriptions?: Array<UserSubscriptionDTO>;
 }

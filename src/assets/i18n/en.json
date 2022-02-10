@@ -1,4 +1,9 @@
 {
+  "BUTTONS": {
+    "ADD_NEW_GROUP": "Add new group",
+    "VIEW_THIS_GROUP": "View this group",
+    "ADD_SUBSCRIPTION": "Add subscription"
+  },
   "LOGIN": {
     "LOGIN_TITLE": "Log In",
     "LOGIN": "Login",
@@ -12,8 +17,8 @@
   "MAIN": {
     "NO_MESSAGES": "No messages",
     "SUBSCRIBE": {
-      "NO_ACTIVE_CHANNELS": "No active channels",
-      "ALL_CHANNELS": "All channels",
+      "NO_ACTIVE_SUBSCRIPTIONS": "No active subscriptions",
+      "ALL_SUBSCRIPTIONS": "All subscriptions",
       "CHANNEL_NAME": "Channel name",
       "SUBSCRIBE": "Subscribe",
       "SUBSCRIBE_TO_NEW_CHANNEL": "Subscribe to a new channel"
@@ -25,6 +30,7 @@
   },
   "MODALS": {
     "CONFIRM": {
+      "UNSUBSCRIBE_FROM_GROUP": "Do you really want to unsubscribe this channel from this group?",
       "TITLE": "Confirm to continue",
       "UNSUBSCRIBE": "Do you really want to unsubscribe?"
     }

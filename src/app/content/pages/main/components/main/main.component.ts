@@ -18,6 +18,7 @@ export class MainComponent extends ComponentBase implements OnInit {
   private count: number = 20;
   private offset: number = 0;
   public messages: NetworkMessage[] = [];
+  private currentGroupName: string = "";
 
   constructor(private messagesService: MessagesService, private sanitazer: DomSanitizer) {
     super();
@@ -36,13 +37,14 @@ export class MainComponent extends ComponentBase implements OnInit {
     }
   }
 
-  private updateMessages() {
+  private updateMessages(groupName: string = "") {
     if (!this.isUpdatingNow && !this.stopReceiveMessage) {
       this.isUpdatingNow = true;
 
       this.messagesService.getFiltered(
         this.count,
-        this.offset
+        this.offset,
+        groupName
       ).pipe(takeUntil(this.unsubscribe)).subscribe({
         next: data => {
           let newMessages = data.filter(x => !this.messages.some(nm => nm.originalContentLink == x.originalContentLink));
@@ -79,6 +81,14 @@ export class MainComponent extends ComponentBase implements OnInit {
       });
     }
 
+  }
+
+  public groupSelected(groupName: string) {
+    if (groupName != this.currentGroupName) {
+      this.currentGroupName = groupName;
+      this.messages = [];
+      this.updateMessages(groupName);
+    }
   }
 
   private buildContentLink(originalLink: any): string {
