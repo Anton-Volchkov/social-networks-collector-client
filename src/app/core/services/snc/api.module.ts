@@ -3,8 +3,9 @@ import { Configuration } from './configuration';
 import { HttpClient } from '@angular/common/http';
 
 
-import { ChannelsService } from './api/channels.service';
 import { MessagesService } from './api/messages.service';
+import { SubscriptionsService } from './api/subscriptions.service';
+import { SubscriptionsGroupService } from './api/subscriptionsGroup.service';
 import { UsersService } from './api/users.service';
 import { VerificationCodeService } from './api/verificationCode.service';
 
@@ -13,8 +14,9 @@ import { VerificationCodeService } from './api/verificationCode.service';
   declarations: [],
   exports:      [],
   providers: [
-    ChannelsService,
     MessagesService,
+    SubscriptionsService,
+    SubscriptionsGroupService,
     UsersService,
     VerificationCodeService ]
 })

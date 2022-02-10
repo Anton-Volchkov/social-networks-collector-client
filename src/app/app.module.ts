@@ -12,6 +12,8 @@ import { AuthInterceptor } from './core/auth/interceptors/auth.interceptor';
 import { RouterModule } from '@angular/router';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {GlobalHTTPErrorInterceptorService} from "./core/interceptors/global-http-error-interceptor.service";
+import {ToastrModule} from "ngx-toastr";
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +25,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     RouterModule,
     BrowserAnimationsModule,
     SharedModule.forRoot(),
+    ToastrModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -41,6 +44,11 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
     {
       provide: BASE_PATH,
       useValue: environment.serverUri,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: GlobalHTTPErrorInterceptorService,
+      multi: true
     },
     {
       provide: HTTP_INTERCEPTORS,

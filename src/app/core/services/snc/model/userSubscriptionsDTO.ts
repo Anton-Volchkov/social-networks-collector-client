@@ -9,14 +9,11 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { NetworkMedia } from './networkMedia';
 import { NetworkType } from './networkType';
 
-export interface NetworkMessage { 
+export interface UserSubscriptionsDTO { 
+    id?: number;
+    displayChannelName?: string;
     channelName?: string;
-    text?: string;
-    date?: Date;
     networkType?: NetworkType;
-    networkMedia?: Array<NetworkMedia>;
-    originalContentLink?: string;
 }

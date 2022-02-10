@@ -28,5 +28,10 @@
       "TITLE": "Confirm to continue",
       "UNSUBSCRIBE": "Do you really want to unsubscribe?"
     }
+  },
+  "MESSAGES": {
+    "BAD_REQUEST": "Bad request",
+    "ERROR": "Error",
+    "NOT_FOUND": "Not found"
   }
 }

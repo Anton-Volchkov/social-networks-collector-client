@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/content/dialogs/confirm-dialog/confirm-dialog.component';
 import { EntityDetailsComponent } from 'src/app/core/components/abstractions/entity-details.component';
-import { ChannelsService, NetworkType } from 'src/app/core/services/snc';
+import {NetworkType, SubscriptionsService, UserSubscriptionDTO} from 'src/app/core/services/snc';
 import { UserChannelDTO } from 'src/app/core/services/snc/model/userChannelDTO';
 
 @Component({
@@ -16,11 +16,11 @@ import { UserChannelDTO } from 'src/app/core/services/snc/model/userChannelDTO';
 })
 export class SubscribesComponent extends EntityDetailsComponent implements OnInit {
   public networks = Object.values(NetworkType);
-  public userChannels: UserChannelDTO[] = [];
+  public userChannels: UserSubscriptionDTO[] = [];
   public isMobileDevice = false;
 
   constructor(route: ActivatedRoute, fb: FormBuilder,
-    private channelsService: ChannelsService,
+    private subscriptionsService: SubscriptionsService,
     private dialog: MatDialog,
     private translate: TranslateService) {
     super(route, fb)
@@ -42,7 +42,7 @@ export class SubscribesComponent extends EntityDetailsComponent implements OnIni
   protected saveInternal() {
     let formValue = this.detailsForm.getRawValue();
 
-    this.channelsService.subscribe(formValue.networkType, formValue.channelName).pipe(takeUntil(this.unsubscribe)).subscribe(
+    this.subscriptionsService.subscribe(formValue.networkType, formValue.channelName).pipe(takeUntil(this.unsubscribe)).subscribe(
       {
         error: () => {
           this.f.channelName.reset();
@@ -65,7 +65,7 @@ export class SubscribesComponent extends EntityDetailsComponent implements OnIni
       data: { dialogTitle: this.translate.instant("MODALS.CONFIRM.TITLE"), confirmationText: this.translate.instant("MODALS.CONFIRM.UNSUBSCRIBE") }
     }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(result => {
       if (result) {
-        this.channelsService.unsubscribe(channel.networkType!, channel.channelName!).pipe(takeUntil(this.unsubscribe)).subscribe(response => {
+        this.subscriptionsService.unsubscribe(channel.networkType!, channel.channelName!).pipe(takeUntil(this.unsubscribe)).subscribe(response => {
 
           this.loadChannels();
         });
@@ -73,13 +73,11 @@ export class SubscribesComponent extends EntityDetailsComponent implements OnIni
     });
   }
 
-
   private loadChannels() {
-    this.channelsService.subscriptions().pipe(takeUntil(this.unsubscribe)).subscribe(data => {
+    this.subscriptionsService.subscriptions().pipe(takeUntil(this.unsubscribe)).subscribe(data => {
       this.userChannels = data ?? [];
     });
   }
-
 
   private isMobile() {
     let check = false;

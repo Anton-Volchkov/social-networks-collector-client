@@ -1,0 +1,13 @@
+<div class="modal-header error-title">
+  <h1 class="modal-title">The following errors have occurred</h1>
+</div>
+<div class="modal-body">
+  <ul>
+    <li *ngFor="let err of data.errors">{{err}}</li>
+  </ul>
+</div>
+<div class="modal-footer">
+  <button type="button"
+          class="btn btn-outline-dark"
+          (click)="activeModal.close('Close click')">close</button>
+</div>

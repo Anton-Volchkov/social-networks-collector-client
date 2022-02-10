@@ -17,14 +17,16 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { NetworkMessage } from '../model/networkMessage';
+import { NetworkType } from '../model/networkType';
+import { Response } from '../model/response';
+import { UserSubscriptionDTO } from '../model/userSubscriptionDTO';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 
 
 @Injectable()
-export class MessagesService {
+export class SubscriptionsService {
 
     protected basePath = '/';
     public defaultHeaders = new HttpHeaders();
@@ -56,31 +58,32 @@ export class MessagesService {
 
 
     /**
-     * Get filtered messages from services
+     * Subscribe to the channel
      * 
-     * @param count 
-     * @param offset 
-     * @param groupName 
+     * @param networkType 
+     * @param name 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getFiltered(count?: number, offset?: number, groupName?: string, observe?: 'body', reportProgress?: boolean): Observable<Array<NetworkMessage>>;
-    public getFiltered(count?: number, offset?: number, groupName?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<NetworkMessage>>>;
-    public getFiltered(count?: number, offset?: number, groupName?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<NetworkMessage>>>;
-    public getFiltered(count?: number, offset?: number, groupName?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public subscribe(networkType: NetworkType, name: string, observe?: 'body', reportProgress?: boolean): Observable<Response>;
+    public subscribe(networkType: NetworkType, name: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
+    public subscribe(networkType: NetworkType, name: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
+    public subscribe(networkType: NetworkType, name: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
+        if (networkType === null || networkType === undefined) {
+            throw new Error('Required parameter networkType was null or undefined when calling subscribe.');
+        }
 
-
+        if (name === null || name === undefined) {
+            throw new Error('Required parameter name was null or undefined when calling subscribe.');
+        }
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (count !== undefined && count !== null) {
-            queryParameters = queryParameters.set('count', <any>count);
+        if (networkType !== undefined && networkType !== null) {
+            queryParameters = queryParameters.set('networkType', <any>networkType);
         }
-        if (offset !== undefined && offset !== null) {
-            queryParameters = queryParameters.set('offset', <any>offset);
-        }
-        if (groupName !== undefined && groupName !== null) {
-            queryParameters = queryParameters.set('groupName', <any>groupName);
+        if (name !== undefined && name !== null) {
+            queryParameters = queryParameters.set('name', <any>name);
         }
 
         let headers = this.defaultHeaders;
@@ -107,7 +110,7 @@ export class MessagesService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Array<NetworkMessage>>('get',`${this.basePath}/api/Messages`,
+        return this.httpClient.request<Response>('post',`${this.basePath}/api/Subscriptions/subscription`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -119,30 +122,15 @@ export class MessagesService {
     }
 
     /**
-     * Get Telegram document content
+     * Get all user subscriptions
      * 
-     * @param id 
-     * @param channelName 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getTelegramDocumentContent(id: number, channelName: string, observe?: 'body', reportProgress?: boolean): Observable<Blob>;
-    public getTelegramDocumentContent(id: number, channelName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Blob>>;
-    public getTelegramDocumentContent(id: number, channelName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Blob>>;
-    public getTelegramDocumentContent(id: number, channelName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getTelegramDocumentContent.');
-        }
-
-        if (channelName === null || channelName === undefined) {
-            throw new Error('Required parameter channelName was null or undefined when calling getTelegramDocumentContent.');
-        }
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (channelName !== undefined && channelName !== null) {
-            queryParameters = queryParameters.set('channelName', <any>channelName);
-        }
+    public subscriptions(observe?: 'body', reportProgress?: boolean): Observable<Array<UserSubscriptionDTO>>;
+    public subscriptions(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<UserSubscriptionDTO>>>;
+    public subscriptions(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<UserSubscriptionDTO>>>;
+    public subscriptions(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -168,9 +156,8 @@ export class MessagesService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Blob>('get',`${this.basePath}/api/Messages/document/${encodeURIComponent(String(id))}`,
+        return this.httpClient.request<Array<UserSubscriptionDTO>>('get',`${this.basePath}/api/Subscriptions/subscriptions`,
             {
-                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -180,29 +167,32 @@ export class MessagesService {
     }
 
     /**
-     * Get Telegram photo content
+     * Unsubscribe from the channel
      * 
-     * @param id 
-     * @param channelName 
+     * @param networkType 
+     * @param name 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getTelegramPhotoContent(id: number, channelName: string, observe?: 'body', reportProgress?: boolean): Observable<Blob>;
-    public getTelegramPhotoContent(id: number, channelName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Blob>>;
-    public getTelegramPhotoContent(id: number, channelName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Blob>>;
-    public getTelegramPhotoContent(id: number, channelName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public unsubscribe(networkType: NetworkType, name: string, observe?: 'body', reportProgress?: boolean): Observable<Response>;
+    public unsubscribe(networkType: NetworkType, name: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
+    public unsubscribe(networkType: NetworkType, name: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
+    public unsubscribe(networkType: NetworkType, name: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getTelegramPhotoContent.');
+        if (networkType === null || networkType === undefined) {
+            throw new Error('Required parameter networkType was null or undefined when calling unsubscribe.');
         }
 
-        if (channelName === null || channelName === undefined) {
-            throw new Error('Required parameter channelName was null or undefined when calling getTelegramPhotoContent.');
+        if (name === null || name === undefined) {
+            throw new Error('Required parameter name was null or undefined when calling unsubscribe.');
         }
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (channelName !== undefined && channelName !== null) {
-            queryParameters = queryParameters.set('channelName', <any>channelName);
+        if (networkType !== undefined && networkType !== null) {
+            queryParameters = queryParameters.set('networkType', <any>networkType);
+        }
+        if (name !== undefined && name !== null) {
+            queryParameters = queryParameters.set('name', <any>name);
         }
 
         let headers = this.defaultHeaders;
@@ -229,7 +219,7 @@ export class MessagesService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Blob>('get',`${this.basePath}/api/Messages/photo/${encodeURIComponent(String(id))}`,
+        return this.httpClient.request<Response>('post',`${this.basePath}/api/Subscriptions/unsubscribe`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
