@@ -23,7 +23,7 @@ export class SubscribesComponent extends EntityDetailsComponent implements OnIni
   public userSubscriptions: UserSubscriptionDTO[] = [];
   public groupSubscriptions: GroupSubscriptionsDTO[] = [];
   public isMobileDevice: boolean = false;
-  private currentGroupName: string = "";
+  public currentGroupName: string = "";
 
   constructor(route: ActivatedRoute, fb: FormBuilder,
     private subscriptionsGroupService: SubscriptionsGroupService,
@@ -73,15 +73,18 @@ export class SubscribesComponent extends EntityDetailsComponent implements OnIni
     }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(result => {
       if (result) {
         this.subscriptionsService.unsubscribe(subscription.networkType!, subscription.channelName!).pipe(takeUntil(this.unsubscribe)).subscribe(response => {
-
+          if (!this.currentGroupName) {
+            this.viewGroupMessages();
+          }
           this.loadChannels();
         });
       }
     });
   }
 
-  public selectGroup(groupName: string = "") {
+  public viewGroupMessages(groupName: string = "") {
     this.currentGroupName = groupName;
+
     this.groupSelected.emit(groupName);
   }
 
@@ -104,7 +107,7 @@ export class SubscribesComponent extends EntityDetailsComponent implements OnIni
         this.subscriptionsGroupService.removeChannelFromSubscriptions(groupName, subscription.id).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
           this.loadChannels();
           if (groupName === this.currentGroupName)
-            this.selectGroup(groupName);
+            this.viewGroupMessages(groupName);
         });
       }
     });

@@ -1,6 +1,6 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { takeUntil } from 'rxjs';
+import { EMPTY, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { ComponentBase } from 'src/app/core/components/abstractions/component-base';
 import { MediaType, MessagesService, NetworkMessage, NetworkType } from 'src/app/core/services/snc';
 
@@ -9,23 +9,26 @@ import { MediaType, MessagesService, NetworkMessage, NetworkType } from 'src/app
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })
-export class MainComponent extends ComponentBase implements OnInit {
+export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
   private readonly numberOfMessages = 20;
-
-  private isUpdatingNow = false;
-  private stopReceiveMessage = false;
+  private updateMessagesSubject = new Subject<string>();
 
   private count: number = 20;
   private offset: number = 0;
   public messages: NetworkMessage[] = [];
-  private currentGroupName: string = "";
 
   constructor(private messagesService: MessagesService, private sanitazer: DomSanitizer) {
     super();
   }
 
   ngOnInit(): void {
+    this.initMessageLoader();
     this.updateMessages();
+  }
+
+  public override ngOnDestroy(): void {
+    this.updateMessagesSubject.complete();
+    super.ngOnDestroy();
   }
 
   @HostListener('window:scroll', ['$event.target'])
@@ -38,57 +41,48 @@ export class MainComponent extends ComponentBase implements OnInit {
   }
 
   private updateMessages(groupName: string = "") {
-    if (!this.isUpdatingNow && !this.stopReceiveMessage) {
-      this.isUpdatingNow = true;
+    this.updateMessagesSubject.next(groupName);
+  }
 
-      this.messagesService.getFiltered(
+  private initMessageLoader() {
+    this.updateMessagesSubject.asObservable().pipe(takeUntil(this.unsubscribe), switchMap((groupName) => {
+      return this.messagesService.getFiltered(
         this.count,
         this.offset,
         groupName
-      ).pipe(takeUntil(this.unsubscribe)).subscribe({
-        next: data => {
-          let newMessages = data.filter(x => !this.messages.some(nm => nm.originalContentLink == x.originalContentLink));
+      ).pipe(takeUntil(this.unsubscribe));
+    })).subscribe({
+      next: data => {
+        let newMessages = data.filter(x => !this.messages.some(nm => nm.originalContentLink == x.originalContentLink));
 
-          newMessages.forEach(x => {
+        newMessages.forEach(x => {
 
-            x.networkMedia?.forEach(media => {
-              if (x.networkType == NetworkType.VK) {
-                if (media.mediaType == MediaType.Video)
-                  media.contentUrl = this.buildSafeUrlForIframe(media.contentUrl);
-              }
+          x.networkMedia?.forEach(media => {
+            if (x.networkType == NetworkType.VK) {
+              if (media.mediaType == MediaType.Video)
+                media.contentUrl = this.buildSafeUrlForIframe(media.contentUrl);
+            }
 
-              if (x.networkType == NetworkType.Telegram) {
-                media.contentUrl = this.buildContentLink(media.contentUrl);
-              }
-            });
+            if (x.networkType == NetworkType.Telegram) {
+              media.contentUrl = this.buildContentLink(media.contentUrl);
+            }
           });
+        });
 
-          this.messages = [...this.messages, ...newMessages];
+        this.messages = [...this.messages, ...newMessages];
 
-          if (newMessages.length == 0) {
-            this.stopReceiveMessage = true;
-          }
-
-        },
-        error: () => {
-          this.isUpdatingNow = false;
-        },
-        complete: () => {
-          this.offset = this.count;
-          this.count += this.numberOfMessages;
-          this.isUpdatingNow = false;
-        }
-      });
-    }
-
+      },
+      complete: () => {
+        this.offset = this.count;
+        this.count += this.numberOfMessages;
+      }
+    });
   }
 
-  public groupSelected(groupName: string) {
-    if (groupName != this.currentGroupName) {
-      this.currentGroupName = groupName;
-      this.messages = [];
-      this.updateMessages(groupName);
-    }
+  public groupSelected(groupName: string = "") {
+    this.messages = [];
+
+    this.updateMessages(groupName);
   }
 
   private buildContentLink(originalLink: any): string {

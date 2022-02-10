@@ -1,5 +1,6 @@
 {
   "BUTTONS": {
+    "VIEW_ALL": "View all",
     "ADD_NEW_GROUP": "Add new group",
     "VIEW_THIS_GROUP": "View this group",
     "ADD_SUBSCRIPTION": "Add subscription"

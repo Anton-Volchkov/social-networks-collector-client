@@ -30,9 +30,9 @@
                 {{ 'MAIN.SUBSCRIBE.ALL_SUBSCRIPTIONS' | translate }}
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <button (click)="selectGroup()" *ngIf="userSubscriptions.length > 0" class="col-12 p-1 mb-1"
-              mat-stroked-button color="primary">
-              {{ 'BUTTONS.VIEW_THIS_GROUP' | translate}}</button>
+            <button (click)="viewGroupMessages()" *ngIf="userSubscriptions.length > 0 && currentGroupName"
+              class="col-12 p-1 mb-1" mat-stroked-button color="primary">
+              {{ 'BUTTONS.VIEW_ALL' | translate}}</button>
             <div class="row chip-list">
               <mat-chip-list>
                 <p *ngIf="userSubscriptions.length === 0"> {{ 'MAIN.SUBSCRIBE.NO_ACTIVE_SUBSCRIPTIONS' | translate }}
@@ -55,11 +55,13 @@
           <mat-expansion-panel *ngFor="let groupSubscription of groupSubscriptions">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                {{ groupSubscription.groupName }}
+                <span class="truncate" style="max-width: 55%;">
+                  {{ groupSubscription.groupName }}
+                </span>
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <button (click)="selectGroup(groupSubscription.groupName)"
-              *ngIf="groupSubscription.subscriptions && groupSubscription?.subscriptions?.length! > 0"
+            <button (click)="viewGroupMessages(groupSubscription.groupName)"
+              *ngIf="groupSubscription.subscriptions && groupSubscription?.subscriptions?.length! > 0 && currentGroupName != groupSubscription.groupName"
               class="col-12 p-1 mb-1" mat-stroked-button color="primary">
               {{ 'BUTTONS.VIEW_THIS_GROUP' | translate}}</button>
             <button (click)="addChanelToGroup(groupSubscription.groupName!)" class="col-12 p-1 mb-1" mat-stroked-button
