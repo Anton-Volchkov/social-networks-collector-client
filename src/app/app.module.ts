@@ -12,8 +12,8 @@ import { AuthInterceptor } from './core/auth/interceptors/auth.interceptor';
 import { RouterModule } from '@angular/router';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import {GlobalHTTPErrorInterceptorService} from "./core/interceptors/global-http-error-interceptor.service";
-import {ToastrModule} from "ngx-toastr";
+import { GlobalHTTPErrorInterceptorService } from "./core/interceptors/global-http-error-interceptor.service";
+import { ToastrModule } from "ngx-toastr";
 
 @NgModule({
   declarations: [AppComponent],

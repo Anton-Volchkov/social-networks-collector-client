@@ -3,6 +3,11 @@
   right: 10px;
 }
 
+.group-delete {
+  position: absolute;
+  right: 50px;
+  bottom: 14px;
+}
 .chip-list {
   min-height: 5vh;
   max-height: 40vh !important;
@@ -19,8 +24,7 @@
   font-size: 25px;
 }
 
-
-.custom-group-list {
-  max-height: 75vh !important;
+.сustom-group-list {
+  max-height: 55vh !important;
   overflow: auto;
 }

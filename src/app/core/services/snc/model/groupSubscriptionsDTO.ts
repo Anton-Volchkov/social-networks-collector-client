@@ -12,6 +12,7 @@
 import { UserSubscriptionDTO } from './userSubscriptionDTO';
 
 export interface GroupSubscriptionsDTO { 
+    id?: number;
     groupName?: string;
     subscriptions?: Array<UserSubscriptionDTO>;
 }

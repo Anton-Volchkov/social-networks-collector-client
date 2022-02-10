@@ -6,14 +6,14 @@ import { MainRoutingModule } from "./main-routing.module";
 import { MainComponent } from "./components/main/main.component";
 import { MainBoardComponent } from './components/main-board/main-board.component';
 import { HeaderComponent } from "../shared/header/header.component";
-import { SubscribesComponent } from './components/subscribes/subscribes.component';
+import { SubscriptionsComponent } from './components/subscriptions/subscriptions.component';
 
 @NgModule({
   declarations: [
     MainComponent,
     MainBoardComponent,
     HeaderComponent,
-    SubscribesComponent
+    SubscriptionsComponent
   ],
   imports: [
     MainRoutingModule,

@@ -168,6 +168,64 @@ export class SubscriptionsGroupService {
     }
 
     /**
+     * Delete subscription from subscriptions group
+     * 
+     * @param groupName 
+     * @param subscriptionId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public deleteChannelFromSubscriptions(groupName?: string, subscriptionId?: number, observe?: 'body', reportProgress?: boolean): Observable<Response>;
+    public deleteChannelFromSubscriptions(groupName?: string, subscriptionId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
+    public deleteChannelFromSubscriptions(groupName?: string, subscriptionId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
+    public deleteChannelFromSubscriptions(groupName?: string, subscriptionId?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (groupName !== undefined && groupName !== null) {
+            queryParameters = queryParameters.set('groupName', <any>groupName);
+        }
+        if (subscriptionId !== undefined && subscriptionId !== null) {
+            queryParameters = queryParameters.set('subscriptionId', <any>subscriptionId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Response>('delete',`${this.basePath}/api/SubscriptionsGroup/delete-subscription-from-group-subscriptions`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Delete subscription group
      * 
      * @param id 
@@ -257,64 +315,6 @@ export class SubscriptionsGroupService {
 
         return this.httpClient.request<Array<GroupSubscriptionsDTO>>('get',`${this.basePath}/api/SubscriptionsGroup/group-subscriptions`,
             {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * Remove subscription from subscriptions group
-     * 
-     * @param groupName 
-     * @param subscriptionId 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public removeChannelFromSubscriptions(groupName?: string, subscriptionId?: number, observe?: 'body', reportProgress?: boolean): Observable<Response>;
-    public removeChannelFromSubscriptions(groupName?: string, subscriptionId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
-    public removeChannelFromSubscriptions(groupName?: string, subscriptionId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
-    public removeChannelFromSubscriptions(groupName?: string, subscriptionId?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (groupName !== undefined && groupName !== null) {
-            queryParameters = queryParameters.set('groupName', <any>groupName);
-        }
-        if (subscriptionId !== undefined && subscriptionId !== null) {
-            queryParameters = queryParameters.set('subscriptionId', <any>subscriptionId);
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (Bearer) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.request<Response>('delete',`${this.basePath}/api/SubscriptionsGroup/remove-subscription-from-group-subscriptions`,
-            {
-                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

@@ -30,7 +30,12 @@
     "CONFIRM": "Confirm"
   },
   "MODALS": {
+    "ADD_NEW_GROUP": {
+      "TITLE": "Enter group name",
+      "GROUP_NAME": "Group name"
+    },
     "CONFIRM": {
+      "DELETE_GROUP": "Do you really want to delete this group?",
       "UNSUBSCRIBE_FROM_GROUP": "Do you really want to unsubscribe this channel from this group?",
       "TITLE": "Confirm to continue",
       "UNSUBSCRIBE": "Do you really want to unsubscribe?"
@@ -40,5 +45,8 @@
     "BAD_REQUEST": "Bad request",
     "ERROR": "Error",
     "NOT_FOUND": "Not found"
+  },
+  "PLACEHOLDERS": {
+    "ENTER_VALUE": "Enter value"
   }
 }

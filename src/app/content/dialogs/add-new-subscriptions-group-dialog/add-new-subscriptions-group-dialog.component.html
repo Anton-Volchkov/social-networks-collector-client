@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>{{ 'MODALS.ADD_NEW_GROUP.TITLE' | translate }}</h2>
+<mat-dialog-content class="mat-typography row">
+  <form [formGroup]="detailsForm">
+    <mat-form-field class="col-12" [class.mat-form-field-invalid]="submitted && f.groupName?.errors?.required">
+      <input formControlName="groupName" matInput [placeholder]="'MODALS.ADD_NEW_GROUP.GROUP_NAME' | translate" required>
+      <mat-error *ngIf="submitted && f.groupName?.errors?.required">
+        {{ 'VALIDATION.ERRORS.FIELD_REQUIRED' | translate:{'fieldName':'MODALS.ADD_NEW_GROUP.GROUP_NAME' | translate} }}
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button (click)="save()" color="primary">{{ 'ACTIONS.CONFIRM' | translate }}</button>
+  <button mat-raised-button (click)="close()" color="warn">{{ 'ACTIONS.CLOSE' | translate }}</button>
+</mat-dialog-actions>

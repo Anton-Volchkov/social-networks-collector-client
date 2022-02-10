@@ -4,17 +4,18 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs';
+import { AddNewSubscriptionsGroupDialogComponent } from 'src/app/content/dialogs/add-new-subscriptions-group-dialog/add-new-subscriptions-group-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/content/dialogs/confirm-dialog/confirm-dialog.component';
 import { EntityDetailsComponent } from 'src/app/core/components/abstractions/entity-details.component';
 import { GroupSubscriptionsDTO, NetworkType, SubscriptionsGroupService, SubscriptionsService, UserSubscriptionDTO } from 'src/app/core/services/snc';
 
 
 @Component({
-  selector: 'app-subscribes',
-  templateUrl: './subscribes.component.html',
-  styleUrls: ['./subscribes.component.scss']
+  selector: 'app-subscriptions',
+  templateUrl: './subscriptions.component.html',
+  styleUrls: ['./subscriptions.component.scss']
 })
-export class SubscribesComponent extends EntityDetailsComponent implements OnInit {
+export class SubscriptionsComponent extends EntityDetailsComponent implements OnInit {
 
   @Output()
   public groupSelected: EventEmitter<string> = new EventEmitter<string>();
@@ -35,7 +36,7 @@ export class SubscribesComponent extends EntityDetailsComponent implements OnIni
 
   ngOnInit(): void {
     this.createForm();
-    this.loadChannels();
+    this.loadSubscriptions();
     this.isMobileDevice = this.isMobile();
   }
 
@@ -58,7 +59,7 @@ export class SubscribesComponent extends EntityDetailsComponent implements OnIni
         complete: () => {
           this.f.channelName.reset();
           this.resetSubmit();
-          this.loadChannels();
+          this.loadSubscriptions();
         }
       }
     )
@@ -76,7 +77,7 @@ export class SubscribesComponent extends EntityDetailsComponent implements OnIni
           if (!this.currentGroupName) {
             this.viewGroupMessages();
           }
-          this.loadChannels();
+          this.loadSubscriptions();
         });
       }
     });
@@ -93,7 +94,13 @@ export class SubscribesComponent extends EntityDetailsComponent implements OnIni
   }
 
   public addNewGroup() {
-    //TODO: Add new dialog
+    this.dialog.open(AddNewSubscriptionsGroupDialogComponent, {
+      disableClose: true,
+      autoFocus: false,
+      minWidth: "25vw"
+    }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+      this.loadSubscriptions();
+    });
   }
 
   public unsubscribeGroupChannel(groupName: string, subscription: UserSubscriptionDTO) {
@@ -104,8 +111,8 @@ export class SubscribesComponent extends EntityDetailsComponent implements OnIni
       data: { dialogTitle: this.translate.instant("MODALS.CONFIRM.TITLE"), confirmationText: this.translate.instant("MODALS.CONFIRM.UNSUBSCRIBE_FROM_GROUP") }
     }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(result => {
       if (result) {
-        this.subscriptionsGroupService.removeChannelFromSubscriptions(groupName, subscription.id).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-          this.loadChannels();
+        this.subscriptionsGroupService.deleteChannelFromSubscriptions(groupName, subscription.id).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+          this.loadSubscriptions();
           if (groupName === this.currentGroupName)
             this.viewGroupMessages(groupName);
         });
@@ -113,7 +120,7 @@ export class SubscribesComponent extends EntityDetailsComponent implements OnIni
     });
   }
 
-  private loadChannels() {
+  private loadSubscriptions() {
     this.subscriptionsService.subscriptions().pipe(takeUntil(this.unsubscribe)).subscribe(data => {
       this.userSubscriptions = data ?? [];
     });
@@ -121,6 +128,21 @@ export class SubscribesComponent extends EntityDetailsComponent implements OnIni
     this.subscriptionsGroupService.groupSubscriptions().pipe(takeUntil(this.unsubscribe)).subscribe(data => {
       this.groupSubscriptions = data ?? [];
     })
+  }
+
+  public removeGroup(groupName: number) {
+    this.dialog.open(ConfirmDialogComponent, {
+      disableClose: true,
+      autoFocus: false,
+      minWidth: "25vw",
+      data: { dialogTitle: this.translate.instant("MODALS.CONFIRM.TITLE"), confirmationText: this.translate.instant("MODALS.CONFIRM.DELETE_GROUP") }
+    }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(result => {
+      if (result) {
+        this.subscriptionsGroupService.deleteSubscriptionGroup(groupName).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+          this.loadSubscriptions();
+        });
+      }
+    });
   }
 
   private isMobile() {
