@@ -171,7 +171,7 @@ export class GlobalHTTPErrorInterceptorService implements HttpInterceptor {
   private getGenericErrorMessage(): ErrorMessage {
     return {
       title: this.translate.instant("MESSAGES.ERROR"),
-      message: `${this.translate.instant("MESSAGES.GENERIC_QUERY_ERROR")} ${this.translate.instant("MESSAGES.TRY_AGAIN")}`
+      message: this.translate.instant("MESSAGES.GENERIC_QUERY_ERROR") + " " + this.translate.instant("MESSAGES.TRY_AGAIN")
     };
   }
 
@@ -181,7 +181,7 @@ export class GlobalHTTPErrorInterceptorService implements HttpInterceptor {
       errors = [error.error];
       return errors.join();
     } else {
-      return `${this.translate.instant("MESSAGES.GENERIC_QUERY_ERROR")} ${this.translate.instant("MESSAGES.TRY_AGAIN")}`;
+      return this.translate.instant("MESSAGES.GENERIC_QUERY_ERROR") + " " + this.translate.instant("MESSAGES.TRY_AGAIN");
     }
   }
 

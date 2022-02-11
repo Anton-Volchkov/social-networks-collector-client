@@ -57,7 +57,11 @@
   "MESSAGES": {
     "BAD_REQUEST": "Bad request",
     "ERROR": "Error",
-    "NOT_FOUND": "Not found"
+    "NOT_FOUND": "Not found",
+    "GENERIC_QUERY_ERROR": "An error occurred while retrieving data.",
+    "TRY_AGAIN": "Please try again.",
+    "INVALID_OR_MISSING_DATA": "Your request contained invalid or missing data.",
+    "CORRECT_AND_RETRY": "Please correct any errors and try again."
   },
   "PLACEHOLDERS": {
     "ENTER_VALUE": "Enter value"
