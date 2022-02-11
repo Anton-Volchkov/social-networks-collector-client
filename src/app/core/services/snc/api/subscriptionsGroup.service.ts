@@ -64,12 +64,18 @@ export class SubscriptionsGroupService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addChannelToSubscriptionsGroup(groupName?: string, subscriptionId?: number, observe?: 'body', reportProgress?: boolean): Observable<Response>;
-    public addChannelToSubscriptionsGroup(groupName?: string, subscriptionId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
-    public addChannelToSubscriptionsGroup(groupName?: string, subscriptionId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
-    public addChannelToSubscriptionsGroup(groupName?: string, subscriptionId?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public addSubscriptionToSubscriptionsGroup(groupName: string, subscriptionId: number, observe?: 'body', reportProgress?: boolean): Observable<Response>;
+    public addSubscriptionToSubscriptionsGroup(groupName: string, subscriptionId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
+    public addSubscriptionToSubscriptionsGroup(groupName: string, subscriptionId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
+    public addSubscriptionToSubscriptionsGroup(groupName: string, subscriptionId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
+        if (groupName === null || groupName === undefined) {
+            throw new Error('Required parameter groupName was null or undefined when calling addSubscriptionToSubscriptionsGroup.');
+        }
 
+        if (subscriptionId === null || subscriptionId === undefined) {
+            throw new Error('Required parameter subscriptionId was null or undefined when calling addSubscriptionToSubscriptionsGroup.');
+        }
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (groupName !== undefined && groupName !== null) {
@@ -121,11 +127,14 @@ export class SubscriptionsGroupService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addSubscriptionsGroup(groupName?: string, observe?: 'body', reportProgress?: boolean): Observable<Response>;
-    public addSubscriptionsGroup(groupName?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
-    public addSubscriptionsGroup(groupName?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
-    public addSubscriptionsGroup(groupName?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public addSubscriptionsGroup(groupName: string, observe?: 'body', reportProgress?: boolean): Observable<Response>;
+    public addSubscriptionsGroup(groupName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
+    public addSubscriptionsGroup(groupName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
+    public addSubscriptionsGroup(groupName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
+        if (groupName === null || groupName === undefined) {
+            throw new Error('Required parameter groupName was null or undefined when calling addSubscriptionsGroup.');
+        }
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (groupName !== undefined && groupName !== null) {
@@ -175,12 +184,18 @@ export class SubscriptionsGroupService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteChannelFromSubscriptions(groupName?: string, subscriptionId?: number, observe?: 'body', reportProgress?: boolean): Observable<Response>;
-    public deleteChannelFromSubscriptions(groupName?: string, subscriptionId?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
-    public deleteChannelFromSubscriptions(groupName?: string, subscriptionId?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
-    public deleteChannelFromSubscriptions(groupName?: string, subscriptionId?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public deleteSubscriptionFromSubscriptionsGroup(groupName: string, subscriptionId: number, observe?: 'body', reportProgress?: boolean): Observable<Response>;
+    public deleteSubscriptionFromSubscriptionsGroup(groupName: string, subscriptionId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
+    public deleteSubscriptionFromSubscriptionsGroup(groupName: string, subscriptionId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
+    public deleteSubscriptionFromSubscriptionsGroup(groupName: string, subscriptionId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
+        if (groupName === null || groupName === undefined) {
+            throw new Error('Required parameter groupName was null or undefined when calling deleteSubscriptionFromSubscriptionsGroup.');
+        }
 
+        if (subscriptionId === null || subscriptionId === undefined) {
+            throw new Error('Required parameter subscriptionId was null or undefined when calling deleteSubscriptionFromSubscriptionsGroup.');
+        }
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (groupName !== undefined && groupName !== null) {
@@ -232,11 +247,14 @@ export class SubscriptionsGroupService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteSubscriptionGroup(id?: number, observe?: 'body', reportProgress?: boolean): Observable<Response>;
-    public deleteSubscriptionGroup(id?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
-    public deleteSubscriptionGroup(id?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
-    public deleteSubscriptionGroup(id?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public deleteSubscriptionGroup(id: number, observe?: 'body', reportProgress?: boolean): Observable<Response>;
+    public deleteSubscriptionGroup(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
+    public deleteSubscriptionGroup(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
+    public deleteSubscriptionGroup(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling deleteSubscriptionGroup.');
+        }
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (id !== undefined && id !== null) {
@@ -268,6 +286,62 @@ export class SubscriptionsGroupService {
         ];
 
         return this.httpClient.request<Response>('delete',`${this.basePath}/api/SubscriptionsGroup/delete-subscription-group`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Get valid group subscriptions
+     * 
+     * @param groupName 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getValidActiveSubscriptionsForGroup(groupName: string, observe?: 'body', reportProgress?: boolean): Observable<Array<GroupSubscriptionsDTO>>;
+    public getValidActiveSubscriptionsForGroup(groupName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<GroupSubscriptionsDTO>>>;
+    public getValidActiveSubscriptionsForGroup(groupName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<GroupSubscriptionsDTO>>>;
+    public getValidActiveSubscriptionsForGroup(groupName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (groupName === null || groupName === undefined) {
+            throw new Error('Required parameter groupName was null or undefined when calling getValidActiveSubscriptionsForGroup.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (groupName !== undefined && groupName !== null) {
+            queryParameters = queryParameters.set('groupName', <any>groupName);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<GroupSubscriptionsDTO>>('get',`${this.basePath}/api/SubscriptionsGroup/valid-group-subscriptions`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -331,12 +405,18 @@ export class SubscriptionsGroupService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateSubscriptionsGroup(groupId?: number, groupName?: string, observe?: 'body', reportProgress?: boolean): Observable<Response>;
-    public updateSubscriptionsGroup(groupId?: number, groupName?: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
-    public updateSubscriptionsGroup(groupId?: number, groupName?: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
-    public updateSubscriptionsGroup(groupId?: number, groupName?: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public updateSubscriptionsGroup(groupId: number, groupName: string, observe?: 'body', reportProgress?: boolean): Observable<Response>;
+    public updateSubscriptionsGroup(groupId: number, groupName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
+    public updateSubscriptionsGroup(groupId: number, groupName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
+    public updateSubscriptionsGroup(groupId: number, groupName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
+        if (groupId === null || groupId === undefined) {
+            throw new Error('Required parameter groupId was null or undefined when calling updateSubscriptionsGroup.');
+        }
 
+        if (groupName === null || groupName === undefined) {
+            throw new Error('Required parameter groupName was null or undefined when calling updateSubscriptionsGroup.');
+        }
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (groupId !== undefined && groupId !== null) {

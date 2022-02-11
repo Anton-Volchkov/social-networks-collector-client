@@ -23,7 +23,7 @@
         <button (click)="addNewGroup()" class="col-12 p-1" mat-stroked-button color="primary">
           <i class="fab fa-plus mb-1 me-2 plus-button"></i>
           {{ 'BUTTONS.ADD_NEW_GROUP' |translate }}</button>
-        <mat-accordion class="p-0 mt-2 сustom-group-list">
+        <mat-accordion class="mt-2 сustom-group-list">
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
@@ -66,8 +66,8 @@
               *ngIf="groupSubscription.subscriptions && groupSubscription?.subscriptions?.length! > 0 && currentGroupName != groupSubscription.groupName"
               class="col-12 p-1 mb-1" mat-stroked-button color="primary">
               {{ 'BUTTONS.VIEW_THIS_GROUP' | translate}}</button>
-            <button (click)="addChanelToGroup(groupSubscription.groupName!)" class="col-12 p-1 mb-1" mat-stroked-button
-              color="primary">
+            <button (click)="addSubscriptionToGroup(groupSubscription.groupName)" class="col-12 p-1 mb-1"
+              mat-stroked-button color="primary">
               <i class="fab fa-plus mb-1 me-2 plus-button"></i>
               {{ 'BUTTONS.ADD_SUBSCRIPTION' | translate}}</button>
             <div class="row chip-list">

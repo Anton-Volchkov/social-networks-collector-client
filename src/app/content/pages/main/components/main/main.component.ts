@@ -13,6 +13,8 @@ export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
   private readonly numberOfMessages = 20;
   private updateMessagesSubject = new Subject<string>();
 
+  private stopReceiveMessages: boolean = false;
+
   private count: number = 20;
   private offset: number = 0;
   public messages: NetworkMessage[] = [];
@@ -40,7 +42,7 @@ export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
     }
   }
 
-  private updateMessages(groupName: string = "") {
+  private updateMessages(groupName: string = null) {
     this.updateMessagesSubject.next(groupName);
   }
 
@@ -69,6 +71,10 @@ export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
           });
         });
 
+        if (newMessages.length === 0) {
+          this.stopReceiveMessages = true;
+        }
+
         this.messages = [...this.messages, ...newMessages];
 
       },
@@ -79,8 +85,9 @@ export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
     });
   }
 
-  public groupSelected(groupName: string = "") {
+  public groupSelected(groupName: string = null) {
     this.messages = [];
+    this.stopReceiveMessages = false;
 
     this.updateMessages(groupName);
   }

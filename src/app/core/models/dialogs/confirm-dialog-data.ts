@@ -1,4 +1,4 @@
 export class ConfirmDialogData {
-  public confirmationText: string = "";
-  public dialogTitle: string = "";
+  public confirmationText: string;
+  public dialogTitle: string;
 }

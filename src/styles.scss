@@ -37,7 +37,7 @@ $SNC-theme: mat.define-light-theme(
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/scss/bootstrap";
 @import "~@ng-select/ng-select/themes/material.theme.css";
-@import '~ngx-toastr/toastr';
+@import "~ngx-toastr/toastr";
 
 html,
 body {
@@ -56,6 +56,19 @@ footer {
   height: 20px;
 }
 
+ng-select.ng-invalid {
+  & .ng-arrow-wrapper > .ng-arrow {
+    color: red;
+  }
+
+  & .ng-select-container:after {
+    border-bottom: thin solid red;
+  }
+
+  & > div.ng-select-container > div.ng-value-container > div.ng-placeholder {
+    color: red;
+  }
+}
 .telegram-icon {
   color: rgb(76, 172, 204);
 }
@@ -156,10 +169,10 @@ footer {
 }
 .toast-message a,
 .toast-message label {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .toast-message a:hover {
-  color: #CCCCCC;
+  color: #cccccc;
   text-decoration: none;
 }
 .toast-close-button {
@@ -169,7 +182,7 @@ footer {
   float: right;
   font-size: 20px;
   font-weight: bold;
-  color: #FFFFFF;
+  color: #ffffff;
   text-shadow: 0 1px 0 #ffffff;
   /* opacity: 0.8; */
 }
@@ -208,7 +221,7 @@ button.toast-close-button {
   background-repeat: no-repeat;
   background-size: 24px;
   box-shadow: 0 0 12px #999999;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .toast-container .ngx-toastr:hover {
   box-shadow: 0 0 12px #000000;
@@ -248,16 +261,16 @@ button.toast-close-button {
   pointer-events: auto;
 }
 .toast-success {
-  background-color: #51A351;
+  background-color: #51a351;
 }
 .toast-error {
-  background-color: #BD362F;
+  background-color: #bd362f;
 }
 .toast-info {
-  background-color: #2F96B4;
+  background-color: #2f96b4;
 }
 .toast-warning {
-  background-color: #F89406;
+  background-color: #f89406;
 }
 .toast-progress {
   position: absolute;

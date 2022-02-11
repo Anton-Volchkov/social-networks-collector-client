@@ -65,9 +65,9 @@ export class SubscriptionsService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public subscribe(networkType: NetworkType, name: string, observe?: 'body', reportProgress?: boolean): Observable<Response>;
-    public subscribe(networkType: NetworkType, name: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
-    public subscribe(networkType: NetworkType, name: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
+    public subscribe(networkType: NetworkType, name: string, observe?: 'body', reportProgress?: boolean): Observable<number>;
+    public subscribe(networkType: NetworkType, name: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<number>>;
+    public subscribe(networkType: NetworkType, name: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<number>>;
     public subscribe(networkType: NetworkType, name: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (networkType === null || networkType === undefined) {
@@ -110,7 +110,7 @@ export class SubscriptionsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Response>('post',`${this.basePath}/api/Subscriptions/subscription`,
+        return this.httpClient.request<number>('post',`${this.basePath}/api/Subscriptions/subscription`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

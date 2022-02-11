@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>{{ 'MODALS.ADD_NEW_GROUP.TITLE' | translate }}</h2>
+<mat-dialog-content class="mat-typography row">
+
+  <form class="mt-2" [formGroup]="detailsForm">
+    <mat-radio-group formControlName="subscrriptionType" aria-label="Select an option">
+      <mat-radio-button [value]="subscrriptionType.ExistingSubscription">Existing subscription</mat-radio-button>
+      <mat-radio-button class="ms-2" [value]="subscrriptionType.NewSubscription">New subscription</mat-radio-button>
+    </mat-radio-group>
+    <ng-select [class.ng-invalid]="submitted && f.activeSubscription?.errors?.required"
+      *ngIf="isActiveSubscriptionsSelected()" [placeholder]="'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate"
+      bindLabel="displayChannelName" bindValue="id" formControlName="activeSubscription" class="col-12"
+      [items]="activeSubscriptions">
+    </ng-select>
+    <mat-error *ngIf="submitted && f.activeSubscription?.errors?.required">
+      {{ 'VALIDATION.ERRORS.FIELD_REQUIRED' | translate:{'fieldName':'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate} }}
+    </mat-error>
+
+    <ng-container *ngIf="!isActiveSubscriptionsSelected()">
+      <ng-select formControlName="networkType" class="col-12" [items]="networks" [clearable]="false">
+      </ng-select>
+      <mat-form-field [class.mat-form-field-invalid]="submitted && f.channelName?.errors" class="col-12">
+        <input formControlName="channelName" matInput [placeholder]="'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate"
+          required>
+        <mat-error *ngIf="submitted && f.channelName?.errors?.required">
+          {{ 'VALIDATION.ERRORS.FIELD_REQUIRED' | translate:{'fieldName':'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate} }}
+        </mat-error>
+      </mat-form-field>
+    </ng-container>
+
+    <button mat-raised-button class="col-12 mt-2" (click)="save()" color="primary"> {{ 'MAIN.SUBSCRIBE.SUBSCRIBE' |
+      translate }}</button>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button (click)="close()" color="warn">{{ 'ACTIONS.CLOSE' | translate }}</button>
+</mat-dialog-actions>
