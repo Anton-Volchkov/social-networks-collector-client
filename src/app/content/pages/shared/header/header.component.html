@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark  p-2">
+<nav class="navbar navbar-inverse navbar-fixed-top navbar-expand-lg navbar-dark bg-dark  p-2">
   <span class="navbar-brand">SNC</span>
   <button class="navbar-toggler btn btn-outline-primary" type="button" data-toggle="collapse"
     data-target="#navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation"
@@ -18,6 +18,12 @@
       </li>
       <li class="nav-item">
         <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <li>
+        <button (click)="logout()" class="btn btn-outline-success" type="submit">{{'BUTTONS.LOGOUT' | translate
+          }}</button>
       </li>
     </ul>
   </div>

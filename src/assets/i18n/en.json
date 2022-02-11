@@ -1,5 +1,7 @@
 {
   "BUTTONS": {
+    "LOGOUT": "Logout",
+    "LOGIN": "Login",
     "VIEW_ALL": "View all",
     "ADD_NEW_GROUP": "Add new group",
     "VIEW_THIS_GROUP": "View this group",
@@ -45,6 +47,7 @@
       "GROUP_NAME": "Group name"
     },
     "CONFIRM": {
+      "LOGOUT": "Do you really want to log out?",
       "DELETE_GROUP": "Do you really want to delete this group?",
       "UNSUBSCRIBE_FROM_GROUP": "Do you really want to unsubscribe this channel from this group?",
       "TITLE": "Confirm to continue",
