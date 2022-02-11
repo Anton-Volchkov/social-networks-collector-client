@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>{{ 'MODALS.ADD_NEW_GROUP.TITLE' | translate }}</h2>
 <mat-dialog-content class="mat-typography row">
   <form [formGroup]="detailsForm">
-    <mat-form-field class="col-12" [class.mat-form-field-invalid]="submitted && f.groupName?.errors?.required">
+    <mat-form-field class="col-12 mt-3" [class.mat-form-field-invalid]="submitted && f.groupName?.errors?.required">
       <input formControlName="groupName" matInput [placeholder]="'MODALS.ADD_NEW_GROUP.GROUP_NAME' | translate"
         required>
       <mat-error *ngIf="submitted && f.groupName?.errors?.required">

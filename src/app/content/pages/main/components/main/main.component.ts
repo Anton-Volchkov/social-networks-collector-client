@@ -1,6 +1,6 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { catchError, of, Subject, switchMap, takeUntil, throwError } from 'rxjs';
+import { catchError, EMPTY, Subject, switchMap, takeUntil } from 'rxjs';
 import { ComponentBase } from 'src/app/core/components/abstractions/component-base';
 import { LoaderService } from 'src/app/core/services/base/loader-service';
 import { MediaType, MessagesService, NetworkMessage, NetworkType } from 'src/app/core/services/snc';
@@ -52,6 +52,10 @@ export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
     this.updateMessagesSubject.asObservable().pipe(takeUntil(this.unsubscribe), switchMap((groupName) => {
       this.isUpdatingNow = true;
 
+      if (this.stopReceiveMessages) {
+        return EMPTY;
+      }
+
       return this.messagesService.getFiltered(
         this.count,
         this.offset,
@@ -93,6 +97,9 @@ export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
   }
 
   public groupSelected(groupName: string = null) {
+    this.count = this.numberOfMessages;
+    this.offset = 0;
+
     this.messages = [];
     this.stopReceiveMessages = false;
 

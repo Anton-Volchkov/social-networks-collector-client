@@ -18,18 +18,20 @@
         </mat-card-header>
 
         <mat-card-content class="card-content-wrapper">
-          <div class="fit-content row" *ngFor="let media of item.networkMedia">
-            <img class="photo" [src]="media.contentUrl" *ngIf="media.mediaType === 'Photo'" />
-            <iframe loading="lazy" class="video" controls [src]="media.contentUrl!"
-              *ngIf="(media.mediaType === 'Video' && item.networkType == 'VK')" webkitallowfullscreen mozallowfullscreen
-              allowfullscreen></iframe>
-            <video poster="../../../../../../assets/images/start-button.png"
-              *ngIf="(media.mediaType === 'Video' && item.networkType == 'Telegram')" class="video" controls="controls"
-              preload="none">
-              <source [src]="media.contentUrl!" type="video/mp4">
-              Sorry, your browser doesn't support embedded videos.
-            </video>
-          </div>
+          <ng-container *ngIf="item.networkMedia?.length > 0">
+            <div class="fit-content row col-12" *ngFor="let media of item.networkMedia">
+              <img class="photo" [src]="media.contentUrl" *ngIf="media.mediaType === 'Photo'" />
+              <iframe loading="lazy" class="video" controls [src]="media.contentUrl!"
+                *ngIf="(media.mediaType === 'Video' && item.networkType == 'VK')" webkitallowfullscreen
+                mozallowfullscreen allowfullscreen></iframe>
+              <video poster="../../../../../../assets/images/start-button.png"
+                *ngIf="(media.mediaType === 'Video' && item.networkType == 'Telegram')" class="video"
+                controls="controls" preload="none">
+                <source [src]="media.contentUrl!" type="video/mp4">
+                Sorry, your browser doesn't support embedded videos.
+              </video>
+            </div>
+          </ng-container>
           <p class="col-12 mt-2 custom-font">
             {{item.text}}
           </p>
