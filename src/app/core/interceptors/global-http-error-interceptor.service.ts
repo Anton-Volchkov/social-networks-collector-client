@@ -1,12 +1,13 @@
 import { throwError, Observable, EMPTY, interval } from "rxjs";
-import {forwardRef, Injectable, Injector} from "@angular/core";
+import { forwardRef, Injectable, Injector } from "@angular/core";
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from "@angular/common/http";
-import { catchError, filter, mergeMap, take } from "rxjs/operators";
+import { catchError, filter, finalize, mergeMap, take } from "rxjs/operators";
 import { TranslateService } from "@ngx-translate/core";
-import {ToastrService} from "ngx-toastr";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {MultipleErrorsDialog} from "../../content/dialogs/mupltiple-errors-dialog/multiple-errors-dialog.component";
-import {StatusCodes} from "http-status-codes";
+import { ToastrService } from "ngx-toastr";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { MultipleErrorsDialog } from "../../content/dialogs/mupltiple-errors-dialog/multiple-errors-dialog.component";
+import { StatusCodes } from "http-status-codes";
+import { LoaderService } from "../services/base/loader-service";
 
 interface ErrorMessage {
   title: string;
@@ -22,17 +23,23 @@ export interface ProblemDetails {
 
 @Injectable({ providedIn: "root" })
 export class GlobalHTTPErrorInterceptorService implements HttpInterceptor {
-  private toastr!: ToastrService;
-  private translate!: TranslateService;
+  private loaderService: LoaderService;
+  private requestNumber: number = 0;
+  private toastr: ToastrService;
+  private translate: TranslateService;
 
   constructor(private injector: Injector, private modalService: NgbModal) {
     setTimeout(() => {
       this.toastr = this.injector.get(ToastrService);
       this.translate = this.injector.get(TranslateService);
+      this.loaderService = this.injector.get(LoaderService);
     });
   }
 
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    this.showLoader();
+    this.requestNumber++;
+
     return next
       .handle(request)
       .pipe(
@@ -43,6 +50,17 @@ export class GlobalHTTPErrorInterceptorService implements HttpInterceptor {
 
           this.handleError(error);
           throw error;
+        }),
+        finalize(() => {
+          this.requestNumber--;
+
+          if (this.requestNumber < 0) {
+            this.requestNumber = 0;
+          }
+
+          if (this.requestNumber == 0) {
+            this.hideLoader();
+          }
         })
       );
   }
@@ -165,5 +183,12 @@ export class GlobalHTTPErrorInterceptorService implements HttpInterceptor {
     } else {
       return `${this.translate.instant("MESSAGES.GENERIC_QUERY_ERROR")} ${this.translate.instant("MESSAGES.TRY_AGAIN")}`;
     }
+  }
+
+  private showLoader(): void {
+    this.loaderService?.show();
+  }
+  private hideLoader(): void {
+    this.loaderService?.hide();
   }
 }

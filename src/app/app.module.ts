@@ -14,9 +14,10 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { GlobalHTTPErrorInterceptorService } from "./core/interceptors/global-http-error-interceptor.service";
 import { ToastrModule } from "ngx-toastr";
+import { LoaderComponent } from './content/base/loader/loader.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoaderComponent],
   imports: [
     ApiModule,
     HttpClientModule,
