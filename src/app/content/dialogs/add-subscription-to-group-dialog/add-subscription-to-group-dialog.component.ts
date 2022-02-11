@@ -12,10 +12,10 @@ export class AddSubscriptionToGroupDialogComponentData {
 
 export class AddSubscriptionToGroupDialogComponentResponse {
   public isClosed: boolean;
-  public subscrriptionType: SubscrriptionType;
+  public subscriptionType: SubscriptionType;
 }
 
-export enum SubscrriptionType {
+export enum SubscriptionType {
   ExistingSubscription = 0,
   NewSubscription = 1
 }
@@ -28,7 +28,7 @@ export enum SubscrriptionType {
 export class AddSubscriptionToGroupDialogComponent extends EntityDetailsComponent implements OnInit {
   public networks = Object.values(NetworkType);
   public activeSubscriptions: UserSubscriptionDTO[] = [];
-  public subscrriptionType: typeof SubscrriptionType = SubscrriptionType;
+  public subscriptionType: typeof SubscriptionType = SubscriptionType;
 
   constructor(public dialogRef: MatDialogRef<AddSubscriptionToGroupDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: AddSubscriptionToGroupDialogComponentData,
@@ -69,19 +69,19 @@ export class AddSubscriptionToGroupDialogComponent extends EntityDetailsComponen
   }
 
   public confirm() {
-    this.dialogRef.close({ isClosed: false, subscrriptionType: this.f?.subscrriptionType?.value });
+    this.dialogRef.close({ isClosed: false, subscriptionType: this.f?.subscriptionType?.value });
   }
 
   private createForm() {
     this.detailsForm = this.fb.group({
-      subscrriptionType: [SubscrriptionType.ExistingSubscription, Validators.required],
+      subscriptionType: [SubscriptionType.ExistingSubscription, Validators.required],
       activeSubscription: [null, Validators.required],
-      networkType: ["Telegram", Validators.required],
-      channelName: [null, Validators.required],
+      networkType: [{ disabled: true, value: "Telegram" }, Validators.required],
+      channelName: [{ disabled: true, value: null }, Validators.required],
     });
 
-    this.f.subscrriptionType.valueChanges.pipe(takeUntil(this.unsubscribe)).subscribe((data: SubscrriptionType) => {
-      if (data === SubscrriptionType.ExistingSubscription) {
+    this.f.subscriptionType.valueChanges.pipe(takeUntil(this.unsubscribe)).subscribe((data: SubscriptionType) => {
+      if (data === SubscriptionType.ExistingSubscription) {
         this.f.activeSubscription.enable();
 
         this.f.networkType.disable();
@@ -99,7 +99,7 @@ export class AddSubscriptionToGroupDialogComponent extends EntityDetailsComponen
   }
 
   public isActiveSubscriptionsSelected() {
-    return this.f?.subscrriptionType?.value === SubscrriptionType.ExistingSubscription;
+    return this.f?.subscriptionType?.value === SubscriptionType.ExistingSubscription;
   }
 
   private loadActiveSubscriptions() {

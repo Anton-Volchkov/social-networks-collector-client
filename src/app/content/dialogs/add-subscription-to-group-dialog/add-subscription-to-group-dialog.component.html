@@ -1,22 +1,31 @@
-<h2 mat-dialog-title>{{ 'MODALS.ADD_NEW_GROUP.TITLE' | translate }}</h2>
-<mat-dialog-content class="mat-typography row">
+<h2 mat-dialog-title>{{ 'MODALS.PLEASE_MAKE_A_CHOISE' | translate }}</h2>
+<mat-dialog-content class="mat-typography row" style="min-height: 14vh;">
 
-  <form class="mt-2" [formGroup]="detailsForm">
-    <mat-radio-group formControlName="subscrriptionType" aria-label="Select an option">
-      <mat-radio-button [value]="subscrriptionType.ExistingSubscription">Existing subscription</mat-radio-button>
-      <mat-radio-button class="ms-2" [value]="subscrriptionType.NewSubscription">New subscription</mat-radio-button>
+  <form class="mt-3" [formGroup]="detailsForm">
+    <mat-radio-group formControlName="subscriptionType" aria-label="Select an option">
+      <mat-radio-button color="primary" [value]="subscriptionType.ExistingSubscription">{{
+        'MODALS.ADD_SUBSCRIPTION_TO_GROUP.EXISTING_SUBSCRIPTION' | translate }}</mat-radio-button>
+      <mat-radio-button color="primary" class="ms-md-3 ms-md-3 mt-md-0 mt-2" [value]="subscriptionType.NewSubscription">{{
+        'MODALS.ADD_SUBSCRIPTION_TO_GROUP.NEW_SUBSCRIPTION' | translate }}</mat-radio-button>
     </mat-radio-group>
-    <ng-select [class.ng-invalid]="submitted && f.activeSubscription?.errors?.required"
-      *ngIf="isActiveSubscriptionsSelected()" [placeholder]="'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate"
-      bindLabel="displayChannelName" bindValue="id" formControlName="activeSubscription" class="col-12"
-      [items]="activeSubscriptions">
+    <ng-select appendTo="body" [class.ng-invalid]="submitted && f.activeSubscription?.errors?.required"
+      *ngIf="isActiveSubscriptionsSelected()" [placeholder]="'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate" bindValue="id"
+      formControlName="activeSubscription" class="col-12 pb-0" [items]="activeSubscriptions">
+
+      <ng-template ng-option-tmp ng-label-tmp let-item="item">
+        <span style="max-width: 80%;" class="truncate">
+          {{ item.displayChannelName }}
+        </span>
+        <i class="fab fa-telegram telegram-icon ms-1" aria-hidden="true" *ngIf="item.networkType == 'Telegram'"></i>
+        <i class="fab fa-vk vk-icon ms-1" aria-hidden="true" *ngIf="item.networkType == 'VK'"></i>
+      </ng-template>
     </ng-select>
     <mat-error *ngIf="submitted && f.activeSubscription?.errors?.required">
       {{ 'VALIDATION.ERRORS.FIELD_REQUIRED' | translate:{'fieldName':'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate} }}
     </mat-error>
-
     <ng-container *ngIf="!isActiveSubscriptionsSelected()">
-      <ng-select formControlName="networkType" class="col-12" [items]="networks" [clearable]="false">
+      <ng-select appendTo="body" formControlName="networkType" class="col-12 pb-0" [items]="networks"
+        [clearable]="false">
       </ng-select>
       <mat-form-field [class.mat-form-field-invalid]="submitted && f.channelName?.errors" class="col-12">
         <input formControlName="channelName" matInput [placeholder]="'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate"
@@ -26,11 +35,10 @@
         </mat-error>
       </mat-form-field>
     </ng-container>
-
-    <button mat-raised-button class="col-12 mt-2" (click)="save()" color="primary"> {{ 'MAIN.SUBSCRIBE.SUBSCRIBE' |
-      translate }}</button>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
+  <button mat-raised-button (click)="save()" color="primary"> {{ 'MAIN.SUBSCRIBE.SUBSCRIBE' |
+    translate }}</button>
   <button mat-raised-button (click)="close()" color="warn">{{ 'ACTIONS.CLOSE' | translate }}</button>
 </mat-dialog-actions>

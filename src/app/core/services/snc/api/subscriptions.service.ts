@@ -169,30 +169,22 @@ export class SubscriptionsService {
     /**
      * Unsubscribe from the channel
      * 
-     * @param networkType 
-     * @param name 
+     * @param id 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public unsubscribe(networkType: NetworkType, name: string, observe?: 'body', reportProgress?: boolean): Observable<Response>;
-    public unsubscribe(networkType: NetworkType, name: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
-    public unsubscribe(networkType: NetworkType, name: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
-    public unsubscribe(networkType: NetworkType, name: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public unsubscribe(id: number, observe?: 'body', reportProgress?: boolean): Observable<Response>;
+    public unsubscribe(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
+    public unsubscribe(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
+    public unsubscribe(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (networkType === null || networkType === undefined) {
-            throw new Error('Required parameter networkType was null or undefined when calling unsubscribe.');
-        }
-
-        if (name === null || name === undefined) {
-            throw new Error('Required parameter name was null or undefined when calling unsubscribe.');
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling unsubscribe.');
         }
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (networkType !== undefined && networkType !== null) {
-            queryParameters = queryParameters.set('networkType', <any>networkType);
-        }
-        if (name !== undefined && name !== null) {
-            queryParameters = queryParameters.set('name', <any>name);
+        if (id !== undefined && id !== null) {
+            queryParameters = queryParameters.set('id', <any>id);
         }
 
         let headers = this.defaultHeaders;

@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>{{ 'MODALS.PLEASE_MAKE_A_CHOISE' | translate }}</h2>
+<mat-dialog-content class="mat-typography row">
+  <form class="mt-3" [formGroup]="detailsForm">
+    <mat-radio-group formControlName="unsubscriptionType" aria-label="Select an option">
+      <mat-radio-button color="primary" [value]="unsubscriptionType.OnlyGroup">{{
+        'MODALS.UNSUBSCRIBE_FROM_GROUP.ONLY_GROUP' | translate }}</mat-radio-button>
+      <mat-radio-button color="primary" class="ms-md-3 ms-md-3 mt-md-0 mt-2 mb-3" [value]="unsubscriptionType.Global">{{
+        'MODALS.UNSUBSCRIBE_FROM_GROUP.GLOBAL' | translate }}</mat-radio-button>
+    </mat-radio-group>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button (click)="save()" color="primary">{{ 'ACTIONS.CONFIRM' | translate }}</button>
+  <button mat-raised-button (click)="close()" color="warn">{{ 'ACTIONS.CLOSE' | translate }}</button>
+</mat-dialog-actions>

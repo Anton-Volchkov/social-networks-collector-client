@@ -5,8 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs';
 import { AddNewSubscriptionsGroupDialogComponent } from 'src/app/content/dialogs/add-new-subscriptions-group-dialog/add-new-subscriptions-group-dialog.component';
-import { AddSubscriptionToGroupDialogComponent, SubscrriptionType } from 'src/app/content/dialogs/add-subscription-to-group-dialog/add-subscription-to-group-dialog.component';
+import { AddSubscriptionToGroupDialogComponent, SubscriptionType } from 'src/app/content/dialogs/add-subscription-to-group-dialog/add-subscription-to-group-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/content/dialogs/confirm-dialog/confirm-dialog.component';
+import { ConfirmUnsubscribeFromGroupDialogComponent, ConfirmUnsubscribeFromGroupDialogComponentResponse, UnsubscriptionType } from 'src/app/content/dialogs/confirm-unsubscribe-from-group-dialog/confirm-unsubscribe-from-group-dialog.component';
 import { EntityDetailsComponent } from 'src/app/core/components/abstractions/entity-details.component';
 import { GroupSubscriptionsDTO, NetworkType, SubscriptionsGroupService, SubscriptionsService, UserSubscriptionDTO } from 'src/app/core/services/snc';
 
@@ -74,7 +75,7 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
       data: { dialogTitle: this.translate.instant("MODALS.CONFIRM.TITLE"), confirmationText: this.translate.instant("MODALS.CONFIRM.UNSUBSCRIBE") }
     }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(result => {
       if (result) {
-        this.subscriptionsService.unsubscribe(subscription.networkType!, subscription.channelName!).pipe(takeUntil(this.unsubscribe)).subscribe(response => {
+        this.subscriptionsService.unsubscribe(subscription.id).pipe(takeUntil(this.unsubscribe)).subscribe(response => {
           if (!this.currentGroupName) {
             this.viewGroupMessages();
           }
@@ -93,6 +94,7 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
   public addSubscriptionToGroup(groupName: string) {
     this.dialog.open(AddSubscriptionToGroupDialogComponent,
       {
+        height: 'auto',
         disableClose: true,
         autoFocus: false,
         minWidth: "25vw",
@@ -101,13 +103,18 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
         }
       }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(result => {
         if (!result.isClosed) {
+
           this.loadSubscriptions();
 
-          if (result.subscrriptionType === SubscrriptionType.ExistingSubscription && !this.currentGroupName)
+          if (result.subscriptionType === SubscriptionType.NewSubscription && !this.currentGroupName) {
             this.viewGroupMessages();
 
-          if (groupName === this.currentGroupName)
-            this.viewGroupMessages(groupName);
+          }
+          else {
+            if (groupName === this.currentGroupName)
+              this.viewGroupMessages(groupName);
+          }
+
         }
       });
   }
@@ -123,18 +130,25 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
   }
 
   public unsubscribeGroupChannel(groupName: string, subscription: UserSubscriptionDTO) {
-    this.dialog.open(ConfirmDialogComponent, {
+    this.dialog.open(ConfirmUnsubscribeFromGroupDialogComponent, {
       disableClose: true,
       autoFocus: false,
       minWidth: "25vw",
-      data: { dialogTitle: this.translate.instant("MODALS.CONFIRM.TITLE"), confirmationText: this.translate.instant("MODALS.CONFIRM.UNSUBSCRIBE_FROM_GROUP") }
-    }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(result => {
-      if (result) {
-        this.subscriptionsGroupService.deleteSubscriptionFromSubscriptionsGroup(groupName, subscription.id).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-          this.loadSubscriptions();
-          if (groupName === this.currentGroupName)
-            this.viewGroupMessages(groupName);
-        });
+      data: { groupName, subscriptionId: subscription.id }
+    }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe((result: ConfirmUnsubscribeFromGroupDialogComponentResponse) => {
+      if (!result.isClosed) {
+
+        if (result.unsubscriptionType == UnsubscriptionType.Global) {
+          if (!this.currentGroupName) {
+            this.viewGroupMessages();
+          }
+        }
+        else {
+          if (groupName == this.currentGroupName) {
+            this.viewGroupMessages(this.currentGroupName);
+          }
+        }
+        this.loadSubscriptions();
       }
     });
   }

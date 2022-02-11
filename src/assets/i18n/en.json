@@ -30,6 +30,15 @@
     "CONFIRM": "Confirm"
   },
   "MODALS": {
+    "UNSUBSCRIBE_FROM_GROUP": {
+      "GLOBAL": "Unsubscribe globally",
+      "ONLY_GROUP": "Unsubscribe only from the group"
+    },
+    "ADD_SUBSCRIPTION_TO_GROUP": {
+      "EXISTING_SUBSCRIPTION": "Existing subscription",
+      "NEW_SUBSCRIPTION": "New subscription"
+    },
+    "PLEASE_MAKE_A_CHOISE": "Please make a choise",
     "ADD_NEW_GROUP": {
       "TITLE": "Enter group name",
       "GROUP_NAME": "Group name"

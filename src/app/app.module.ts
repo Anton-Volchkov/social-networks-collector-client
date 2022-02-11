@@ -14,10 +14,9 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { GlobalHTTPErrorInterceptorService } from "./core/interceptors/global-http-error-interceptor.service";
 import { ToastrModule } from "ngx-toastr";
-import { AddSubscriptionToGroupDialogComponent } from './content/dialogs/add-subscription-to-group-dialog/add-subscription-to-group-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, AddSubscriptionToGroupDialogComponent],
+  declarations: [AppComponent],
   imports: [
     ApiModule,
     HttpClientModule,
