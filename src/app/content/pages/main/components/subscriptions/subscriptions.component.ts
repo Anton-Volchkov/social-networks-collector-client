@@ -129,6 +129,10 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
     });
   }
 
+  public refresh() {
+    this.viewGroupMessages(this.currentGroupName);
+  }
+
   public unsubscribeGroupChannel(groupName: string, subscription: UserSubscriptionDTO) {
     this.dialog.open(ConfirmUnsubscribeFromGroupDialogComponent, {
       disableClose: true,

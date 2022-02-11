@@ -3,7 +3,8 @@
     "VIEW_ALL": "View all",
     "ADD_NEW_GROUP": "Add new group",
     "VIEW_THIS_GROUP": "View this group",
-    "ADD_SUBSCRIPTION": "Add subscription"
+    "ADD_SUBSCRIPTION": "Add subscription",
+    "REFRESH_MESSAGES": "Refresh messages"
   },
   "LOGIN": {
     "LOGIN_TITLE": "Log In",
