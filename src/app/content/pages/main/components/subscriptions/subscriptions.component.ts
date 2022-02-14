@@ -175,7 +175,7 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
     })
   }
 
-  public removeGroup(groupName: number) {
+  public deleteGroup(group: GroupSubscriptionsDTO) {
     this.dialog.open(ConfirmDialogComponent, {
       disableClose: true,
       autoFocus: false,
@@ -183,7 +183,12 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
       data: { dialogTitle: this.translate.instant("MODALS.CONFIRM.TITLE"), confirmationText: this.translate.instant("MODALS.CONFIRM.DELETE_GROUP") }
     }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(result => {
       if (result) {
-        this.subscriptionsGroupService.deleteSubscriptionGroup(groupName).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+        this.subscriptionsGroupService.deleteSubscriptionGroup(group.id).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+          if(this.currentGroupName == group.groupName)
+          {
+            this.currentGroupName = null;
+          }
+
           this.loadSubscriptions();
         });
       }

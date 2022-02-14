@@ -34,7 +34,7 @@
             <button (click)="viewGroupMessages()" *ngIf="userSubscriptions.length > 0 && currentGroupName"
               class="col-12 p-1 mb-1 mt-1" mat-stroked-button color="primary">
               {{ 'BUTTONS.VIEW_ALL' | translate}}</button>
-            <button (click)="resetDefaultSubscriptionGroup()" *ngIf="defaultGroupName" class="col-12 p-1 mb-1"
+            <button (click)="resetDefaultSubscriptionGroup()" *ngIf="defaultGroupName" class="col-12 p-1 mb-1 mt-1"
               mat-stroked-button color="primary">
               {{ 'BUTTONS.SET_THIS_GROUP_AS_DEFAULT' | translate}}</button>
             <div class="row chip-list">
@@ -62,7 +62,7 @@
                   {{ groupSubscription.groupName }}
                 </span>
                 <i class="fa fa-close group-delete" style="font-size:15px"
-                  (click)="$event.stopPropagation(); $event.preventDefault(); removeGroup(groupSubscription.id!);"></i>
+                  (click)="$event.stopPropagation(); $event.preventDefault(); deleteGroup(groupSubscription);"></i>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <button (click)="viewGroupMessages(groupSubscription.groupName)"
