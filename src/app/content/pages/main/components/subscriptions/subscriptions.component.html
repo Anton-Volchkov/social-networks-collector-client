@@ -62,7 +62,7 @@
                   {{ groupSubscription.groupName }}
                 </span>
                 <i class="fa fa-close group-delete" style="font-size:15px"
-                  (click)="$event.stopPropagation(); $event.preventDefault(); removeGroup(groupSubscription.id!);"></i>
+                  (click)="$event.stopPropagation(); $event.preventDefault(); deleteGroup(groupSubscription);"></i>
               </mat-panel-title>
             </mat-expansion-panel-header>
             <button (click)="viewGroupMessages(groupSubscription.groupName)"
