@@ -25,14 +25,18 @@
           {{ 'BUTTONS.ADD_NEW_GROUP' |translate }}</button>
         <mat-accordion class="mt-2 сustom-group-list">
           <mat-expansion-panel>
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header [class.current-group]="!currentGroupName"
+              [class.default-group]="!defaultGroupName">
               <mat-panel-title>
                 {{ 'MAIN.SUBSCRIBE.ALL_SUBSCRIPTIONS' | translate }}
               </mat-panel-title>
             </mat-expansion-panel-header>
             <button (click)="viewGroupMessages()" *ngIf="userSubscriptions.length > 0 && currentGroupName"
-              class="col-12 p-1 mb-1" mat-stroked-button color="primary">
+              class="col-12 p-1 mb-1 mt-1" mat-stroked-button color="primary">
               {{ 'BUTTONS.VIEW_ALL' | translate}}</button>
+            <button (click)="resetDefaultSubscriptionGroup()" *ngIf="defaultGroupName" class="col-12 p-1 mb-1"
+              mat-stroked-button color="primary">
+              {{ 'BUTTONS.SET_THIS_GROUP_AS_DEFAULT' | translate}}</button>
             <div class="row chip-list">
               <mat-chip-list>
                 <p *ngIf="userSubscriptions.length === 0"> {{ 'MAIN.SUBSCRIBE.NO_ACTIVE_SUBSCRIPTIONS' | translate }}
@@ -53,7 +57,8 @@
             </div>
           </mat-expansion-panel>
           <mat-expansion-panel *ngFor="let groupSubscription of groupSubscriptions">
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header [class.current-group]="groupSubscription.groupName === currentGroupName"
+              [class.default-group]="groupSubscription.groupName === defaultGroupName">
               <mat-panel-title>
                 <span class="truncate" style="max-width: 77%;">
                   {{ groupSubscription.groupName }}
@@ -64,9 +69,13 @@
             </mat-expansion-panel-header>
             <button (click)="viewGroupMessages(groupSubscription.groupName)"
               *ngIf="groupSubscription.subscriptions && groupSubscription?.subscriptions?.length! > 0 && currentGroupName != groupSubscription.groupName"
-              class="col-12 p-1 mb-1" mat-stroked-button color="primary">
+              class="col-12 p-1 mt-1 mb-1" mat-stroked-button color="primary">
               {{ 'BUTTONS.VIEW_THIS_GROUP' | translate}}</button>
-            <button (click)="addSubscriptionToGroup(groupSubscription.groupName)" class="col-12 p-1 mb-1"
+            <button (click)="setSubscriptionGroupAsDefault(groupSubscription)"
+              *ngIf="groupSubscription.groupName !== defaultGroupName" class="col-12 p-1 mt-1 mb-1" mat-stroked-button
+              color="primary">
+              {{ 'BUTTONS.SET_THIS_GROUP_AS_DEFAULT' | translate}}</button>
+            <button (click)="addSubscriptionToGroup(groupSubscription.groupName)" class="col-12 mt-1 p-1 mb-1"
               mat-stroked-button color="primary">
               <i class="fab fa-plus mb-1 me-2 plus-button"></i>
               {{ 'BUTTONS.ADD_SUBSCRIPTION' | translate}}</button>

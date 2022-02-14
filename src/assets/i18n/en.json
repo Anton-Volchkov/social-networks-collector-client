@@ -6,7 +6,8 @@
     "ADD_NEW_GROUP": "Add new group",
     "VIEW_THIS_GROUP": "View this group",
     "ADD_SUBSCRIPTION": "Add subscription",
-    "REFRESH_MESSAGES": "Refresh messages"
+    "REFRESH_MESSAGES": "Refresh messages",
+    "SET_THIS_GROUP_AS_DEFAULT": "Set this group as default"
   },
   "LOGIN": {
     "LOGIN_TITLE": "Log In",

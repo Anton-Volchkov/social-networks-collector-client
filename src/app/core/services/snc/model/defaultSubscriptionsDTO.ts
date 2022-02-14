@@ -10,10 +10,7 @@
  * Do not edit the class manually.
  */
 
-export type NetworkType = 'Telegram' | 'VK' | 'Twitter';
-
-export const NetworkType = {
-    Telegram: 'Telegram' as NetworkType,
-    VK: 'VK' as NetworkType,
-    Twitter: 'Twitter' as NetworkType
-};
+export interface DefaultSubscriptionsDTO { 
+    isUserHasDefaultGroup?: boolean;
+    groupName?: string;
+}

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -9,6 +9,7 @@ import { AddSubscriptionToGroupDialogComponent, SubscriptionType } from 'src/app
 import { ConfirmDialogComponent } from 'src/app/content/dialogs/confirm-dialog/confirm-dialog.component';
 import { ConfirmUnsubscribeFromGroupDialogComponent, ConfirmUnsubscribeFromGroupDialogComponentResponse, UnsubscriptionType } from 'src/app/content/dialogs/confirm-unsubscribe-from-group-dialog/confirm-unsubscribe-from-group-dialog.component';
 import { EntityDetailsComponent } from 'src/app/core/components/abstractions/entity-details.component';
+import { CurrentGroupService } from 'src/app/core/services/current-group/current-group.service';
 import { GroupSubscriptionsDTO, NetworkType, SubscriptionsGroupService, SubscriptionsService, UserSubscriptionDTO } from 'src/app/core/services/snc';
 
 
@@ -22,6 +23,9 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
   @Output()
   public groupSelected: EventEmitter<string> = new EventEmitter<string>();
 
+  @Input()
+  public defaultGroupName: string = null;
+
   public networks = Object.values(NetworkType);
   public userSubscriptions: UserSubscriptionDTO[] = [];
   public groupSubscriptions: GroupSubscriptionsDTO[] = [];
@@ -29,6 +33,7 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
   public currentGroupName: string = null;
 
   constructor(route: ActivatedRoute, fb: FormBuilder,
+    private currentGroupService: CurrentGroupService,
     private subscriptionsGroupService: SubscriptionsGroupService,
     private subscriptionsService: SubscriptionsService,
     private dialog: MatDialog,
@@ -40,6 +45,9 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
     this.createForm();
     this.loadSubscriptions();
     this.isMobileDevice = this.isMobile();
+    this.currentGroupService.observeCurrentGroupChanged().pipe(takeUntil(this.unsubscribe)).subscribe(data => {
+      this.currentGroupName = data;
+    });
   }
 
   private createForm() {
@@ -143,7 +151,7 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
       if (!result.isClosed) {
 
         if (result.unsubscriptionType == UnsubscriptionType.Global) {
-          if (!this.currentGroupName) {
+          if (!this.currentGroupName || groupName == this.currentGroupName) {
             this.viewGroupMessages();
           }
         }
@@ -179,6 +187,18 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
           this.loadSubscriptions();
         });
       }
+    });
+  }
+
+  public resetDefaultSubscriptionGroup() {
+    this.subscriptionsGroupService.resetDefaultSubscriptionGroup().pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+      this.defaultGroupName = null;
+    });
+  }
+
+  public setSubscriptionGroupAsDefault(group: GroupSubscriptionsDTO) {
+    this.subscriptionsGroupService.setDefaultSubscriptionGroup(group.id).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+      this.defaultGroupName = group.groupName;
     });
   }
 

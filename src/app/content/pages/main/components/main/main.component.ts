@@ -3,7 +3,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { catchError, EMPTY, Subject, switchMap, takeUntil } from 'rxjs';
 import { ComponentBase } from 'src/app/core/components/abstractions/component-base';
 import { LoaderService } from 'src/app/core/services/base/loader-service';
-import { MediaType, MessagesService, NetworkMessage, NetworkType } from 'src/app/core/services/snc';
+import { CurrentGroupService } from 'src/app/core/services/current-group/current-group.service';
+import { MediaType, MessagesService, NetworkMessage, NetworkType, SubscriptionsGroupService } from 'src/app/core/services/snc';
 
 @Component({
   selector: 'app-main',
@@ -15,18 +16,28 @@ export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
   private updateMessagesSubject = new Subject<string>();
   private isUpdatingNow: boolean = false;
   private stopReceiveMessages: boolean = false;
+  public defaultGroupName: string = null;
 
   private count: number = 20;
   private offset: number = 0;
   public messages: NetworkMessage[] = [];
 
-  constructor(private messagesService: MessagesService, private sanitazer: DomSanitizer, private loaderService: LoaderService) {
+  constructor(private currentGroupService: CurrentGroupService, private subscriptionsGroupService: SubscriptionsGroupService, private messagesService: MessagesService, private sanitazer: DomSanitizer, private loaderService: LoaderService) {
     super();
   }
 
   ngOnInit(): void {
     this.initMessageLoader();
-    this.updateMessages();
+    this.subscriptionsGroupService.getUserDefaultSubscriptionGroup().pipe(takeUntil(this.unsubscribe)).subscribe(result => {
+      if (result.isUserHasDefaultGroup) {
+        this.defaultGroupName = result.groupName;
+        this.updateMessages(result.groupName);
+        this.currentGroupService.notifyCurrentGroupChanged(result.groupName);
+      }
+      else
+        this.updateMessages();
+    });
+
   }
 
   public override ngOnDestroy(): void {

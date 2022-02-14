@@ -1,4 +1,5 @@
 export * from './addUserDTO';
+export * from './defaultSubscriptionsDTO';
 export * from './groupSubscriptionsDTO';
 export * from './loginDTO';
 export * from './mediaType';

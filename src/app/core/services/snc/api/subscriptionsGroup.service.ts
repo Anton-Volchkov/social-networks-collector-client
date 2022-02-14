@@ -17,6 +17,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
+import { DefaultSubscriptionsDTO } from '../model/defaultSubscriptionsDTO';
 import { GroupSubscriptionsDTO } from '../model/groupSubscriptionsDTO';
 import { Response } from '../model/response';
 
@@ -297,6 +298,51 @@ export class SubscriptionsGroupService {
     }
 
     /**
+     * Get user default subscription group
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getUserDefaultSubscriptionGroup(observe?: 'body', reportProgress?: boolean): Observable<DefaultSubscriptionsDTO>;
+    public getUserDefaultSubscriptionGroup(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<DefaultSubscriptionsDTO>>;
+    public getUserDefaultSubscriptionGroup(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<DefaultSubscriptionsDTO>>;
+    public getUserDefaultSubscriptionGroup(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<DefaultSubscriptionsDTO>('get',`${this.basePath}/api/SubscriptionsGroup/default-group`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * Get valid group subscriptions
      * 
      * @param groupName 
@@ -389,6 +435,107 @@ export class SubscriptionsGroupService {
 
         return this.httpClient.request<Array<GroupSubscriptionsDTO>>('get',`${this.basePath}/api/SubscriptionsGroup/group-subscriptions`,
             {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Reset default subscription group
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public resetDefaultSubscriptionGroup(observe?: 'body', reportProgress?: boolean): Observable<Response>;
+    public resetDefaultSubscriptionGroup(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
+    public resetDefaultSubscriptionGroup(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
+    public resetDefaultSubscriptionGroup(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Response>('post',`${this.basePath}/api/SubscriptionsGroup/reset-default-group`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Set default subscription group
+     * 
+     * @param groupId 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public setDefaultSubscriptionGroup(groupId: number, observe?: 'body', reportProgress?: boolean): Observable<Response>;
+    public setDefaultSubscriptionGroup(groupId: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
+    public setDefaultSubscriptionGroup(groupId: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
+    public setDefaultSubscriptionGroup(groupId: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (groupId === null || groupId === undefined) {
+            throw new Error('Required parameter groupId was null or undefined when calling setDefaultSubscriptionGroup.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (groupId !== undefined && groupId !== null) {
+            queryParameters = queryParameters.set('groupId', <any>groupId);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Response>('post',`${this.basePath}/api/SubscriptionsGroup/set-default-group`,
+            {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
