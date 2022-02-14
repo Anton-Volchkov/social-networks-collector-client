@@ -32,7 +32,6 @@ export class NetworkIconsDirective implements AfterViewInit {
     }
 
     classes.forEach(element => {
-      debugger
       this.renderer.addClass(this.el.nativeElement, element);
     });
   }
