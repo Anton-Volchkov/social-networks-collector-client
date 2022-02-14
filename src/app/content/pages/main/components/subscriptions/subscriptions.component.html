@@ -46,9 +46,7 @@
                   <span class="truncate" style="max-width: 80%;">
                     {{subscriptions.displayChannelName}}
                   </span>
-                  <i class="fab fa-telegram telegram-icon ms-1" aria-hidden="true"
-                    *ngIf="subscriptions.networkType == 'Telegram'"></i>
-                  <i class="fab fa-vk vk-icon ms-1" aria-hidden="true" *ngIf="subscriptions.networkType == 'VK'"></i>
+                  <i class="ms-1" networsItems [networkType]="subscriptions.networkType" aria-hidden="true"></i>
                   <button class="chip-close" matChipRemove>
                     <mat-icon>cancel</mat-icon>
                   </button>
@@ -89,9 +87,7 @@
                   <span class="truncate" style="max-width: 80%;">
                     {{subscriptions.displayChannelName}}
                   </span>
-                  <i class="fab fa-telegram telegram-icon ms-1" aria-hidden="true"
-                    *ngIf="subscriptions.networkType == 'Telegram'"></i>
-                  <i class="fab fa-vk vk-icon ms-1" aria-hidden="true" *ngIf="subscriptions.networkType == 'VK'"></i>
+                  <i class="ms-1" networsItems [networkType]="subscriptions.networkType" aria-hidden="true"></i>
                   <button class="chip-close" matChipRemove>
                     <mat-icon>cancel</mat-icon>
                   </button>

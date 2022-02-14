@@ -8,9 +8,10 @@ import { RouterModule } from "@angular/router";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateModule } from "@ngx-translate/core";
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NetworkIconsDirective } from "src/app/core/directives/networks-icons.directive";
 
 @NgModule({
-  declarations: [],
+  declarations: [NetworkIconsDirective],
   imports: [
     NgbModule,
     NgSelectModule,
@@ -22,6 +23,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     TranslateModule
   ],
   exports: [
+    NetworkIconsDirective,
     NgbModule,
     NgSelectModule,
     MaterialModule,

@@ -19,8 +19,7 @@
           <span style="max-width: 80%;" class="truncate">
             {{ item.displayChannelName }}
           </span>
-          <i class="fab fa-telegram telegram-icon ms-1" aria-hidden="true" *ngIf="item.networkType == 'Telegram'"></i>
-          <i class="fab fa-vk vk-icon ms-1" aria-hidden="true" *ngIf="item.networkType == 'VK'"></i>
+          <i class="ms-1" networsItems [networkType]="item.networkType" aria-hidden="true"></i>
         </ng-template>
       </ng-select>
       <mat-error *ngIf="submitted && f.activeSubscription?.errors?.required">
