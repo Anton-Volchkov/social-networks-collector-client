@@ -7,6 +7,7 @@ import { MainComponent } from "./components/main/main.component";
 import { MainBoardComponent } from './components/main-board/main-board.component';
 import { HeaderComponent } from "../shared/header/header.component";
 import { SubscriptionsComponent } from './components/subscriptions/subscriptions.component';
+import {PagesModule} from "../pages.module";
 
 @NgModule({
   declarations: [
@@ -15,11 +16,12 @@ import { SubscriptionsComponent } from './components/subscriptions/subscriptions
     HeaderComponent,
     SubscriptionsComponent
   ],
-  imports: [
-    MainRoutingModule,
-    CommonModule,
-    SharedModule
-  ],
+    imports: [
+        MainRoutingModule,
+        CommonModule,
+        SharedModule,
+        PagesModule
+    ],
   providers: []
 })
 export class MainModule { }

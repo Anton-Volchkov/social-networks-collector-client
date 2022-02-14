@@ -7,33 +7,46 @@
     <div class="col-12 p-0">
       <p class="text-center mt-3" *ngIf="messages.length === 0" style="font-size: 25px;"> {{ 'MAIN.NO_MESSAGES' |
         translate }}</p>
-      <mat-card *ngFor="let item of messages" class="mt-3 mat-elevation-z4">
+      <mat-card *ngFor="let message of messages" class="mt-3 mat-elevation-z4">
         <mat-card-header>
           <mat-card-title class="d-inline-flex">
-            <a [href]="item.originalContentLink" class="d-block max-width-40 truncate"
-              target="_blank">{{item.channelName}}
+            <a [href]="message.originalContentLink" class="d-block max-width-40 truncate"
+               target="_blank">{{message.channelName}}
             </a>
-            <i class="ms-2" networsItems [networkType]="item.networkType" aria-hidden="true"></i>
+            <i class="ms-2" networsItems [networkType]="message.networkType" aria-hidden="true"></i>
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="card-content-wrapper">
-          <ng-container *ngIf="item.networkMedia?.length > 0">
-            <div class="fit-content row col-12" *ngFor="let media of item.networkMedia">
+          <p class="col-12 mt-2 custom-font">
+            {{message.text}}
+          </p>
+          <ng-container *ngIf="message.networkMedia?.length > 0">
+            <div class="fit-content row col-12" *ngFor="let media of message.networkMedia">
+              <!--photo-->
               <img class="photo" [src]="media.contentUrl" *ngIf="media.mediaType === 'Photo'" />
+              <!--video-->
               <iframe loading="lazy" class="video" controls [src]="media.contentUrl!"
-                *ngIf="(media.mediaType === 'Video' && item.networkType == 'VK')" webkitallowfullscreen
-                mozallowfullscreen allowfullscreen></iframe>
+                      *ngIf="(media.mediaType === 'Video' && message.networkType == 'VK')" webkitallowfullscreen
+                      mozallowfullscreen allowfullscreen></iframe>
               <video poster="../../../../../../assets/images/start-button.png"
-                *ngIf="(media.mediaType === 'Video' && item.networkType == 'Telegram')" class="video"
-                controls="controls" preload="none">
+                     *ngIf="(media.mediaType === 'Video' && (message.networkType == 'Telegram' || message.networkType == 'Twitter'))" class="video"
+                     controls="controls" preload="none">
                 <source [src]="media.contentUrl!" type="video/mp4">
                 Sorry, your browser doesn't support embedded videos.
               </video>
+              <!--gif-->
+              <video autoplay loop muted playsinline controls [src]="media.contentUrl" *ngIf="media.mediaType === 'GIF'"></video>
+              <!--document-->
+              <a [href]="media.contentUrl" target="_blank" download *ngIf="media.mediaType === 'Document'">
+                {{ media.name }}
+              </a>
+              <!--audio-->
+              <audio [preload]="message.networkType === 'Telegram' ? 'none' : 'auto'" class="audio" controls [src]="media.contentUrl" *ngIf="media.mediaType === 'Audio' && message.networkType !== 'VK'">
+                Your browser does not support the <code>audio</code> element.
+              </audio>
+              <app-m3u8-reader class="m-0 p-0" [src]="media.contentUrl" *ngIf="media.mediaType === 'Audio' && message.networkType === 'VK'"></app-m3u8-reader>
             </div>
           </ng-container>
-          <p class="col-12 mt-2 custom-font">
-            {{item.text}}
-          </p>
         </mat-card-content>
       </mat-card>
     </div>

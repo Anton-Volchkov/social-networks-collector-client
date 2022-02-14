@@ -10,12 +10,13 @@
  * Do not edit the class manually.
  */
 
-export type MediaType = 'Video' | 'Audio' | 'Photo' | 'Document' | 'Article';
+export type MediaType = 'Video' | 'Audio' | 'Photo' | 'Document' | 'Article' | 'GIF';
 
 export const MediaType = {
     Video: 'Video' as MediaType,
     Audio: 'Audio' as MediaType,
     Photo: 'Photo' as MediaType,
     Document: 'Document' as MediaType,
-    Article: 'Article' as MediaType
+    Article: 'Article' as MediaType,
+    GIF: 'GIF' as MediaType
 };

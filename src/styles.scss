@@ -311,3 +311,10 @@ button.toast-close-button {
     width: 25em;
   }
 }
+
+.audio {
+  @extend .col-sm-12;
+  @extend .col-md-9;
+  @extend .col-lg-6;
+  height: 10vh;
+}

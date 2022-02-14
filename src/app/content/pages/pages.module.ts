@@ -9,6 +9,7 @@ import { MultipleErrorsDialog } from "../dialogs/mupltiple-errors-dialog/multipl
 import { AddNewSubscriptionsGroupDialogComponent } from '../dialogs/add-new-subscriptions-group-dialog/add-new-subscriptions-group-dialog.component';
 import { AddSubscriptionToGroupDialogComponent } from '../dialogs/add-subscription-to-group-dialog/add-subscription-to-group-dialog.component';
 import { ConfirmUnsubscribeFromGroupDialogComponent } from '../dialogs/confirm-unsubscribe-from-group-dialog/confirm-unsubscribe-from-group-dialog.component';
+import { M3u8ReaderComponent } from './shared/m3u8-reader/m3u8-reader.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,11 @@ import { ConfirmUnsubscribeFromGroupDialogComponent } from '../dialogs/confirm-u
     ConfirmDialogComponent,
     MultipleErrorsDialog,
     ScrollToTopComponent,
-    AddNewSubscriptionsGroupDialogComponent
+    AddNewSubscriptionsGroupDialogComponent,
+    M3u8ReaderComponent
+  ],
+  exports: [
+    M3u8ReaderComponent
   ],
   imports: [
     PagesRoutingModule,

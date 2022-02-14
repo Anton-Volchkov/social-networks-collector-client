@@ -14,4 +14,5 @@ import { MediaType } from './mediaType';
 export interface NetworkMedia { 
     mediaType?: MediaType;
     contentUrl?: string;
+    name?: string;
 }
