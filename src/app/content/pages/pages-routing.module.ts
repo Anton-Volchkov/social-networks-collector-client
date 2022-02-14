@@ -14,13 +14,17 @@ const routes: Routes = [
         loadChildren: () => import("./login/login.module").then(o => o.LoginModule)
       },
       {
+        path: "registration",
+        loadChildren: () => import("./registration/registration.module").then(o => o.RegistrationModule)
+      },
+      {
         path: "news",
         canActivate: [AuthGuard],
         loadChildren: () => import("./main/main.module").then(o => o.MainModule)
       },
       {
         path: "**",
-        redirectTo: "/news",
+        redirectTo: "/login",
         pathMatch: "full"
       }
     ]

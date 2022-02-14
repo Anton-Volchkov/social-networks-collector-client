@@ -15,7 +15,12 @@
           {{ 'VALIDATION.ERRORS.FIELD_REQUIRED' | translate:{'fieldName':'LOGIN.PASSWORD' | translate} }}
         </mat-error>
       </mat-form-field>
-      <button mat-raised-button color="primary" (click)="save()">{{ 'BUTTONS.LOGIN' | translate }}</button>
+      <div>
+        {{ 'MESSAGES.ACCOUNT_NOT_EXISTS' | translate }}
+        <br>
+        <a class="link" [routerLink]="['/registration']">{{ 'BUTTONS.REGISTRATION' | translate }}</a>
+      </div>
+      <button class="mt-2" mat-raised-button color="primary" (click)="save()">{{ 'BUTTONS.LOGIN' | translate }}</button>
     </form>
   </mat-card-content>
 </mat-card>
