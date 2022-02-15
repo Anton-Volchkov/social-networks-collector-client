@@ -1,0 +1,4 @@
+Open powershell
+
+1 ---> ng build --configuration=production --output-path docs --base-href=/social-networks-collector-client/
+2 ---> cp docs/index.html docs/404.html
