@@ -37,12 +37,20 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "src/assets/scripts/m3u8-parser.js"],
+              "src/assets/scripts/m3u8-parser.js"
+            ],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
             "production": {
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "./src/assets",
+                  "output": "/social-networks-collector-client/"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
