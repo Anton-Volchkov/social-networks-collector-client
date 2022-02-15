@@ -35,6 +35,7 @@ import { LoaderComponent } from './content/base/loader/loader.component';
       }
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
+      scope: "/social-networks-collector/",
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
