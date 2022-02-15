@@ -3,6 +3,9 @@
   "index": "/index.html",
   "assetGroups": [
     {
+      "cacheQueryOptions": {
+        "ignoreSearch": true
+      },
       "name": "app",
       "installMode": "prefetch",
       "resources": {
