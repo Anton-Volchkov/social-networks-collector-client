@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/snc",
+            "outputPath": "docs",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -37,7 +37,7 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "../src/assets/scripts/m3u8-parser.js"],
+              "src/assets/scripts/m3u8-parser.js"],
             "serviceWorker": true,
             "ngswConfigPath": "ngsw-config.json"
           },
@@ -111,7 +111,7 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "../src/assets/scripts/m3u8-parser.js"
+              "src/assets/scripts/m3u8-parser.js"
             ]
           }
         }
