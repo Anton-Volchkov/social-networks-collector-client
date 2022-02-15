@@ -6,14 +6,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { ApiModule, BASE_PATH } from './core/services/snc';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 import { SharedModule } from './content/shared/shared.module';
 import { AuthInterceptor } from './core/auth/interceptors/auth.interceptor';
 import { RouterModule } from '@angular/router';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { GlobalHTTPErrorInterceptorService } from "./core/interceptors/global-http-error-interceptor.service";
-import { ToastrModule } from "ngx-toastr";
+import { GlobalHTTPErrorInterceptorService } from './core/interceptors/global-http-error-interceptor.service';
+import { ToastrModule } from 'ngx-toastr';
 import { LoaderComponent } from './content/base/loader/loader.component';
 
 @NgModule({
@@ -31,14 +35,12 @@ import { LoaderComponent } from './content/base/loader/loader.component';
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
-      // Register the ServiceWorker as soon as the app is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000',
+      registrationStrategy: 'registerImmediately',
     }),
   ],
   providers: [
@@ -49,20 +51,19 @@ import { LoaderComponent } from './content/base/loader/loader.component';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: GlobalHTTPErrorInterceptorService,
-      multi: true
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
-      multi: true
+      multi: true,
     },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
-
+export class AppModule {}
 
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http, "./assets/i18n/");
+  return new TranslateHttpLoader(http, './assets/i18n/');
 }
