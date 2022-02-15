@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1644939215335,
+  "timestamp": 1644939517436,
   "index": "/social-networks-collector-client/index.html",
   "assetGroups": [
     {
@@ -69,7 +69,7 @@
     "/social-networks-collector-client/assets/scripts/m3u8-parser.js": "ff12cd6d963cc63e59ad8228dde31013b8667546",
     "/social-networks-collector-client/common.1aa58f8535bbf1ee.js": "41a826ec59455b81258966e6de3a8b47b3c71120",
     "/social-networks-collector-client/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/social-networks-collector-client/index.html": "0f721bde731df10a36c5466f2773e2f7a0a849e3",
+    "/social-networks-collector-client/index.html": "a102d1185996ef5119f2f0e698ffcc43e2be8ee3",
     "/social-networks-collector-client/main.0ff11c18070cc290.js": "c83b7a35a47e867b4b0fd297baf0ebf58e71e7c1",
     "/social-networks-collector-client/manifest.webmanifest": "39db10e5b06bc18cfeaeefbccbbfaeaf23d5d107",
     "/social-networks-collector-client/polyfills.a0d276f6cc30166e.js": "bb95b26a93fb5e8d14b185c694ae4adf78ba5519",
