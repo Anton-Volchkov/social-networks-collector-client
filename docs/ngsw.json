@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1644937969750,
+  "timestamp": 1644938411730,
   "index": "/social-networks-collector-client/index.html",
   "assetGroups": [
     {
@@ -17,7 +17,7 @@
         "/social-networks-collector-client/8.86a1b2883c3086c0.js",
         "/social-networks-collector-client/common.1aa58f8535bbf1ee.js",
         "/social-networks-collector-client/index.html",
-        "/social-networks-collector-client/main.b32ae1dcca2f8204.js",
+        "/social-networks-collector-client/main.e3f71664790582c0.js",
         "/social-networks-collector-client/polyfills.a0d276f6cc30166e.js",
         "/social-networks-collector-client/runtime.b19685bc9abf924e.js",
         "/social-networks-collector-client/scripts.6c37da3b5c36f08f.js",
@@ -32,7 +32,19 @@
       "cacheQueryOptions": {
         "ignoreVary": true
       },
-      "urls": [],
+      "urls": [
+        "/social-networks-collector-client/assets/i18n/en.json",
+        "/social-networks-collector-client/assets/icons/icon-128x128.png",
+        "/social-networks-collector-client/assets/icons/icon-144x144.png",
+        "/social-networks-collector-client/assets/icons/icon-152x152.png",
+        "/social-networks-collector-client/assets/icons/icon-192x192.png",
+        "/social-networks-collector-client/assets/icons/icon-384x384.png",
+        "/social-networks-collector-client/assets/icons/icon-512x512.png",
+        "/social-networks-collector-client/assets/icons/icon-72x72.png",
+        "/social-networks-collector-client/assets/icons/icon-96x96.png",
+        "/social-networks-collector-client/assets/images/start-button.png",
+        "/social-networks-collector-client/assets/scripts/m3u8-parser.js"
+      ],
       "patterns": []
     }
   ],
@@ -42,9 +54,20 @@
     "/social-networks-collector-client/401.c993e509f0a6e70a.js": "5c267255984ac2546d43b4b96cdae91f361ca623",
     "/social-networks-collector-client/758.19b45c9f6bd6f210.js": "66643be2493c5a721f0cdc79d11886bf57a2e147",
     "/social-networks-collector-client/8.86a1b2883c3086c0.js": "cdef860acf3299841f1a4eae3b9ef8fce0b5dbf0",
+    "/social-networks-collector-client/assets/i18n/en.json": "418e774ae04bad0d7143197dac30d661024595e9",
+    "/social-networks-collector-client/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
+    "/social-networks-collector-client/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
+    "/social-networks-collector-client/assets/icons/icon-152x152.png": "7479a9477815dfd9668d60f8b3b2fba709b91310",
+    "/social-networks-collector-client/assets/icons/icon-192x192.png": "1abd80d431a237a853ce38147d8c63752f10933b",
+    "/social-networks-collector-client/assets/icons/icon-384x384.png": "329749cd6393768d3131ed6304c136b1ca05f2fd",
+    "/social-networks-collector-client/assets/icons/icon-512x512.png": "559d9c4318b45a1f2b10596bbb4c960fe521dbcc",
+    "/social-networks-collector-client/assets/icons/icon-72x72.png": "c457e56089a36952cd67156f9996bc4ce54a5ed9",
+    "/social-networks-collector-client/assets/icons/icon-96x96.png": "3914125a4b445bf111c5627875fc190f560daa41",
+    "/social-networks-collector-client/assets/images/start-button.png": "e1dbd8992ab3c49651336edfdf74c47e9dda9317",
+    "/social-networks-collector-client/assets/scripts/m3u8-parser.js": "ff12cd6d963cc63e59ad8228dde31013b8667546",
     "/social-networks-collector-client/common.1aa58f8535bbf1ee.js": "41a826ec59455b81258966e6de3a8b47b3c71120",
-    "/social-networks-collector-client/index.html": "cf12a573782f7a249b4b5393401b10b5011528d2",
-    "/social-networks-collector-client/main.b32ae1dcca2f8204.js": "42ef226b5fbc0a53ca3fd3a99e6b87dabd988f27",
+    "/social-networks-collector-client/index.html": "f92ce8c198361ec9481af7c32c0b303974773403",
+    "/social-networks-collector-client/main.e3f71664790582c0.js": "02f518253a3d3eee6f473cdf7cd404fc22469588",
     "/social-networks-collector-client/polyfills.a0d276f6cc30166e.js": "bb95b26a93fb5e8d14b185c694ae4adf78ba5519",
     "/social-networks-collector-client/runtime.b19685bc9abf924e.js": "4a808e9cd1cee89defe496f43b27829514717d76",
     "/social-networks-collector-client/scripts.6c37da3b5c36f08f.js": "6049849b95e8a25a5d8b1e85c24c8bbdce858ce4",

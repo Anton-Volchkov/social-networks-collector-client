@@ -64,5 +64,5 @@ export class AppModule { }
 
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http);
+  return new TranslateHttpLoader(http, "social-networks-collector-client");
 }
