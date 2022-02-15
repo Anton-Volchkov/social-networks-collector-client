@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1644953732106,
+  "timestamp": 1644954006058,
   "index": "/social-networks-collector-client/index.html",
   "assetGroups": [
     {
@@ -30,7 +30,7 @@
     },
     {
       "name": "assets",
-      "installMode": "lazy",
+      "installMode": "prefetch",
       "updateMode": "prefetch",
       "cacheQueryOptions": {
         "ignoreVary": true
