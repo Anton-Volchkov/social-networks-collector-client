@@ -18,8 +18,8 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs';
 
 import { DefaultSubscriptionsDTO } from '../model/defaultSubscriptionsDTO';
-import { GroupSubscriptionsDTO } from '../model/groupSubscriptionsDTO';
 import { Response } from '../model/response';
+import { SubscriptionsGroupDTO } from '../model/subscriptionsGroupDTO';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -349,9 +349,9 @@ export class SubscriptionsGroupService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getValidActiveSubscriptionsForGroup(groupName: string, observe?: 'body', reportProgress?: boolean): Observable<Array<GroupSubscriptionsDTO>>;
-    public getValidActiveSubscriptionsForGroup(groupName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<GroupSubscriptionsDTO>>>;
-    public getValidActiveSubscriptionsForGroup(groupName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<GroupSubscriptionsDTO>>>;
+    public getValidActiveSubscriptionsForGroup(groupName: string, observe?: 'body', reportProgress?: boolean): Observable<Array<SubscriptionsGroupDTO>>;
+    public getValidActiveSubscriptionsForGroup(groupName: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SubscriptionsGroupDTO>>>;
+    public getValidActiveSubscriptionsForGroup(groupName: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SubscriptionsGroupDTO>>>;
     public getValidActiveSubscriptionsForGroup(groupName: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (groupName === null || groupName === undefined) {
@@ -387,7 +387,7 @@ export class SubscriptionsGroupService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Array<GroupSubscriptionsDTO>>('get',`${this.basePath}/api/SubscriptionsGroup/valid-group-subscriptions`,
+        return this.httpClient.request<Array<SubscriptionsGroupDTO>>('get',`${this.basePath}/api/SubscriptionsGroup/valid-group-subscriptions`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -404,9 +404,9 @@ export class SubscriptionsGroupService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public groupSubscriptions(observe?: 'body', reportProgress?: boolean): Observable<Array<GroupSubscriptionsDTO>>;
-    public groupSubscriptions(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<GroupSubscriptionsDTO>>>;
-    public groupSubscriptions(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<GroupSubscriptionsDTO>>>;
+    public groupSubscriptions(observe?: 'body', reportProgress?: boolean): Observable<Array<SubscriptionsGroupDTO>>;
+    public groupSubscriptions(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SubscriptionsGroupDTO>>>;
+    public groupSubscriptions(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SubscriptionsGroupDTO>>>;
     public groupSubscriptions(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
@@ -433,7 +433,7 @@ export class SubscriptionsGroupService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Array<GroupSubscriptionsDTO>>('get',`${this.basePath}/api/SubscriptionsGroup/group-subscriptions`,
+        return this.httpClient.request<Array<SubscriptionsGroupDTO>>('get',`${this.basePath}/api/SubscriptionsGroup/group-subscriptions`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

@@ -57,11 +57,13 @@
           <mat-expansion-panel *ngFor="let groupSubscription of groupSubscriptions">
             <mat-expansion-panel-header [class.current-group]="groupSubscription.groupName === currentGroupName"
               [class.default-group]="groupSubscription.groupName === defaultGroupName">
-              <mat-panel-title>
-                <span class="truncate" style="max-width: 77%;">
+              <mat-panel-title style="max-width: 75%;">
+                <span class="truncate">
                   {{ groupSubscription.groupName }}
                 </span>
-                <i class="fa fa-close group-delete" style="font-size:15px"
+                <i class="fa fa-pen group-edit"
+                  (click)="$event.stopPropagation(); $event.preventDefault(); editGroup(groupSubscription);"></i>
+                <i class="fa fa-close group-delete"
                   (click)="$event.stopPropagation(); $event.preventDefault(); deleteGroup(groupSubscription);"></i>
               </mat-panel-title>
             </mat-expansion-panel-header>

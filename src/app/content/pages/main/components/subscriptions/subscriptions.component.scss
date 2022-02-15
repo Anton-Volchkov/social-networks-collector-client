@@ -7,7 +7,16 @@
   position: absolute;
   right: 50px;
   bottom: 14px;
+  font-size: 15px;
 }
+
+.group-edit {
+  position: absolute;
+  right: 70px;
+  bottom: 15px;
+  font-size: 13px;
+}
+
 .chip-list {
   min-height: 5vh;
   max-height: 40vh !important;

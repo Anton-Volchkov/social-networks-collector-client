@@ -4,13 +4,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { takeUntil } from 'rxjs';
-import { AddNewSubscriptionsGroupDialogComponent } from 'src/app/content/dialogs/add-new-subscriptions-group-dialog/add-new-subscriptions-group-dialog.component';
 import { AddSubscriptionToGroupDialogComponent, SubscriptionType } from 'src/app/content/dialogs/add-subscription-to-group-dialog/add-subscription-to-group-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/content/dialogs/confirm-dialog/confirm-dialog.component';
 import { ConfirmUnsubscribeFromGroupDialogComponent, ConfirmUnsubscribeFromGroupDialogComponentResponse, UnsubscriptionType } from 'src/app/content/dialogs/confirm-unsubscribe-from-group-dialog/confirm-unsubscribe-from-group-dialog.component';
+import { UpsertSubscriptionsGroupDialogComponent } from 'src/app/content/dialogs/upsert-subscriptions-group-dialog/upsert-subscriptions-group-dialog.component';
 import { EntityDetailsComponent } from 'src/app/core/components/abstractions/entity-details.component';
 import { CurrentGroupService } from 'src/app/core/services/current-group/current-group.service';
-import { GroupSubscriptionsDTO, NetworkType, SubscriptionsGroupService, SubscriptionsService, UserSubscriptionDTO } from 'src/app/core/services/snc';
+import { SubscriptionsGroupDTO, NetworkType, SubscriptionsGroupService, SubscriptionsService, UserSubscriptionDTO } from 'src/app/core/services/snc';
 
 
 @Component({
@@ -28,7 +28,7 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
 
   public networks = Object.values(NetworkType);
   public userSubscriptions: UserSubscriptionDTO[] = [];
-  public groupSubscriptions: GroupSubscriptionsDTO[] = [];
+  public groupSubscriptions: SubscriptionsGroupDTO[] = [];
   public isMobileDevice: boolean = false;
   public currentGroupName: string = null;
 
@@ -128,10 +128,24 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
   }
 
   public addNewGroup() {
-    this.dialog.open(AddNewSubscriptionsGroupDialogComponent, {
+    this.dialog.open(UpsertSubscriptionsGroupDialogComponent, {
       disableClose: true,
       autoFocus: false,
       minWidth: "25vw"
+    }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+      this.loadSubscriptions();
+    });
+  }
+
+  public editGroup(group: SubscriptionsGroupDTO) {
+    this.dialog.open(UpsertSubscriptionsGroupDialogComponent, {
+      disableClose: true,
+      autoFocus: false,
+      minWidth: "25vw",
+      data: {
+        groupName: group.groupName,
+        groupId: group.id
+      }
     }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(() => {
       this.loadSubscriptions();
     });
@@ -175,7 +189,7 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
     })
   }
 
-  public deleteGroup(group: GroupSubscriptionsDTO) {
+  public deleteGroup(group: SubscriptionsGroupDTO) {
     this.dialog.open(ConfirmDialogComponent, {
       disableClose: true,
       autoFocus: false,
@@ -184,8 +198,7 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
     }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(result => {
       if (result) {
         this.subscriptionsGroupService.deleteSubscriptionGroup(group.id).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-          if(this.currentGroupName == group.groupName)
-          {
+          if (this.currentGroupName == group.groupName) {
             this.currentGroupName = null;
           }
 
@@ -201,7 +214,7 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
     });
   }
 
-  public setSubscriptionGroupAsDefault(group: GroupSubscriptionsDTO) {
+  public setSubscriptionGroupAsDefault(group: SubscriptionsGroupDTO) {
     this.subscriptionsGroupService.setDefaultSubscriptionGroup(group.id).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
       this.defaultGroupName = group.groupName;
     });
