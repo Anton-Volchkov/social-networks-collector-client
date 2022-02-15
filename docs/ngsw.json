@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1644953301248,
+  "timestamp": 1644953732106,
   "index": "/social-networks-collector-client/index.html",
   "assetGroups": [
     {
@@ -13,6 +13,7 @@
       "urls": [
         "/social-networks-collector-client/384.a4dddf06da3c6cde.js",
         "/social-networks-collector-client/401.c993e509f0a6e70a.js",
+        "/social-networks-collector-client/404.html",
         "/social-networks-collector-client/758.19b45c9f6bd6f210.js",
         "/social-networks-collector-client/8.295c6c89ac392838.js",
         "/social-networks-collector-client/common.1aa58f8535bbf1ee.js",
@@ -46,18 +47,6 @@
         "/social-networks-collector-client/assets/icons/icon-96x96.png",
         "/social-networks-collector-client/assets/images/start-button.png",
         "/social-networks-collector-client/assets/scripts/m3u8-parser.js"
-      ],
-      "patterns": []
-    },
-    {
-      "name": "404",
-      "installMode": "prefetch",
-      "updateMode": "prefetch",
-      "cacheQueryOptions": {
-        "ignoreVary": true
-      },
-      "urls": [
-        "/social-networks-collector-client/404.html"
       ],
       "patterns": []
     }
