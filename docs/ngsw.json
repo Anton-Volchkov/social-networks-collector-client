@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1644955034244,
+  "timestamp": 1644955287160,
   "index": "/social-networks-collector-client/index.html",
   "assetGroups": [
     {
@@ -19,7 +19,7 @@
         "/social-networks-collector-client/common.1aa58f8535bbf1ee.js",
         "/social-networks-collector-client/favicon.ico",
         "/social-networks-collector-client/index.html",
-        "/social-networks-collector-client/main.98dbfae371583dca.js",
+        "/social-networks-collector-client/main.0ff11c18070cc290.js",
         "/social-networks-collector-client/manifest.webmanifest",
         "/social-networks-collector-client/polyfills.a0d276f6cc30166e.js",
         "/social-networks-collector-client/runtime.4897194bf7d38f49.js",
@@ -30,7 +30,7 @@
     },
     {
       "name": "assets",
-      "installMode": "prefetch",
+      "installMode": "lazy",
       "updateMode": "prefetch",
       "cacheQueryOptions": {
         "ignoreVary": true
@@ -71,8 +71,8 @@
     "/social-networks-collector-client/assets/scripts/m3u8-parser.js": "ff12cd6d963cc63e59ad8228dde31013b8667546",
     "/social-networks-collector-client/common.1aa58f8535bbf1ee.js": "41a826ec59455b81258966e6de3a8b47b3c71120",
     "/social-networks-collector-client/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/social-networks-collector-client/index.html": "1807876873e542a4b17ac666221e4c63f3e3e54c",
-    "/social-networks-collector-client/main.98dbfae371583dca.js": "3b983c77a33263270aba8efd18a115086737fca4",
+    "/social-networks-collector-client/index.html": "c671f9b59365f5096d59303c00b43fcab5a6b27d",
+    "/social-networks-collector-client/main.0ff11c18070cc290.js": "c83b7a35a47e867b4b0fd297baf0ebf58e71e7c1",
     "/social-networks-collector-client/manifest.webmanifest": "c8cc03e47c77f90ab33ff80c8b5475a6f6820cc2",
     "/social-networks-collector-client/polyfills.a0d276f6cc30166e.js": "bb95b26a93fb5e8d14b185c694ae4adf78ba5519",
     "/social-networks-collector-client/runtime.4897194bf7d38f49.js": "89f172405002c12481fd0fa94c663385b22d0069",
