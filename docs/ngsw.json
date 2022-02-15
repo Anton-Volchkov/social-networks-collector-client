@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1644938980941,
+  "timestamp": 1644939215335,
   "index": "/social-networks-collector-client/index.html",
   "assetGroups": [
     {
@@ -16,8 +16,10 @@
         "/social-networks-collector-client/758.19b45c9f6bd6f210.js",
         "/social-networks-collector-client/8.86a1b2883c3086c0.js",
         "/social-networks-collector-client/common.1aa58f8535bbf1ee.js",
+        "/social-networks-collector-client/favicon.ico",
         "/social-networks-collector-client/index.html",
-        "/social-networks-collector-client/main.102c682874e1c1c9.js",
+        "/social-networks-collector-client/main.0ff11c18070cc290.js",
+        "/social-networks-collector-client/manifest.webmanifest",
         "/social-networks-collector-client/polyfills.a0d276f6cc30166e.js",
         "/social-networks-collector-client/runtime.b19685bc9abf924e.js",
         "/social-networks-collector-client/scripts.6c37da3b5c36f08f.js",
@@ -66,8 +68,10 @@
     "/social-networks-collector-client/assets/images/start-button.png": "e1dbd8992ab3c49651336edfdf74c47e9dda9317",
     "/social-networks-collector-client/assets/scripts/m3u8-parser.js": "ff12cd6d963cc63e59ad8228dde31013b8667546",
     "/social-networks-collector-client/common.1aa58f8535bbf1ee.js": "41a826ec59455b81258966e6de3a8b47b3c71120",
-    "/social-networks-collector-client/index.html": "474c0258ea609618b882e85ac1a7bfbb41583a67",
-    "/social-networks-collector-client/main.102c682874e1c1c9.js": "ea7dd59b5acd38e6ecf9e412ed02c139b959482a",
+    "/social-networks-collector-client/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "/social-networks-collector-client/index.html": "0f721bde731df10a36c5466f2773e2f7a0a849e3",
+    "/social-networks-collector-client/main.0ff11c18070cc290.js": "c83b7a35a47e867b4b0fd297baf0ebf58e71e7c1",
+    "/social-networks-collector-client/manifest.webmanifest": "39db10e5b06bc18cfeaeefbccbbfaeaf23d5d107",
     "/social-networks-collector-client/polyfills.a0d276f6cc30166e.js": "bb95b26a93fb5e8d14b185c694ae4adf78ba5519",
     "/social-networks-collector-client/runtime.b19685bc9abf924e.js": "4a808e9cd1cee89defe496f43b27829514717d76",
     "/social-networks-collector-client/scripts.6c37da3b5c36f08f.js": "6049849b95e8a25a5d8b1e85c24c8bbdce858ce4",
