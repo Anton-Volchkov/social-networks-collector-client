@@ -1,1 +1,0 @@
-ng build --configuration=production --output-path docs --base-href=/social-networks-collector-client/; cp docs/index.html docs/404.html
