@@ -1,7 +1,9 @@
+@import "/node_modules/bootstrap/scss/bootstrap-grid.scss";
+
 mat-card {
   max-width: 400px;
   text-align: center;
-  top: 28%;
+  top: 27%;
   left: 38%;
 }
 
@@ -22,4 +24,13 @@ a.link:hover {
 
 .mat-icon-size {
   font-size: 25px !important;
+}
+
+@include media-breakpoint-down(sm) {
+  mat-card {
+    width: 100%;
+    max-width: none;
+    top: 18%;
+    left: 0%;
+  }
 }
