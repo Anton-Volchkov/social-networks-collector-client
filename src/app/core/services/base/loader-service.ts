@@ -14,7 +14,6 @@ export class LoaderService {
   public loaderState = this.loaderSubject.asObservable();
   constructor() { }
 
-
   public show() {
     if (!this._isHiddenRequest)
       this.loaderSubject.next(<LoaderState>{ show: true });

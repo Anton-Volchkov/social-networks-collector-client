@@ -44,6 +44,10 @@
     "CONFIRM": "Confirm"
   },
   "MODALS": {
+    "APP_UPDATE": {
+      "TITLE": "App Update available",
+      "TEXT": "Choose Confirm to update your application"
+    },
     "UNSUBSCRIBE_FROM_GROUP": {
       "GLOBAL": "Unsubscribe globally",
       "ONLY_GROUP": "Unsubscribe only from the group"
