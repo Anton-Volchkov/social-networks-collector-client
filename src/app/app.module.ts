@@ -38,10 +38,6 @@ import { LoaderComponent } from './content/base/loader/loader.component';
         deps: [HttpClient],
       },
     }),
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: false,
-      registrationStrategy: 'registerWhenStable:30000',
-    }),
   ],
   providers: [
     {
