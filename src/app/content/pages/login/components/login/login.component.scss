@@ -25,6 +25,10 @@ a.link:hover {
   text-decoration: none;
 }
 
+.mat-icon-size {
+  font-size: 22px !important;
+}
+
 @include media-breakpoint-down(sm) {
   mat-card {
     width: 100% !important;

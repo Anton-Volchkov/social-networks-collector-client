@@ -9,8 +9,12 @@
         </mat-error>
       </mat-form-field>
       <mat-form-field [class.mat-form-field-invalid]="submitted && f.password?.errors?.required">
-        <input formControlName="password" matInput type="password" [placeholder]="'LOGIN.PASSWORD' | translate"
-          required>
+        <input formControlName="password" matInput [type]="hidePassword ? 'password' : 'text'"
+          [placeholder]="'LOGIN.PASSWORD' | translate" required>
+        <button class="mat-icon-size" mat-icon-button matSuffix
+          (click)="$event.stopPropagation(); $event.preventDefault(); hidePassword = !hidePassword">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
         <mat-error *ngIf="submitted && f.password?.errors?.required">
           {{ 'VALIDATION.ERRORS.FIELD_REQUIRED' | translate:{'fieldName':'LOGIN.PASSWORD' | translate} }}
         </mat-error>
@@ -20,7 +24,8 @@
         <br>
         <a class="link" [routerLink]="['/registration']">{{ 'BUTTONS.REGISTRATION' | translate }}</a>
       </div>
-      <button class="col-12 mt-2" mat-raised-button color="primary" (click)="save()">{{ 'BUTTONS.LOGIN' | translate }}</button>
+      <button class="col-12 mt-2" mat-raised-button color="primary" (click)="save()">{{ 'BUTTONS.LOGIN' | translate
+        }}</button>
     </form>
   </mat-card-content>
 </mat-card>

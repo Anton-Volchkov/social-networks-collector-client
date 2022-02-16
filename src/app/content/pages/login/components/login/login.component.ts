@@ -11,6 +11,7 @@ import { UsersService } from 'src/app/core/services/snc';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent extends EntityDetailsComponent implements OnInit {
+  public hidePassword: boolean = true;
 
   constructor(route: ActivatedRoute, fb: FormBuilder, private userService: UsersService, private router: Router) {
     super(route, fb);
