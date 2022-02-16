@@ -39,8 +39,8 @@ import { LoaderComponent } from './content/base/loader/loader.component';
       },
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-      registrationStrategy: 'registerWithDelay:10000',
+      enabled: false,
+      registrationStrategy: 'registerWhenStable:30000',
     }),
   ],
   providers: [
@@ -61,7 +61,7 @@ import { LoaderComponent } from './content/base/loader/loader.component';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
 
 // required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
