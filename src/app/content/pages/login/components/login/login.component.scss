@@ -1,10 +1,13 @@
 @import "/node_modules/bootstrap/scss/bootstrap-grid.scss";
 
 mat-card {
-  max-width: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
   text-align: center;
-  top: 32%;
-  left: 38%;
+  min-width: 400px;
 }
 
 mat-form-field {
@@ -24,9 +27,8 @@ a.link:hover {
 
 @include media-breakpoint-down(sm) {
   mat-card {
-    width: 100%;
-    max-width: none;
-    top: 26%;
-    left: 0%;
+    width: 100% !important;
+    max-width: none !important;
+    min-width: auto !important;
   }
 }

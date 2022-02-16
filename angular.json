@@ -25,13 +25,8 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss", 
+            "inlineStyleLanguage": "scss",
             "assets": [
-              {
-                "glob": "**/404.html",
-                "input": "./src/",
-                "output": "/"
-              },
               "src/favicon.ico",
               "src/assets",
               "src/manifest.webmanifest"

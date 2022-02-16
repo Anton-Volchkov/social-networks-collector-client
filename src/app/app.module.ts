@@ -40,7 +40,7 @@ import { LoaderComponent } from './content/base/loader/loader.component';
     }),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
-      registrationStrategy: 'registerImmediately',
+      registrationStrategy: 'registerWithDelay:10000',
     }),
   ],
   providers: [
