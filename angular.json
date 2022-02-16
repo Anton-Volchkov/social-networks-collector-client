@@ -39,7 +39,7 @@
             "scripts": [
               "src/assets/scripts/m3u8-parser.js"
             ],
-            "serviceWorker": true,
+            "serviceWorker": false,
             "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
