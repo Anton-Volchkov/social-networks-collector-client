@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  serverUri: ""
+  serverUri: "https://service-network-collector.azurewebsites.net"
 };
