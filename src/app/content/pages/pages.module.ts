@@ -10,6 +10,7 @@ import { AddSubscriptionToGroupDialogComponent } from '../dialogs/add-subscripti
 import { ConfirmUnsubscribeFromGroupDialogComponent } from '../dialogs/confirm-unsubscribe-from-group-dialog/confirm-unsubscribe-from-group-dialog.component';
 import { M3u8ReaderComponent } from './shared/m3u8-reader/m3u8-reader.component';
 import { UpsertSubscriptionsGroupDialogComponent } from '../dialogs/upsert-subscriptions-group-dialog/upsert-subscriptions-group-dialog.component';
+import { LinksPreviewComponent } from './shared/links-preview/links-preview.component';
 
 @NgModule({
   declarations: [
@@ -20,11 +21,13 @@ import { UpsertSubscriptionsGroupDialogComponent } from '../dialogs/upsert-subsc
     MultipleErrorsDialog,
     ScrollToTopComponent,
     UpsertSubscriptionsGroupDialogComponent,
-    M3u8ReaderComponent
+    M3u8ReaderComponent,
+    LinksPreviewComponent
   ],
-  exports: [
-    M3u8ReaderComponent
-  ],
+    exports: [
+        M3u8ReaderComponent,
+        LinksPreviewComponent
+    ],
   imports: [
     PagesRoutingModule,
     CommonModule,

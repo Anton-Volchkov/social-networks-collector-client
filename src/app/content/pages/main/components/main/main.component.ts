@@ -12,15 +12,17 @@ import { MediaType, MessagesService, NetworkMessage, NetworkType, SubscriptionsG
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
+  public defaultGroupName: string = null;
+  public messages: NetworkMessage[] = [];
+
+  private count: number = 20;
+  private offset: number = 0;
   private readonly numberOfMessages = 20;
   private updateMessagesSubject = new Subject<string>();
   private isUpdatingNow: boolean = false;
   private stopReceiveMessages: boolean = false;
-  public defaultGroupName: string = null;
-
-  private count: number = 20;
-  private offset: number = 0;
-  public messages: NetworkMessage[] = [];
+  private urlRegex: RegExp = /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/igm;
+  private newLineRegex: RegExp = /\n/g;
 
   constructor(private currentGroupService: CurrentGroupService, private subscriptionsGroupService: SubscriptionsGroupService, private messagesService: MessagesService, private sanitazer: DomSanitizer, private loaderService: LoaderService) {
     super();
@@ -37,7 +39,6 @@ export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
       else
         this.updateMessages();
     });
-
   }
 
   public override ngOnDestroy(): void {
@@ -57,6 +58,24 @@ export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
 
   private updateMessages(groupName: string = null) {
     this.updateMessagesSubject.next(groupName);
+  }
+
+  public formatText(text): string {
+    const updatedText = text.replace(this.newLineRegex, "<br />");
+
+    return updatedText.replace(this.urlRegex, url => {
+      return `<a target="_blank" href="${url}">${url}</a>`;
+    });
+  }
+
+  public getTextLinks(text: string): string[] {
+    const links = text.match(this.urlRegex);
+
+    if (links?.length == 0) {
+      return null;
+    }
+
+    return links;
   }
 
   private initMessageLoader() {
@@ -132,7 +151,6 @@ export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
   }
 
   private buildSafeUrlForIframe(originalLink: any): any {
-
     return this.sanitazer.bypassSecurityTrustResourceUrl(originalLink);
   }
 }

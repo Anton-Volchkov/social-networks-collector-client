@@ -70,6 +70,10 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
           this.f.channelName.reset();
           this.resetSubmit();
           this.loadSubscriptions();
+
+          if (!this.currentGroupName) {
+            this.viewGroupMessages();
+          }
         }
       }
     )
@@ -84,13 +88,25 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
     }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(result => {
       if (result) {
         this.subscriptionsService.unsubscribe(subscription.id).pipe(takeUntil(this.unsubscribe)).subscribe(response => {
-          if (!this.currentGroupName) {
-            this.viewGroupMessages();
+          const subscriptionRelatedToCurrentGroup = this.subscriptionRelatedToCurrentGroup(subscription.id);
+
+          if (!this.currentGroupName || subscriptionRelatedToCurrentGroup) {
+            this.viewGroupMessages(this.currentGroupName);
           }
           this.loadSubscriptions();
         });
       }
     });
+  }
+
+  public subscriptionRelatedToCurrentGroup(subscriptionId: number): boolean {
+    const currentGroup = this.groupSubscriptions.find(x => x.groupName === this.currentGroupName);
+
+    if (currentGroup === null) {
+      return false;
+    }
+
+    return currentGroup.subscriptions.find(x => x.id == subscriptionId) != null;
   }
 
   public viewGroupMessages(groupName: string = null) {
