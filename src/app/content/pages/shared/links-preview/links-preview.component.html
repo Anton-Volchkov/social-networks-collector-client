@@ -1,0 +1,14 @@
+<div class="row flex-column">
+  <div *ngFor="let preview of previews">
+    <div *ngIf="preview?.url" class="col-7">
+      <div *ngIf="preview?.image">
+        <img class="image" [src]="preview?.image">
+      </div>
+      <div class="preview-text">
+        <div *ngIf="preview?.title" class="title">
+          <span>{{preview.title}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
