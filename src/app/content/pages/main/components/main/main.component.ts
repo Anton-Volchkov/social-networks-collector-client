@@ -15,7 +15,6 @@ export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
   public defaultGroupName: string = null;
   public messages: NetworkMessage[] = [];
 
-  private count: number = 20;
   private offset: number = 0;
   private readonly numberOfMessages = 20;
   private updateMessagesSubject = new Subject<string>();
@@ -70,11 +69,6 @@ export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
 
   public getTextLinks(text: string): string[] {
     const links = text.match(this.urlRegex);
-
-    if (links?.length == 0) {
-      return null;
-    }
-
     return links;
   }
 
@@ -87,7 +81,7 @@ export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
       }
 
       return this.messagesService.getFiltered(
-        this.count,
+        this.numberOfMessages,
         this.offset,
         groupName
       ).pipe(takeUntil(this.unsubscribe), catchError((err) => {
@@ -120,14 +114,12 @@ export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
         this.messages = [...this.messages, ...newMessages];
 
         this.isUpdatingNow = false;
-        this.offset = this.count;
-        this.count += this.numberOfMessages;
+        this.offset += this.numberOfMessages;
       }
     });
   }
 
   public groupSelected(groupName: string = null) {
-    this.count = this.numberOfMessages;
     this.offset = 0;
 
     this.messages = [];
