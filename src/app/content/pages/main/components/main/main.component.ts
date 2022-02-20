@@ -47,7 +47,8 @@ export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
 
   @HostListener('window:scroll', ['$event.target'])
   public onScroll(e: any) {
-    let centerOfScrolling = e.scrollingElement.scrollHeight / 1.5;
+    
+    let centerOfScrolling = e.scrollingElement.scrollHeight / 1.7;
 
     if (centerOfScrolling <= e.scrollingElement.scrollTop && !this.isUpdatingNow) {
       this.loaderService.hideRequest();

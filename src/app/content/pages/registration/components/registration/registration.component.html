@@ -17,7 +17,7 @@
       <mat-form-field [class.mat-form-field-invalid]="submitted && f.password?.errors?.required">
         <input formControlName="password" matInput [type]="hidePassword ? 'password' : 'text'"
           [placeholder]="'REGISTRATION.PASSWORD' | translate" required>
-        <button class="mat-icon-size" mat-icon-button matSuffix
+        <button tabindex="-1" class="mat-icon-size" mat-icon-button matSuffix
           (click)="$event.stopPropagation(); $event.preventDefault(); hidePassword = !hidePassword">
           <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
@@ -33,7 +33,7 @@
       <mat-form-field [class.mat-form-field-invalid]="submitted && f.confirmPassword?.errors?.required">
         <input formControlName="confirmPassword" matInput [type]="hideConfirmPassword ? 'password' : 'text'"
           [placeholder]="'REGISTRATION.CONFIRM_PASSWORD' | translate" required>
-        <button class="mat-icon-size" mat-icon-button matSuffix
+        <button tabindex="-1" class="mat-icon-size" mat-icon-button matSuffix
           (click)="$event.stopPropagation(); $event.preventDefault(); hideConfirmPassword = !hideConfirmPassword">
           <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>

@@ -11,7 +11,7 @@
       <mat-form-field [class.mat-form-field-invalid]="submitted && f.password?.errors?.required">
         <input formControlName="password" matInput [type]="hidePassword ? 'password' : 'text'"
           [placeholder]="'LOGIN.PASSWORD' | translate" required>
-        <button class="mat-icon-size" mat-icon-button matSuffix
+        <button tabindex="-1" class="mat-icon-size" mat-icon-button matSuffix
           (click)="$event.stopPropagation(); $event.preventDefault(); hidePassword = !hidePassword">
           <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>

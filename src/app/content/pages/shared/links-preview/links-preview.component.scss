@@ -4,7 +4,15 @@ img {
 }
 
 .link-preview {
-  max-width: 35vw;
+  &:hover {
+    background-color: #81c9fc;
+  }
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  height: 6vh;
+  min-height: 6vh;
+  background-color: aliceblue;
+  border-radius: 5px;
+}
+
+.preview-text {
+  overflow-wrap: break-word;
 }

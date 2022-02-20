@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1645197148708,
+  "timestamp": 1645350617644,
   "index": "/social-networks-collector-client/index.html",
   "assetGroups": [
     {
@@ -11,17 +11,17 @@
         "ignoreVary": true
       },
       "urls": [
-        "/social-networks-collector-client/118.b82d8fe24003b022.js",
-        "/social-networks-collector-client/384.c73bb11872e082b9.js",
+        "/social-networks-collector-client/118.dcf71a3e1a13d00d.js",
+        "/social-networks-collector-client/384.1c925e643d117b91.js",
         "/social-networks-collector-client/401.633b0de65613e41b.js",
-        "/social-networks-collector-client/8.14aa5e1332b1ed69.js",
+        "/social-networks-collector-client/8.7dd395d7626bcd4c.js",
         "/social-networks-collector-client/common.1aa58f8535bbf1ee.js",
         "/social-networks-collector-client/favicon.ico",
         "/social-networks-collector-client/index.html",
         "/social-networks-collector-client/main.f747cbc03349c55c.js",
         "/social-networks-collector-client/manifest.webmanifest",
         "/social-networks-collector-client/polyfills.a0d276f6cc30166e.js",
-        "/social-networks-collector-client/runtime.76429e9b1e6362d9.js",
+        "/social-networks-collector-client/runtime.94dc04d07af39f82.js",
         "/social-networks-collector-client/scripts.6c37da3b5c36f08f.js",
         "/social-networks-collector-client/styles.b50de667cac84dbd.css"
       ],
@@ -52,10 +52,10 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "/social-networks-collector-client/118.b82d8fe24003b022.js": "35303e69bc4efe4c39922badf6071bc8049e4406",
-    "/social-networks-collector-client/384.c73bb11872e082b9.js": "959d7a14b6d599933844fe12b3e5dae01ebf97a0",
+    "/social-networks-collector-client/118.dcf71a3e1a13d00d.js": "6719d7198f872f91c05f2a5b007baeecb7feb67b",
+    "/social-networks-collector-client/384.1c925e643d117b91.js": "adde45247d7ed6cf91727363a5845eb227c378ac",
     "/social-networks-collector-client/401.633b0de65613e41b.js": "9b7b5a645dc08f5020a87f081ea59f708c50e35f",
-    "/social-networks-collector-client/8.14aa5e1332b1ed69.js": "1b21e74d997de0901763b982666a7736db2a6efe",
+    "/social-networks-collector-client/8.7dd395d7626bcd4c.js": "de9eb888e258bdf245b68699b6007fde4b1594ee",
     "/social-networks-collector-client/assets/i18n/en.json": "5409039cf764b94a2a26078fbdd06e47a4bfcf7f",
     "/social-networks-collector-client/assets/icons/icon-128x128.png": "dae3b6ed49bdaf4327b92531d4b5b4a5d30c7532",
     "/social-networks-collector-client/assets/icons/icon-144x144.png": "b0bd89982e08f9bd2b642928f5391915b74799a7",
@@ -69,11 +69,11 @@
     "/social-networks-collector-client/assets/scripts/m3u8-parser.js": "ff12cd6d963cc63e59ad8228dde31013b8667546",
     "/social-networks-collector-client/common.1aa58f8535bbf1ee.js": "41a826ec59455b81258966e6de3a8b47b3c71120",
     "/social-networks-collector-client/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
-    "/social-networks-collector-client/index.html": "2e5885cd1448a498e0b6ec9355233d2a8262f5da",
+    "/social-networks-collector-client/index.html": "3869fee07b0dea5f1183a489d48800e7da67e1f5",
     "/social-networks-collector-client/main.f747cbc03349c55c.js": "aed7931118752287d9b42f4555747e24be3f0ed1",
-    "/social-networks-collector-client/manifest.webmanifest": "c8cc03e47c77f90ab33ff80c8b5475a6f6820cc2",
+    "/social-networks-collector-client/manifest.webmanifest": "39db10e5b06bc18cfeaeefbccbbfaeaf23d5d107",
     "/social-networks-collector-client/polyfills.a0d276f6cc30166e.js": "bb95b26a93fb5e8d14b185c694ae4adf78ba5519",
-    "/social-networks-collector-client/runtime.76429e9b1e6362d9.js": "97eea015521859be3a090b823973abe12780cd7f",
+    "/social-networks-collector-client/runtime.94dc04d07af39f82.js": "ca34608cb5f9992e9e63f7f8b53f63aaa6b7ff49",
     "/social-networks-collector-client/scripts.6c37da3b5c36f08f.js": "6049849b95e8a25a5d8b1e85c24c8bbdce858ce4",
     "/social-networks-collector-client/styles.b50de667cac84dbd.css": "fe910b9af49fa2e1235c15a4147c79f7b6fef034"
   },
