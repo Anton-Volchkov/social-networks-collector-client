@@ -1,6 +1,6 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { catchError, EMPTY, Subject, switchMap, takeUntil } from 'rxjs';
+import { catchError, EMPTY, Subject, switchMap, takeUntil, tap } from 'rxjs';
 import { ComponentBase } from 'src/app/core/components/abstractions/component-base';
 import { LoaderService } from 'src/app/core/services/base/loader-service';
 import { CurrentGroupService } from 'src/app/core/services/current-group/current-group.service';
@@ -22,6 +22,7 @@ export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
   private stopReceiveMessages: boolean = false;
   private urlRegex: RegExp = /(?:(?:https?|ftp|file):\/\/|www\.|ftp\.)(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[-A-Z0-9+&@#\/%=~_|$?!:,.])*(?:\([-A-Z0-9+&@#\/%=~_|$?!:,.]*\)|[A-Z0-9+&@#\/%=~_|$])/igm;
   private newLineRegex: RegExp = /\n/g;
+  private currentGroupName = null;
 
   constructor(private currentGroupService: CurrentGroupService, private subscriptionsGroupService: SubscriptionsGroupService, private messagesService: MessagesService, private sanitazer: DomSanitizer, private loaderService: LoaderService) {
     super();
@@ -36,7 +37,7 @@ export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
         this.currentGroupService.notifyCurrentGroupChanged(result.groupName);
       }
       else
-        this.updateMessages();
+        this.updateMessages(this.currentGroupName);
     });
   }
 
@@ -47,12 +48,12 @@ export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
 
   @HostListener('window:scroll', ['$event.target'])
   public onScroll(e: any) {
-    
+
     let centerOfScrolling = e.scrollingElement.scrollHeight / 1.7;
 
     if (centerOfScrolling <= e.scrollingElement.scrollTop && !this.isUpdatingNow) {
       this.loaderService.hideRequest();
-      this.updateMessages();
+      this.updateMessages(this.currentGroupName);
     }
   }
 
@@ -74,50 +75,55 @@ export class MainComponent extends ComponentBase implements OnInit, OnDestroy {
   }
 
   private initMessageLoader() {
-    this.updateMessagesSubject.asObservable().pipe(takeUntil(this.unsubscribe), switchMap((groupName) => {
-      this.isUpdatingNow = true;
+    this.updateMessagesSubject.asObservable().pipe(
+      takeUntil(this.unsubscribe),
+      tap((groupName) => {
+        this.currentGroupName = groupName;
+      }),
+      switchMap((groupName) => {
+        this.isUpdatingNow = true;
 
-      if (this.stopReceiveMessages) {
-        return EMPTY;
-      }
-
-      return this.messagesService.getFiltered(
-        this.numberOfMessages,
-        this.offset,
-        groupName
-      ).pipe(takeUntil(this.unsubscribe), catchError((err) => {
-        this.isUpdatingNow = false;
-        throw err;
-      }));
-
-    })).subscribe({
-      next: (data) => {
-        let newMessages = data.filter(x => !this.messages.some(nm => nm.originalContentLink == x.originalContentLink));
-
-        newMessages.forEach(x => {
-
-          x.networkMedia?.forEach(media => {
-            if (x.networkType == NetworkType.VK) {
-              if (media.mediaType == MediaType.Video)
-                media.contentUrl = this.buildSafeUrlForIframe(media.contentUrl);
-            }
-
-            if (x.networkType == NetworkType.Telegram) {
-              media.contentUrl = this.buildContentLink(media.contentUrl);
-            }
-          });
-        });
-
-        if (newMessages.length === 0) {
-          this.stopReceiveMessages = true;
+        if (this.stopReceiveMessages) {
+          return EMPTY;
         }
 
-        this.messages = [...this.messages, ...newMessages];
+        return this.messagesService.getFiltered(
+          this.numberOfMessages,
+          this.offset,
+          groupName
+        ).pipe(takeUntil(this.unsubscribe), catchError((err) => {
+          this.isUpdatingNow = false;
+          throw err;
+        }));
 
-        this.isUpdatingNow = false;
-        this.offset += this.numberOfMessages;
-      }
-    });
+      })).subscribe({
+        next: (data) => {
+          let newMessages = data.filter(x => !this.messages.some(nm => nm.originalContentLink == x.originalContentLink));
+
+          newMessages.forEach(x => {
+
+            x.networkMedia?.forEach(media => {
+              if (x.networkType == NetworkType.VK) {
+                if (media.mediaType == MediaType.Video)
+                  media.contentUrl = this.buildSafeUrlForIframe(media.contentUrl);
+              }
+
+              if (x.networkType == NetworkType.Telegram) {
+                media.contentUrl = this.buildContentLink(media.contentUrl);
+              }
+            });
+          });
+
+          if (newMessages.length === 0) {
+            this.stopReceiveMessages = true;
+          }
+
+          this.messages = [...this.messages, ...newMessages];
+
+          this.isUpdatingNow = false;
+          this.offset += this.numberOfMessages;
+        }
+      });
   }
 
   public groupSelected(groupName: string = null) {
