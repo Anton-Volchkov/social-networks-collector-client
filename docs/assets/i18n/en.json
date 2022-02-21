@@ -26,7 +26,8 @@
   "VALIDATION": {
     "ERRORS": {
       "FIELD_REQUIRED": "The {{fieldName}} is required.",
-      "PASSWORDS_NOT_SAME": "Passwords must match"
+      "PASSWORDS_NOT_SAME": "Passwords must match.",
+      "INVALID_EMAIL": "The email is invalid."
     }
   },
   "MAIN": {
@@ -70,10 +71,18 @@
     }
   },
   "MESSAGES": {
+    "LOGIN_AFTER_REGISTER": "Registration completed successfully. Please login.",
     "ACCOUNT_NOT_EXISTS": "No account?",
     "ACCOUNT_EXISTS": "Already have an account?",
+    "UNSUBSCRIBE_SUCCESS": "You unsubscribed successfully.",
+    "ADD_SUBSCRIPTION_TO_GROUP_SUCCESS": "Subscription added to group successfully.",
+    "GROUP_ADDED_SUCCESS": "Group was added successfully.",
+    "EDIT_SUCCESS": "Data updated successfully.",
+    "DELETE_SUCCESS": "Data deleted successfully. ",
+    "SET_DEFAULT_GROUP_SUCCESS": "Default group successfully set.",
     "BAD_REQUEST": "Bad request",
     "ERROR": "Error",
+    "SUCCESS": "Success",
     "NOT_FOUND": "Not found",
     "GENERIC_QUERY_ERROR": "An error occurred while retrieving data.",
     "TRY_AGAIN": "Please try again.",

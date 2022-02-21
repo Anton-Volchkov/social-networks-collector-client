@@ -4,8 +4,11 @@
       <h2>{{ 'REGISTRATION.TITLE' | translate }}</h2>
       <mat-form-field [class.mat-form-field-invalid]="submitted && f.email?.errors?.required">
         <input type="email" formControlName="email" matInput [placeholder]="'REGISTRATION.EMAIL' | translate" required>
-        <mat-error *ngIf="submitted && f.login?.errors?.required">
+        <mat-error *ngIf="submitted && f.email?.errors?.required">
           {{ 'VALIDATION.ERRORS.FIELD_REQUIRED' | translate:{'fieldName':'REGISTRATION.EMAIL' | translate} }}
+        </mat-error>
+        <mat-error *ngIf="submitted && f.email?.errors?.email">
+          {{ 'VALIDATION.ERRORS.INVALID_EMAIL' | translate }}
         </mat-error>
       </mat-form-field>
       <mat-form-field [class.mat-form-field-invalid]="submitted && f.login?.errors?.required">

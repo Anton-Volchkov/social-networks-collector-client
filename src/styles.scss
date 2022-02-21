@@ -318,3 +318,9 @@ button.toast-close-button {
   @extend .col-lg-6;
   height: 10vh;
 }
+
+input,
+select:focus,
+textarea {
+  font-size: 16px !important;
+}

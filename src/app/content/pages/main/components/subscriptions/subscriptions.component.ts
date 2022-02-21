@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 import { takeUntil } from 'rxjs';
 import { AddSubscriptionToGroupDialogComponent, SubscriptionType } from 'src/app/content/dialogs/add-subscription-to-group-dialog/add-subscription-to-group-dialog.component';
 import { ConfirmDialogComponent } from 'src/app/content/dialogs/confirm-dialog/confirm-dialog.component';
@@ -37,7 +38,8 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
     private subscriptionsGroupService: SubscriptionsGroupService,
     private subscriptionsService: SubscriptionsService,
     private dialog: MatDialog,
-    private translate: TranslateService) {
+    private translate: TranslateService,
+    private toastr: ToastrService) {
     super(route, fb)
   }
 
@@ -94,6 +96,8 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
             this.viewGroupMessages(this.currentGroupName);
           }
           this.loadSubscriptions();
+
+          this.toastr.success(this.translate.instant("MESSAGES.UNSUBSCRIBE_SUCCESS"), this.translate.instant("MESSAGES.SUCCESS"));
         });
       }
     });
@@ -139,6 +143,7 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
               this.viewGroupMessages(groupName);
           }
 
+          this.toastr.success(this.translate.instant("MESSAGES.ADD_SUBSCRIPTION_TO_GROUP_SUCCESS"), this.translate.instant("MESSAGES.SUCCESS"));
         }
       });
   }
@@ -150,6 +155,7 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
       minWidth: "25vw"
     }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(() => {
       this.loadSubscriptions();
+      this.toastr.success(this.translate.instant("MESSAGES.GROUP_ADDED_SUCCESS"), this.translate.instant("MESSAGES.SUCCESS"));
     });
   }
 
@@ -164,6 +170,7 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
       }
     }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(() => {
       this.loadSubscriptions();
+      this.toastr.success(this.translate.instant("MESSAGES.EDIT_SUCCESS"), this.translate.instant("MESSAGES.SUCCESS"));
     });
   }
 
@@ -191,6 +198,8 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
           }
         }
         this.loadSubscriptions();
+
+        this.toastr.success(this.translate.instant("MESSAGES.UNSUBSCRIBE_SUCCESS"), this.translate.instant("MESSAGES.SUCCESS"));
       }
     });
   }
@@ -219,6 +228,8 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
           }
 
           this.loadSubscriptions();
+
+          this.toastr.success(this.translate.instant("MESSAGES.DELETE_SUCCESS"), this.translate.instant("MESSAGES.SUCCESS"));
         });
       }
     });
@@ -227,12 +238,14 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
   public resetDefaultSubscriptionGroup() {
     this.subscriptionsGroupService.resetDefaultSubscriptionGroup().pipe(takeUntil(this.unsubscribe)).subscribe(() => {
       this.defaultGroupName = null;
+      this.toastr.success(this.translate.instant("MESSAGES.SET_DEFAULT_GROUP_SUCCESS"), this.translate.instant("MESSAGES.SUCCESS"));
     });
   }
 
   public setSubscriptionGroupAsDefault(group: SubscriptionsGroupDTO) {
     this.subscriptionsGroupService.setDefaultSubscriptionGroup(group.id).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
       this.defaultGroupName = group.groupName;
+      this.toastr.success(this.translate.instant("MESSAGES.SET_DEFAULT_GROUP_SUCCESS"), this.translate.instant("MESSAGES.SUCCESS"));
     });
   }
 
