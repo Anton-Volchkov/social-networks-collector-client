@@ -40,12 +40,12 @@ export class UpsertSubscriptionsGroupDialogComponent extends EntityDetailsCompon
 
     if (this.isNew()) {
       this.subscriptionsGroupService.addSubscriptionsGroup(form.groupName).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-        this.close();
+        this.confirm();
       });
     }
     else {
       this.subscriptionsGroupService.updateSubscriptionsGroup(this.data.groupId, form.groupName).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-        this.close();
+        this.confirm();
       });
     }
   }

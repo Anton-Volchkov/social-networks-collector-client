@@ -81,11 +81,14 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
     )
   }
 
+  private getMinWidthForModalDialog(): string {
+    return this.isMobileDevice ? "90vw" : "30vw";
+  }
   public unsubscribeChannel(subscription: UserSubscriptionDTO) {
     this.dialog.open(ConfirmDialogComponent, {
       disableClose: true,
       autoFocus: false,
-      minWidth: "25vw",
+      minWidth: this.getMinWidthForModalDialog(),
       data: { dialogTitle: this.translate.instant("MODALS.CONFIRM.TITLE"), confirmationText: this.translate.instant("MODALS.CONFIRM.UNSUBSCRIBE") }
     }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(result => {
       if (result) {
@@ -125,7 +128,7 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
         height: 'auto',
         disableClose: true,
         autoFocus: false,
-        minWidth: "25vw",
+        minWidth: this.getMinWidthForModalDialog(),
         data: {
           groupName
         }
@@ -152,10 +155,12 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
     this.dialog.open(UpsertSubscriptionsGroupDialogComponent, {
       disableClose: true,
       autoFocus: false,
-      minWidth: "25vw"
-    }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-      this.loadSubscriptions();
-      this.toastr.success(this.translate.instant("MESSAGES.GROUP_ADDED_SUCCESS"), this.translate.instant("MESSAGES.SUCCESS"));
+      minWidth: this.getMinWidthForModalDialog(),
+    }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe((result) => {
+      if (result) {
+        this.loadSubscriptions();
+        this.toastr.success(this.translate.instant("MESSAGES.GROUP_ADDED_SUCCESS"), this.translate.instant("MESSAGES.SUCCESS"));
+      }
     });
   }
 
@@ -163,14 +168,16 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
     this.dialog.open(UpsertSubscriptionsGroupDialogComponent, {
       disableClose: true,
       autoFocus: false,
-      minWidth: "25vw",
+      minWidth: this.getMinWidthForModalDialog(),
       data: {
         groupName: group.groupName,
         groupId: group.id
       }
-    }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-      this.loadSubscriptions();
-      this.toastr.success(this.translate.instant("MESSAGES.EDIT_SUCCESS"), this.translate.instant("MESSAGES.SUCCESS"));
+    }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe((result) => {
+      if (result) {
+        this.loadSubscriptions();
+        this.toastr.success(this.translate.instant("MESSAGES.EDIT_SUCCESS"), this.translate.instant("MESSAGES.SUCCESS"));
+      }
     });
   }
 
@@ -182,7 +189,7 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
     this.dialog.open(ConfirmUnsubscribeFromGroupDialogComponent, {
       disableClose: true,
       autoFocus: false,
-      minWidth: "25vw",
+      minWidth: this.getMinWidthForModalDialog(),
       data: { groupName, subscriptionId: subscription.id }
     }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe((result: ConfirmUnsubscribeFromGroupDialogComponentResponse) => {
       if (!result.isClosed) {
@@ -218,18 +225,20 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
     this.dialog.open(ConfirmDialogComponent, {
       disableClose: true,
       autoFocus: false,
-      minWidth: "25vw",
+      minWidth: this.getMinWidthForModalDialog(),
       data: { dialogTitle: this.translate.instant("MODALS.CONFIRM.TITLE"), confirmationText: this.translate.instant("MODALS.CONFIRM.DELETE_GROUP") }
     }).afterClosed().pipe(takeUntil(this.unsubscribe)).subscribe(result => {
       if (result) {
-        this.subscriptionsGroupService.deleteSubscriptionGroup(group.id).pipe(takeUntil(this.unsubscribe)).subscribe(() => {
-          if (this.currentGroupName == group.groupName) {
-            this.currentGroupName = null;
+        this.subscriptionsGroupService.deleteSubscriptionGroup(group.id).pipe(takeUntil(this.unsubscribe)).subscribe((result) => {
+          if (result) {
+            if (this.currentGroupName == group.groupName) {
+              this.currentGroupName = null;
+            }
+
+            this.loadSubscriptions();
+
+            this.toastr.success(this.translate.instant("MESSAGES.DELETE_SUCCESS"), this.translate.instant("MESSAGES.SUCCESS"));
           }
-
-          this.loadSubscriptions();
-
-          this.toastr.success(this.translate.instant("MESSAGES.DELETE_SUCCESS"), this.translate.instant("MESSAGES.SUCCESS"));
         });
       }
     });

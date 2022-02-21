@@ -39,7 +39,8 @@
               {{ 'BUTTONS.SET_THIS_GROUP_AS_DEFAULT' | translate}}</button>
             <div class="row chip-list">
               <mat-chip-list>
-                <p *ngIf="userSubscriptions.length === 0" class="mt-2"> {{ 'MAIN.SUBSCRIBE.NO_ACTIVE_SUBSCRIPTIONS' | translate }}
+                <p *ngIf="userSubscriptions.length === 0" class="mt-2"> {{ 'MAIN.SUBSCRIBE.NO_ACTIVE_SUBSCRIPTIONS' |
+                  translate }}
                 </p>
                 <mat-chip class="col-12" *ngFor="let subscriptions of userSubscriptions"
                   (removed)="unsubscribeChannel(subscriptions)">
@@ -61,11 +62,11 @@
                 <span class="truncate">
                   {{ groupSubscription.groupName }}
                 </span>
-                <i class="fa fa-pen group-edit"
-                  (click)="$event.stopPropagation(); $event.preventDefault(); editGroup(groupSubscription);"></i>
-                <i class="fa fa-close group-delete"
-                  (click)="$event.stopPropagation(); $event.preventDefault(); deleteGroup(groupSubscription);"></i>
               </mat-panel-title>
+              <i class="fa fa-pen group-edit"
+                (click)="$event.stopPropagation(); $event.preventDefault(); editGroup(groupSubscription);"></i>
+              <i class="fa fa-close group-delete"
+                (click)="$event.stopPropagation(); $event.preventDefault(); deleteGroup(groupSubscription);"></i>
             </mat-expansion-panel-header>
             <button (click)="viewGroupMessages(groupSubscription.groupName)"
               *ngIf="groupSubscription.subscriptions && groupSubscription?.subscriptions?.length! > 0 && currentGroupName != groupSubscription.groupName"
