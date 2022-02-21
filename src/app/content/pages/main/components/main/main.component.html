@@ -31,9 +31,9 @@
               <iframe loading="lazy" class="video" controls [src]="media.contentUrl!"
                 *ngIf="(media.mediaType === 'Video' && message.networkType == 'VK')" webkitallowfullscreen
                 mozallowfullscreen allowfullscreen></iframe>
-              <video poster="../../../../../../assets/images/start-button.png"
+              <video poster="/src/assets/images/start-button.png"
                 *ngIf="(media.mediaType === 'Video' && (message.networkType == 'Telegram' || message.networkType == 'Twitter'))"
-                class="video" controls="controls" preload="none">
+                class="video" controls="controls" [preload]="message.networkType == 'Telegram'? 'none' : 'auto'">
                 <source [src]="media.contentUrl!" type="video/mp4">
                 Sorry, your browser doesn't support embedded videos.
               </video>
