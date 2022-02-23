@@ -9,8 +9,8 @@ export const checkPasswords: ValidatorFn = (group: AbstractControl): ValidationE
     removeErrors(confirmPass);
   }
   else {
-    pass.setErrors({ notSame: true });
-    confirmPass.setErrors({ notSame: true });
+    pass.setErrors({ ...pass.errors, notSame: true });
+    confirmPass.setErrors({ ...confirmPass.errors, notSame: true });
   }
 
   return null;

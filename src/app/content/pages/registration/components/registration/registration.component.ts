@@ -52,10 +52,10 @@ export class RegistrationComponent extends EntityDetailsComponent implements OnI
 
   private createForm() {
     this.detailsForm = this.fb.group({
-      email: [null, [Validators.required, singleEmailValidator()]],
-      login: [null, Validators.required],
-      password: [null, Validators.required],
-      confirmPassword: [null, Validators.required],
+      email: [null, [Validators.maxLength(256), Validators.required, singleEmailValidator()]],
+      login: [null, [Validators.required, Validators.maxLength(256)]],
+      password: [null, [Validators.required, Validators.maxLength(256)]],
+      confirmPassword: [null, [Validators.required, Validators.maxLength(256)]],
     }, { validators: checkPasswords });
   }
 }

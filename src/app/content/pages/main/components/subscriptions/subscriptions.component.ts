@@ -55,7 +55,7 @@ export class SubscriptionsComponent extends EntityDetailsComponent implements On
   private createForm() {
     this.detailsForm = this.fb.group({
       networkType: ["Telegram", Validators.required],
-      channelName: [null, Validators.required],
+      channelName: [null, [Validators.required, Validators.maxLength(256)]],
     });
   }
 

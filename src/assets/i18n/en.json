@@ -24,11 +24,11 @@
     "CONFIRM_PASSWORD": "Confirm password"
   },
   "VALIDATION": {
-    "ERRORS": {
-      "FIELD_REQUIRED": "The {{fieldName}} is required.",
-      "PASSWORDS_NOT_SAME": "Passwords must match.",
-      "INVALID_EMAIL": "The email is invalid."
-    }
+    "MIN_LENGTH": "{{fieldName}}'s minimum length is {{min}}.",
+    "MAX_LENGTH": "{{fieldName}}'s maximum length is {{max}}.",
+    "FIELD_REQUIRED": "The {{fieldName}} is required.",
+    "PASSWORDS_NOT_SAME": "Passwords must match.",
+    "INVALID_EMAIL": "The email is invalid."
   },
   "MAIN": {
     "NO_MESSAGES": "No messages",

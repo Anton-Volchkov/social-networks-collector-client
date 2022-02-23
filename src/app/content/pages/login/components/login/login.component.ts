@@ -39,8 +39,8 @@ export class LoginComponent extends EntityDetailsComponent implements OnInit {
 
   private createForm() {
     this.detailsForm = this.fb.group({
-      login: [null, Validators.required],
-      password: [null, Validators.required],
+      login: [null, [Validators.required, Validators.maxLength(256)]],
+      password: [null, [Validators.required, Validators.maxLength(256)]],
     });
   }
 }
