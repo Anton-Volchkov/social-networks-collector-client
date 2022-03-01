@@ -20,6 +20,7 @@ import { Observable }                                        from 'rxjs';
 import { AddUserDTO } from '../model/addUserDTO';
 import { LoginDTO } from '../model/loginDTO';
 import { Response } from '../model/response';
+import { Unit } from '../model/unit';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -56,6 +57,117 @@ export class UsersService {
         return false;
     }
 
+
+    /**
+     * Confirm email
+     * 
+     * @param userId 
+     * @param token 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public confirmEmail(userId: string, token: string, observe?: 'body', reportProgress?: boolean): Observable<Unit>;
+    public confirmEmail(userId: string, token: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Unit>>;
+    public confirmEmail(userId: string, token: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Unit>>;
+    public confirmEmail(userId: string, token: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (userId === null || userId === undefined) {
+            throw new Error('Required parameter userId was null or undefined when calling confirmEmail.');
+        }
+
+        if (token === null || token === undefined) {
+            throw new Error('Required parameter token was null or undefined when calling confirmEmail.');
+        }
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (token !== undefined && token !== null) {
+            queryParameters = queryParameters.set('token', <any>token);
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Unit>('get',`${this.basePath}/api/Users/confirmation/${encodeURIComponent(String(userId))}`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Check whether email confirmed
+     * 
+     * @param emailOrLogin 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public emailConfirmed(emailOrLogin: string, observe?: 'body', reportProgress?: boolean): Observable<boolean>;
+    public emailConfirmed(emailOrLogin: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<boolean>>;
+    public emailConfirmed(emailOrLogin: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<boolean>>;
+    public emailConfirmed(emailOrLogin: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (emailOrLogin === null || emailOrLogin === undefined) {
+            throw new Error('Required parameter emailOrLogin was null or undefined when calling emailConfirmed.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<boolean>('get',`${this.basePath}/api/Users/${encodeURIComponent(String(emailOrLogin))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * Login
@@ -119,9 +231,9 @@ export class UsersService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public registerUser(body?: AddUserDTO, observe?: 'body', reportProgress?: boolean): Observable<Response>;
-    public registerUser(body?: AddUserDTO, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
-    public registerUser(body?: AddUserDTO, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
+    public registerUser(body?: AddUserDTO, observe?: 'body', reportProgress?: boolean): Observable<string>;
+    public registerUser(body?: AddUserDTO, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<string>>;
+    public registerUser(body?: AddUserDTO, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<string>>;
     public registerUser(body?: AddUserDTO, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
@@ -156,9 +268,59 @@ export class UsersService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<Response>('post',`${this.basePath}/api/Users/registration`,
+        return this.httpClient.request<string>('post',`${this.basePath}/api/Users/registration`,
             {
                 body: body,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * Resend confirmation email
+     * 
+     * @param emailOrLogin 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public resendConfirmationEmail(emailOrLogin: string, observe?: 'body', reportProgress?: boolean): Observable<Response>;
+    public resendConfirmationEmail(emailOrLogin: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Response>>;
+    public resendConfirmationEmail(emailOrLogin: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Response>>;
+    public resendConfirmationEmail(emailOrLogin: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (emailOrLogin === null || emailOrLogin === undefined) {
+            throw new Error('Required parameter emailOrLogin was null or undefined when calling resendConfirmationEmail.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Response>('post',`${this.basePath}/api/Users/confirmation-resending/${encodeURIComponent(String(emailOrLogin))}`,
+            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

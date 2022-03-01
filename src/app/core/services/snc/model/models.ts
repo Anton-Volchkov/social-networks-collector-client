@@ -7,4 +7,5 @@ export * from './networkMessage';
 export * from './networkType';
 export * from './response';
 export * from './subscriptionsGroupDTO';
+export * from './unit';
 export * from './userSubscriptionDTO';

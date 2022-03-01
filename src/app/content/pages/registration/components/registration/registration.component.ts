@@ -39,10 +39,10 @@ export class RegistrationComponent extends EntityDetailsComponent implements OnI
       login: form.login,
       email: form.email,
       password: form.password
-    }).pipe(takeUntil(this.unsubscribe)).subscribe((response) => {
-      if (response?.isSuccess) {
+    }).pipe(takeUntil(this.unsubscribe)).subscribe((userId) => {
+      if (userId) {
         this.toastr.success(this.translate.instant("MESSAGES.LOGIN_AFTER_REGISTER"), this.translate.instant("MESSAGES.SUCCESS"));
-        this.router.navigateByUrl("/login");
+        this.router.navigateByUrl("registration/confirmation", { state: { emailOrLogin: form.login } });
       }
       else {
         this.resetForm(true);

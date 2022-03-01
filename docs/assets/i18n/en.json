@@ -13,7 +13,7 @@
   },
   "LOGIN": {
     "LOGIN_TITLE": "Log In",
-    "LOGIN": "Login",
+    "EMAIL_OR_LOGIN": "Email or login",
     "PASSWORD": "Password"
   },
   "REGISTRATION": {
@@ -87,9 +87,22 @@
     "GENERIC_QUERY_ERROR": "An error occurred while retrieving data.",
     "TRY_AGAIN": "Please try again.",
     "INVALID_OR_MISSING_DATA": "Your request contained invalid or missing data.",
-    "CORRECT_AND_RETRY": "Please correct any errors and try again."
+    "CORRECT_AND_RETRY": "Please correct any errors and try again.",
+    "CONFIRMATION_EMAIL_SENT": "Confirmation email successfully sent."
   },
   "PLACEHOLDERS": {
     "ENTER_VALUE": "Enter value"
+  },
+  "EMAIL_CONFIRMATION": {
+    "CHECK_EMAIL": "Check your email inbox",
+    "WE_SENT_EMAIL": "We sent an email link to complete your registration",
+    "TIP": "Tip: Check your spam folder in case the email was incorrectly identified",
+    "DID_NOT_RECEIVE_EMAIL": "Didn't receive the email?",
+    "RESEND_EMAIL": "Resend email"
+  },
+  "EMAIL_CONFIRMED": {
+    "THANK_YOU": "Thank you! Registration is complete.",
+    "SUCCESSFULLY_CONFIRMED": "You have been successfully confirmed your email.",
+    "YOU_WILL_BE_REDIRECTED": "In few seconds you will be redirected to the login page."
   }
 }

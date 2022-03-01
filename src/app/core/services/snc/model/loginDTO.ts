@@ -11,6 +11,6 @@
  */
 
 export interface LoginDTO { 
-    login?: string;
+    emailOrLogin?: string;
     password?: string;
 }
