@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {EMPTY, switchMap, takeUntil} from 'rxjs';
@@ -13,8 +13,18 @@ import {LoginDTO, UsersService} from 'src/app/core/services/snc';
 export class LoginComponent extends EntityDetailsComponent implements OnInit {
   public hidePassword: boolean = true;
 
+  @ViewChild("passwordInput", { static: false }) private passwordInput: ElementRef;
+
   constructor(route: ActivatedRoute, fb: FormBuilder, private userService: UsersService, private router: Router) {
     super(route, fb);
+  }
+
+  public changePasswordVisibilityClickedHandler(event: Event) {
+    event.stopPropagation();
+    event.preventDefault();
+    this.hidePassword = !this.hidePassword;
+
+    this.setCaretToPosition(this.passwordInput, this.passwordInput.nativeElement.value.length);
   }
 
   protected saveInternal() {
@@ -52,7 +62,7 @@ export class LoginComponent extends EntityDetailsComponent implements OnInit {
 
   private createForm() {
     this.detailsForm = this.fb.group({
-      emailOrlogin: [null, Validators.required],
+      emailOrLogin: [null, Validators.required],
       password: [null, Validators.required],
     });
   }

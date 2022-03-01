@@ -1,7 +1,7 @@
-import { FormGroup, FormControl, FormBuilder } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
-import { Output, Input, Component } from "@angular/core";
-import { ComponentBase } from "./component-base";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {ActivatedRoute} from "@angular/router";
+import {Component, ElementRef, Input, Output} from "@angular/core";
+import {ComponentBase} from "./component-base";
 
 @Component({
   template: ''
@@ -31,6 +31,15 @@ export abstract class EntityDetailsComponent extends ComponentBase {
     return this.detailsForm.get(formField)?.value
   }
 
+  protected setCaretToPosition(input: ElementRef, position: string) {
+    if (input.nativeElement.setSelectionRange && position) {
+      setTimeout(() => {
+        input.nativeElement.focus();
+        input.nativeElement.setSelectionRange(position, position);
+      });
+    }
+  }
+
   protected setFormValue(formField: string, value: any): void {
     return this.detailsForm.get(formField)?.patchValue(value);
   }
@@ -44,7 +53,7 @@ export abstract class EntityDetailsComponent extends ComponentBase {
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
+        control.markAsTouched({onlySelf: true});
       } else if (control instanceof FormGroup) {
         this.validateAllFormFields(control);
       }

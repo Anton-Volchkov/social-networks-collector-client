@@ -2,22 +2,22 @@
   <mat-card-content class="">
     <form [formGroup]="detailsForm">
       <h2>{{ 'LOGIN.LOGIN_TITLE' | translate }}</h2>
-      <mat-form-field [class.mat-form-field-invalid]="submitted && f.login?.errors?.required">
-        <input formControlName="login" maxlength="257" matInput [placeholder]="'LOGIN.LOGIN' | translate" required>
+      <mat-form-field [class.mat-form-field-invalid]="submitted && f.emailOrLogin?.errors?.required">
+        <input formControlName="emailOrLogin" maxlength="257" matInput [placeholder]="'LOGIN.EMAIL_OR_LOGIN' | translate" required>
         <mat-error>
-          <ng-container *ngIf="submitted && f.login?.errors?.required">
-            {{ 'VALIDATION.FIELD_REQUIRED' | translate:{'fieldName':'LOGIN.LOGIN' | translate} }}
+          <ng-container *ngIf="submitted && f.emailOrLogin?.errors?.required">
+            {{ 'VALIDATION.FIELD_REQUIRED' | translate:{'fieldName':'LOGIN.EMAIL_OR_LOGIN' | translate} }}
           </ng-container>
-          <ng-container *ngIf="submitted && f.login?.errors?.maxlength">
-            {{ 'VALIDATION.MAX_LENGTH' | translate:{'max': 256, 'fieldName':'LOGIN.LOGIN' | translate} }}
+          <ng-container *ngIf="submitted && f.emailOrLogin?.errors?.maxlength">
+            {{ 'VALIDATION.MAX_LENGTH' | translate:{'max': 256, 'fieldName':'LOGIN.EMAIL_OR_LOGIN' | translate} }}
           </ng-container>
         </mat-error>
       </mat-form-field>
       <mat-form-field [class.mat-form-field-invalid]="submitted && f.password?.errors?.required">
-        <input formControlName="password" maxlength="257" matInput [type]="hidePassword ? 'password' : 'text'"
+        <input #passwordInput formControlName="password" maxlength="257" matInput [type]="hidePassword ? 'password' : 'text'"
           [placeholder]="'LOGIN.PASSWORD' | translate" required>
         <button tabindex="-1" class="mat-icon-size" mat-icon-button matSuffix
-          (click)="$event.stopPropagation(); $event.preventDefault(); hidePassword = !hidePassword">
+          (click)="changePasswordVisibilityClickedHandler($event)">
           <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-error>

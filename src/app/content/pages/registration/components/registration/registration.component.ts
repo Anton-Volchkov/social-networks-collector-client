@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -17,6 +17,9 @@ import { checkPasswords } from 'src/app/core/validators/passwords-same.validator
 export class RegistrationComponent extends EntityDetailsComponent implements OnInit {
   public hidePassword: boolean = true;
   public hideConfirmPassword: boolean = true;
+
+  @ViewChild("passwordInput", { static: false }) private passwordInput: ElementRef;
+  @ViewChild("confirmPasswordInput", { static: false }) private confirmPasswordInput: ElementRef;
 
   constructor(
     route: ActivatedRoute,
@@ -48,6 +51,22 @@ export class RegistrationComponent extends EntityDetailsComponent implements OnI
         this.resetForm(true);
       }
     });
+  }
+
+  public confirmPasswordVisibilityClickedHandler(event: Event) {
+    event.stopPropagation();
+    event.preventDefault();
+    this.hideConfirmPassword = !this.hideConfirmPassword;
+
+    this.setCaretToPosition(this.confirmPasswordInput, this.confirmPasswordInput.nativeElement.value.length);
+  }
+
+  public passwordVisibilityClickedHandler(event: Event) {
+    event.stopPropagation();
+    event.preventDefault();
+    this.hidePassword = !this.hidePassword;
+
+    this.setCaretToPosition(this.passwordInput, this.passwordInput.nativeElement.value.length);
   }
 
   private createForm() {
