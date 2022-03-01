@@ -2,21 +2,31 @@
   <mat-card-content class="">
     <form [formGroup]="detailsForm">
       <h2>{{ 'LOGIN.LOGIN_TITLE' | translate }}</h2>
-      <mat-form-field [class.mat-form-field-invalid]="submitted && f.emailOrlogin?.errors?.required">
-        <input formControlName="emailOrlogin" matInput [placeholder]="'LOGIN.EMAIL_OR_LOGIN' | translate" required>
-        <mat-error *ngIf="submitted && f.emailOrlogin?.errors?.required">
-          {{ 'VALIDATION.ERRORS.FIELD_REQUIRED' | translate:{'fieldName':'LOGIN.EMAIL_OR_LOGIN' | translate} }}
+      <mat-form-field [class.mat-form-field-invalid]="submitted && f.login?.errors?.required">
+        <input formControlName="login" maxlength="257" matInput [placeholder]="'LOGIN.LOGIN' | translate" required>
+        <mat-error>
+          <ng-container *ngIf="submitted && f.login?.errors?.required">
+            {{ 'VALIDATION.FIELD_REQUIRED' | translate:{'fieldName':'LOGIN.LOGIN' | translate} }}
+          </ng-container>
+          <ng-container *ngIf="submitted && f.login?.errors?.maxlength">
+            {{ 'VALIDATION.MAX_LENGTH' | translate:{'max': 256, 'fieldName':'LOGIN.LOGIN' | translate} }}
+          </ng-container>
         </mat-error>
       </mat-form-field>
       <mat-form-field [class.mat-form-field-invalid]="submitted && f.password?.errors?.required">
-        <input formControlName="password" matInput [type]="hidePassword ? 'password' : 'text'"
+        <input formControlName="password" maxlength="257" matInput [type]="hidePassword ? 'password' : 'text'"
           [placeholder]="'LOGIN.PASSWORD' | translate" required>
         <button tabindex="-1" class="mat-icon-size" mat-icon-button matSuffix
           (click)="$event.stopPropagation(); $event.preventDefault(); hidePassword = !hidePassword">
           <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
-        <mat-error *ngIf="submitted && f.password?.errors?.required">
-          {{ 'VALIDATION.ERRORS.FIELD_REQUIRED' | translate:{'fieldName':'LOGIN.PASSWORD' | translate} }}
+        <mat-error>
+          <ng-container *ngIf="submitted && f.password?.errors?.required">
+            {{ 'VALIDATION.FIELD_REQUIRED' | translate:{'fieldName':'LOGIN.PASSWORD' | translate} }}
+          </ng-container>
+          <ng-container *ngIf="submitted && f.password?.errors?.maxlength">
+            {{ 'VALIDATION.MAX_LENGTH' | translate:{'max': 256, 'name':'LOGIN.PASSWORD' | translate} }}
+          </ng-container>
         </mat-error>
       </mat-form-field>
       <div>

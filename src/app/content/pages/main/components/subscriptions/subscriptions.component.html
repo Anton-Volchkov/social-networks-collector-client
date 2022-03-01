@@ -10,10 +10,16 @@
         <ng-select formControlName="networkType" class="col-12" [items]="networks" [clearable]="false">
         </ng-select>
         <mat-form-field [class.mat-form-field-invalid]="submitted && f.channelName?.errors" class="col-12">
-          <input formControlName="channelName" matInput [placeholder]="'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate"
-            required>
-          <mat-error *ngIf="submitted && f.channelName?.errors?.required">
-            {{ 'VALIDATION.ERRORS.FIELD_REQUIRED' | translate:{'fieldName':'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate} }}
+          <input formControlName="channelName" maxlength="257" matInput
+            [placeholder]="'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate" required>
+          <mat-error>
+            <ng-container *ngIf="submitted && f.channelName?.errors?.required">
+              {{ 'VALIDATION.FIELD_REQUIRED' | translate:{'fieldName':'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate} }}
+            </ng-container>
+            <ng-container *ngIf="submitted && f.channelName?.errors?.maxlength">
+              {{ 'VALIDATION.MAX_LENGTH' | translate:{'max': 256, 'fieldName':'MAIN.SUBSCRIBE.CHANNEL_NAME' |
+              translate} }}
+            </ng-container>
           </mat-error>
         </mat-form-field>
         <button mat-raised-button class="col-12 mt-2" (click)="save()" color="primary"> {{ 'MAIN.SUBSCRIBE.SUBSCRIBE' |

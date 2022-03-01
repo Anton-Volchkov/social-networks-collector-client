@@ -60,7 +60,7 @@ export class UpsertSubscriptionsGroupDialogComponent extends EntityDetailsCompon
 
   private createForm() {
     this.detailsForm = this.fb.group({
-      groupName: [null, Validators.required],
+      groupName: [null, [Validators.required, Validators.maxLength(256)]],
     });
   }
 

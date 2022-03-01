@@ -2,10 +2,16 @@
 <mat-dialog-content class="mat-typography row">
   <form [formGroup]="detailsForm">
     <mat-form-field class="col-12 mt-3" [class.mat-form-field-invalid]="submitted && f.groupName?.errors?.required">
-      <input formControlName="groupName" matInput [placeholder]="'MODALS.ADD_NEW_GROUP.GROUP_NAME' | translate"
-        required>
-      <mat-error *ngIf="submitted && f.groupName?.errors?.required">
-        {{ 'VALIDATION.ERRORS.FIELD_REQUIRED' | translate:{'fieldName':'MODALS.ADD_NEW_GROUP.GROUP_NAME' | translate} }}
+      <input formControlName="groupName" maxlength="257" matInput
+        [placeholder]="'MODALS.ADD_NEW_GROUP.GROUP_NAME' | translate" required>
+      <mat-error>
+        <ng-container *ngIf="submitted && f.groupName?.errors?.required">
+          {{ 'VALIDATION.FIELD_REQUIRED' | translate:{'fieldName':'MODALS.ADD_NEW_GROUP.GROUP_NAME' | translate} }}
+        </ng-container>
+        <ng-container *ngIf="submitted && f.groupName?.errors?.maxlength">
+          {{ 'VALIDATION.MAX_LENGTH' | translate:{'fieldName':'MODALS.ADD_NEW_GROUP.GROUP_NAME' | translate, max: 256}
+          }}
+        </ng-container>
       </mat-error>
     </mat-form-field>
   </form>

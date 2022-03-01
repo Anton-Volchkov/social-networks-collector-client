@@ -23,7 +23,7 @@
         </ng-template>
       </ng-select>
       <mat-error *ngIf="submitted && f.activeSubscription?.errors?.required">
-        {{ 'VALIDATION.ERRORS.FIELD_REQUIRED' | translate:{'fieldName':'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate} }}
+        {{ 'VALIDATION.FIELD_REQUIRED' | translate:{'fieldName':'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate} }}
       </mat-error>
     </div>
 
@@ -35,7 +35,7 @@
         <input formControlName="channelName" matInput [placeholder]="'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate"
           required>
         <mat-error *ngIf="submitted && f.channelName?.errors?.required">
-          {{ 'VALIDATION.ERRORS.FIELD_REQUIRED' | translate:{'fieldName':'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate} }}
+          {{ 'VALIDATION.FIELD_REQUIRED' | translate:{'fieldName':'MAIN.SUBSCRIBE.CHANNEL_NAME' | translate} }}
         </mat-error>
       </mat-form-field>
     </ng-container>
