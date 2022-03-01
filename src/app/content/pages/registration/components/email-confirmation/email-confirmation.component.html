@@ -1,0 +1,14 @@
+<div class="w-100 h-100 d-flex justify-content-center align-items-center text-center">
+  <div>
+    <div>
+      <h2>{{ 'EMAIL_CONFIRMATION.CHECK_EMAIL' | translate }}</h2>
+      <p>{{ 'EMAIL_CONFIRMATION.WE_SENT_EMAIL' | translate }}</p>
+      <p>{{ 'EMAIL_CONFIRMATION.TIP' | translate }}</p>
+    </div>
+    <br>
+    <div>
+      <div><small>{{ 'EMAIL_CONFIRMATION.DID_NOT_RECEIVE_EMAIL' | translate }}</small></div>
+      <div><button class="resend-btn" (click)="resendEmail()">{{ 'EMAIL_CONFIRMATION.RESEND_EMAIL' | translate }}</button></div>
+    </div>
+  </div>
+</div>
